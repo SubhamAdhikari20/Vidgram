@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#24C400</color>
+    <color name="hintColor">#A49D9D</color>
+    <color name="textFieldColor">#F0EAEA</color>
+    <color name="textHintFieldStrokeColor">#5BD000</color>
+    <color name="textFieldStrokeColor">#8AAC91</color>
+    <color name="hintStrokeColor">#5BD000</color>
+    <color name="createAccountColor">#00FF04</color>
+
+
+
+</resources>
