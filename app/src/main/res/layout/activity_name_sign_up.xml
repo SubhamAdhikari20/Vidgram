@@ -5,17 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".NameSignUpActivity">
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="125dp"
+        android:layout_width="55dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="45dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/main_logo_vector_png" />
+        app:srcCompat="@drawable/top_vidgram_logo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailInputLayout"
@@ -23,8 +23,7 @@
         android:layout_width="356dp"
         android:layout_height="60dp"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="45dp"
         app:boxBackgroundColor="@color/textFieldColor"
         app:boxStrokeColor="@color/textFieldStrokeColor"
 
@@ -34,14 +33,14 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:startIconDrawable="@drawable/mail">
+        app:startIconDrawable="@drawable/person">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email or Phone Number"
-            android:inputType="textEmailAddress"
+            android:hint="Name"
+            android:inputType="textPersonName"
             android:paddingStart="50dp"
 
 
@@ -55,24 +54,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
 
         app:boxBackgroundColor="@color/textFieldColor"
         app:boxStrokeColor="@color/textFieldStrokeColor"
-        app:endIconMode="password_toggle"
         app:hintTextColor="@color/hintStrokeColor"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailInputLayout"
-        app:startIconDrawable="@drawable/password"
+        app:startIconDrawable="@drawable/birthday1"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
+            android:hint="Date of Birth"
+            android:inputType="date"
             android:paddingStart="50dp"
             android:textColorHint="@color/hintColor" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -85,7 +83,8 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/authentication_btn"
-        android:text="Log in"
+        android:text="Next"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,59 +92,17 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="56dp"
-        android:drawableLeft="@drawable/code_gang_logo"
-        android:drawablePadding="3dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Code Gang"
-        android:textColor="@color/green"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="240dp"
-        android:background="@drawable/create_account_btn"
-        android:text="Create Account"
-        android:textAllCaps="false"
-        android:contextClickable="false"
-        android:textColor="@color/green"
+        android:layout_marginTop="8dp"
+        android:text="Enter your name and birthday"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSendcode" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button5"
-        android:layout_width="30dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/arrow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="199dp"
-        android:text="Don't have account?"
-        android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSendcode"
-        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
