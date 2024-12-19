@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ForgotPasswordActivity">
+    tools:context=".LoginActivity">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/arrowButtonFP1"
+        android:id="@+id/arrowButton4"
         android:layout_width="30dp"
         android:layout_height="29dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="21dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/arrow"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,57 +28,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/top_vidgram_logo" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:text="Forgot Password?"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <TextView
-        android:id="@+id/textemailaddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="5dp"
-        android:text="Enter your email or username"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailFPInputLayoutFP"
+        android:id="@+id/emailSignUpInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="356dp"
         android:layout_height="60dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
-
-
-        android:layout_marginEnd="25dp"
         app:boxBackgroundColor="@color/textFieldColor"
+
 
         app:boxStrokeColor="@color/textFieldStrokeColor"
         app:endIconMode="clear_text"
+
         app:hintTextColor="@color/hintStrokeColor"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textemailaddress"
-        app:startIconDrawable="@drawable/mail">
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:startIconDrawable="@drawable/baseline_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailFPInputText"
+            android:id="@+id/emailSignUpInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email or Phone Number"
-            android:inputType="textEmailAddress"
+            android:hint="Email"
+            android:inputType="textPersonName"
             android:paddingStart="50dp"
 
 
@@ -86,25 +59,48 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sendCodeButtonFP"
+        android:id="@+id/nexButton4"
         android:layout_width="match_parent"
-        android:layout_height="51dp"
+        android:layout_height="45dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/authentication_btn"
-        android:gravity="center"
-        android:text="Send Code"
+        android:text="Next"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailFPInputLayoutFP"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/emailSignUpInputLayout" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="8dp"
+        android:text="Enter your email"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/useContactButton"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/create_account_btn"
+        android:text="Use Phone Number"
+        android:textAllCaps="false"
+        android:contextClickable="false"
+        android:textColor="@color/green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nexButton4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
