@@ -20,17 +20,16 @@ class LoginActivity : AppCompatActivity() {
 
 
         firebaseAuth = FirebaseAuth.getInstance()
-        binding.textView.setOnClickListener {
-            val intent = Intent(this, sign_up_activity::class.java)
+
+            ///button for signup
+        binding.createAccountButton.setOnClickListener{
+
+            val intent = Intent(this, NameSignUpActivity::class.java)
             startActivity(intent)
         }
 
-        binding.button2.setOnClickListener{
 
-            val intent = Intent(this, sign_up_activity::class.java)
-            startActivity(intent)
-        }
-        binding.button.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             val email = binding.emailInputText.text.toString()
             val pass = binding.passwordInputText.text.toString()
 
@@ -38,11 +37,11 @@ class LoginActivity : AppCompatActivity() {
 
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        Toast.makeText(this,"Successfull Login",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Successfull Login", Toast.LENGTH_LONG).show()
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this,"Invalid Credentials",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_LONG).show()
 
 //                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
 
@@ -50,10 +49,11 @@ class LoginActivity : AppCompatActivity() {
                 }
             } else {
                 Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
-
             }
         }
     }
+}
+
 
 //    override fun onStart() {
 //        super.onStart()
@@ -63,4 +63,4 @@ class LoginActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 //    }
-}
+//}

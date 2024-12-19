@@ -13,14 +13,7 @@
         android:theme="@style/Theme.Vidgram"
         tools:targetApi="31">
         <activity
-            android:name=".sign_up_activity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".NameSignUpActivity"/>
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -30,15 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ChangePassword"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".GenderSignUpActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="true">
@@ -57,6 +44,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".PhoneNumberSignUpActivity"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+        </activity>
+        <activity android:name=".VerificationSignUpActivity"/>
+        <activity android:name=".EmailSignUpActivity"/>
+        <activity android:name=".PasswordSignUpActivity"/>
+        <activity android:name=".TermsAndConditionActivity"/>
     </application>
 
 </manifest>

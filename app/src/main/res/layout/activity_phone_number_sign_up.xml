@@ -41,34 +41,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
+    <!-- Country Spinner Layout -->
+
+    <!-- Phone Number Input Layout -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/countryInputLayoutFP"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="356dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         app:boxBackgroundColor="@color/textFieldColor"
-
-
         app:boxStrokeColor="@color/textFieldStrokeColor"
         app:endIconMode="clear_text"
-
         app:hintTextColor="@color/hintStrokeColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:startIconDrawable="@drawable/location">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/countrySpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Country"
-            android:inputType="textPersonName"
-            android:paddingStart="50dp"
-
-
-            android:textColorHint="@color/textFieldStrokeColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -79,26 +69,24 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="28dp"
         android:layout_marginTop="10dp"
-
         app:boxBackgroundColor="@color/textFieldColor"
         app:boxStrokeColor="@color/textFieldStrokeColor"
         app:hintTextColor="@color/hintStrokeColor"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/countryInputLayoutFP"
-        app:startIconDrawable="@drawable/telephone"
-        >
+        app:startIconDrawable="@drawable/telephone">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/contactInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
-            android:inputType="date"
+            android:inputType="phone"
             android:paddingStart="50dp"
             android:textColorHint="@color/hintColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Next Button -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextButton3"
         android:layout_width="match_parent"
@@ -114,7 +102,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contactInputLayout" />
 
-
+    <!-- Use Email Button -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/useEmailButton"
         android:layout_width="match_parent"
@@ -125,9 +113,24 @@
         android:background="@drawable/create_account_btn"
         android:text="Use Email"
         android:textAllCaps="false"
-        android:contextClickable="false"
         android:textColor="@color/green"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nextButton3" />
+
+    <Spinner
+        android:id="@+id/countrySpinner"
+        android:layout_width="368dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Country"
+        android:paddingStart="50dp"
+        android:textColorHint="@color/textFieldStrokeColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
