@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NameSignUpActivity">
+    tools:context=".LoginActivity">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/arrowButton1"
+        android:id="@+id/arrowButton4"
         android:layout_width="30dp"
         android:layout_height="29dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="21dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/arrow"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,25 +29,28 @@
         app:srcCompat="@drawable/top_vidgram_logo" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nameInputLayout"
+        android:id="@+id/emailSignUpInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="356dp"
         android:layout_height="60dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         app:boxBackgroundColor="@color/textFieldColor"
+
+
         app:boxStrokeColor="@color/textFieldStrokeColor"
         app:endIconMode="clear_text"
+
         app:hintTextColor="@color/hintStrokeColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:startIconDrawable="@drawable/person">
+        app:startIconDrawable="@drawable/baseline_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameInputText"
+            android:id="@+id/emailSignUpInputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="Email"
             android:inputType="textPersonName"
             android:paddingStart="50dp"
 
@@ -55,62 +58,49 @@
             android:textColorHint="@color/textFieldStrokeColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/dobInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="10dp"
-
-        app:boxBackgroundColor="@color/textFieldColor"
-        app:boxStrokeColor="@color/textFieldStrokeColor"
-        app:hintTextColor="@color/hintStrokeColor"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameInputLayout"
-        app:startIconDrawable="@drawable/birthday1"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/confirmPasswordInputText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Date of Birth"
-            android:inputType="date"
-            android:paddingStart="50dp"
-            android:textColorHint="@color/hintColor" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/nextButton1"
+        android:id="@+id/nexButton4"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="25dp"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/authentication_btn"
         android:text="Next"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dobInputLayout" />
-
+        app:layout_constraintTop_toBottomOf="@+id/emailSignUpInputLayout" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:text="Enter your name and birthday"
+        android:layout_marginTop="8dp"
+        android:text="Enter your email"
         android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/useContactButton"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/create_account_btn"
+        android:text="Use Phone Number"
+        android:textAllCaps="false"
+        android:contextClickable="false"
+        android:textColor="@color/green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nexButton4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
