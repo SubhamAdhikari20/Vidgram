@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/main_logo_vector_png" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailInputLayoutFP"
+        android:id="@+id/emailInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="356dp"
         android:layout_height="60dp"
@@ -48,57 +48,41 @@
             android:textColorHint="@color/textFieldStrokeColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/passwordInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="15dp"
-
-        app:boxBackgroundColor="@color/textFieldColor"
-        app:boxStrokeColor="@color/textFieldStrokeColor"
-        app:endIconMode="password_toggle"
-        app:hintTextColor="@color/hintStrokeColor"
-
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passwordInputText"
+        android:layout_width="353dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="95dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingStart="50dp"
+        android:textColorHint="@color/hintColor"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailInputLayoutFP"
-        app:startIconDrawable="@drawable/password"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/emailInputLayout" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordInputText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingStart="50dp"
-            android:textColorHint="@color/hintColor" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginButton"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="25dp"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/authentication_btn"
         android:text="Log in"
         android:textColor="@color/white"
-        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
-
+        app:layout_constraintTop_toBottomOf="@+id/passwordInputText" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="56dp"
         android:drawableLeft="@drawable/code_gang_logo"
         android:drawablePadding="3dp"
@@ -108,62 +92,45 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAccountButton"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/createAccountButton"
+        android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
+        android:layout_marginTop="240dp"
         android:background="@drawable/create_account_btn"
-        android:contextClickable="false"
         android:text="Create Account"
         android:textAllCaps="false"
+        android:contextClickable="false"
         android:textColor="@color/green"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="82dp"
-        android:text="Don't have an account?"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginGoogleButton" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginGoogleButton"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/create_account_btn"
-        android:contextClickable="false"
-
-
-
-        android:text="Log in with Google"
-        android:textAllCaps="false"
-        android:textColor="@color/green"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/button5"
+        android:layout_width="30dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/arrow"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="196dp"
-        android:layout_marginTop="32dp"
-        android:text="OR"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="199dp"
+        android:text="Don't have account?"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
