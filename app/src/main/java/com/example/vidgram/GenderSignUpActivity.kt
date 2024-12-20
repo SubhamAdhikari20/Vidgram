@@ -19,6 +19,23 @@ class GenderSignUpActivity : AppCompatActivity() {
         binding =ActivityGenderSignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Handle male layout and button clicks
+        binding.maleLayout.setOnClickListener {
+            binding.radioGroup.check(binding.male.id) // Ensure RadioGroup reflects the selection
+        }
+        binding.male.setOnClickListener {
+            binding.radioGroup.check(binding.male.id) // Ensure RadioGroup reflects the selection
+        }
+
+        // Handle female layout and button clicks
+        binding.femaleLayout.setOnClickListener {
+            binding.radioGroup.check(binding.female.id) // Ensure RadioGroup reflects the selection
+        }
+        binding.female.setOnClickListener {
+            binding.radioGroup.check(binding.female.id) // Ensure RadioGroup reflects the selection
+        }
+
+
         val bundle = intent.extras
 //        val name = bundle?.getString("fullName")  // Retrieve the fullName
 //        if (name != null) {
@@ -27,25 +44,30 @@ class GenderSignUpActivity : AppCompatActivity() {
 //            Toast.makeText(this, "No name received", Toast.LENGTH_LONG).show()
 //        }
 
+
+        // Next Button
         binding.nextButton2.setOnClickListener {
-
-            val selectedId = binding.genderRadioGroup.checkedRadioButtonId
-
+            val selectedId = binding.radioGroup.checkedRadioButtonId
             //need this to catch null pointer exception
             if (selectedId == -1) {
+                // No RadioButton is selected
                 Toast.makeText(applicationContext, "Please select a gender", Toast.LENGTH_SHORT).show()
-            } else {
+            }
+            else {
+                // Get the selected RadioButton and its text
                 val selectedRadioButton: RadioButton = binding.root.findViewById(selectedId)
+                val gender = selectedRadioButton.text.toString()
 
-            val gender = selectedRadioButton.text.toString()
+                Toast.makeText(applicationContext, "Selected Gender: $gender", Toast.LENGTH_SHORT)
+                    .show()
 
-            Toast.makeText(applicationContext, "Selected Gender: $gender", Toast.LENGTH_SHORT).show()
-
-            bundle?.putString("gender", gender)
+                // Pass the selected gender to the next activity
+                bundle?.putString("gender", gender)
                 val intent = Intent(this, PhoneNumberSignUpActivity::class.java)
                 intent.putExtras(bundle!!)
-            startActivity(intent)
-            finish() //
+                startActivity(intent)
+                finish() //
+            }
         }
 
         binding.arrowButton2.setOnClickListener{
@@ -61,4 +83,4 @@ class GenderSignUpActivity : AppCompatActivity() {
             insets
         }
     }
-}}
+}
