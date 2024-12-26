@@ -1,4 +1,4 @@
-package com.example.vidgram
+package com.example.vidgram.view.activity.authentication
 
 
 import android.content.Intent

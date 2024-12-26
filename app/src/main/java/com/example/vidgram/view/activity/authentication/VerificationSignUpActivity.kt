@@ -1,15 +1,13 @@
-package com.example.vidgram
+package com.example.vidgram.view.activity.authentication
 
 import android.content.Intent
 import android.os.Bundle
-import android.renderscript.ScriptGroup.Binding
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.vidgram.databinding.ActivityGenderSignUpBinding
-import com.example.vidgram.databinding.ActivityPhoneNumberSignUpBinding
+import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityVerificationSignUpBinding
 
 
@@ -30,14 +28,14 @@ class VerificationSignUpActivity : AppCompatActivity() {
         }
 
         binding.arrowButton5.setOnClickListener{
-            val intent = Intent(this,PhoneNumberSignUpActivity::class.java)
+            val intent = Intent(this, PhoneNumberSignUpActivity::class.java)
             intent.putExtras(bundle!!)
             startActivity(intent)
             finish()
         }
 
         binding.nextButton5.setOnClickListener{
-            val intent = Intent(this,PasswordSignUpActivity::class.java)
+            val intent = Intent(this, PasswordSignUpActivity::class.java)
             intent.putExtras(bundle!!)
             startActivity(intent)
             finish()

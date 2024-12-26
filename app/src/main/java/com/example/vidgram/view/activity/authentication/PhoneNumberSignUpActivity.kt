@@ -1,10 +1,7 @@
-package com.example.vidgram
+package com.example.vidgram.view.activity.authentication
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputFilter
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged

@@ -1,4 +1,4 @@
-package com.example.vidgram
+package com.example.vidgram.view.activity.authentication
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.vidgram.databinding.ActivityPasswordSignUpBinding
+import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityTermsAndConditionBinding
 
 class TermsAndConditionActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class TermsAndConditionActivity : AppCompatActivity() {
         val bundle = intent.extras
 
         binding.arrowButton7.setOnClickListener{
-            val intent = Intent(this,PasswordSignUpActivity::class.java)
+            val intent = Intent(this, PasswordSignUpActivity::class.java)
             intent.putExtras(bundle!!)
             startActivity(intent)
             finish()

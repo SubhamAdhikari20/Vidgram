@@ -1,4 +1,4 @@
-package com.example.vidgram
+package com.example.vidgram.view.activity.authentication
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.vidgram.databinding.ActivityEmailSignUpBinding
+import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityPasswordSignUpBinding
 
 class PasswordSignUpActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class PasswordSignUpActivity : AppCompatActivity() {
         val bundle = intent.extras
 
         binding.arrowButton6.setOnClickListener{
-            val intent = Intent(this,VerificationSignUpActivity::class.java)
+            val intent = Intent(this, VerificationSignUpActivity::class.java)
             intent.putExtras(bundle!!)
             startActivity(intent)
             finish()
@@ -28,7 +28,7 @@ class PasswordSignUpActivity : AppCompatActivity() {
         binding.nextButton6.setOnClickListener{
             val password = binding.passwordSignUpInputText.text.toString()
             bundle?.putString("password",password)
-            val intent = Intent(this,TermsAndConditionActivity::class.java)
+            val intent = Intent(this, TermsAndConditionActivity::class.java)
             intent.putExtras(bundle!!)
             startActivity(intent)
             finish()

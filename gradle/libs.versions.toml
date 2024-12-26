@@ -1,5 +1,7 @@
 [versions]
 agp = "8.7.3"
+circleimageview = "3.1.0"
+dynamicsizes = "1.0"
 firebaseBom = "33.7.0"
 kotlin = "1.9.24"
 coreKtx = "1.15.0"
@@ -14,10 +16,13 @@ googleGmsGoogleServices = "4.4.2"
 firebaseDatabase = "21.0.0"
 firebaseAuth = "23.1.0"
 radiogroupplus = "1.0.1"
+readablebottombar = "0.2"
 repo = "Version"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
+dynamicsizes = { module = "com.github.MrNouri:DynamicSizes", version.ref = "dynamicsizes" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -30,6 +35,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 radiogroupplus = { module = "com.github.worker8:radiogroupplus", version.ref = "radiogroupplus" }
+readablebottombar = { module = "com.github.iammert:ReadableBottomBar", version.ref = "readablebottombar" }
 repo = { module = "com.github.User:Repo", version.ref = "repo" }
 
 [plugins]

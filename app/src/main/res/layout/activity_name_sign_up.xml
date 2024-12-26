@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NameSignUpActivity">
+    tools:context=".view.activity.authentication.NameSignUpActivity">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/arrowButton1"
