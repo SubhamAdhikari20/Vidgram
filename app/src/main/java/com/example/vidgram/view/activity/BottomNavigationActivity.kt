@@ -27,7 +27,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         binding = ActivityBottomNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(MyProfileFragment())
+        replaceFragment(HomeFragment())
 
         binding.bottomNavigation.setOnItemSelectedListener { menu ->
             when(menu.itemId){
@@ -40,6 +40,7 @@ class BottomNavigationActivity : AppCompatActivity() {
             }
             true
         }
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
