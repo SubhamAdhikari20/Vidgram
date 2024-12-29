@@ -9,9 +9,7 @@
     <color name="textFieldStrokeColor">#8AAC91</color>
     <color name="hintStrokeColor">#5BD000</color>
     <color name="createAccountColor">#00FF04</color>
-    <color name="helperTextColor">#EF1D0A</color>
-    <color name="prefixTextColor">#161BD7</color>
-    <color name="radioButtonGroupBGColor">#C6C2C2</color>
+    <color name="callbackgroundcolor">#A3C598</color>
 
 
 
