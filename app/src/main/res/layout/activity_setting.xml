@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Back_Btn"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="63dp"
+        android:background="@drawable/arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Set_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="107dp"
+        android:layout_marginTop="59dp"
+        android:text="Setting"
+        android:textSize="25dp"
+        app:layout_constraintStart_toEndOf="@+id/Back_Btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Profile_Btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="185dp"
+        android:layout_marginEnd="19dp"
+        android:background="@drawable/person"
+        app:layout_constraintEnd_toStartOf="@+id/Profile_Id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Notfn_Id"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/notifi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Profile_Btn" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Activity_Btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/activities"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="286dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Privacy_Btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/privacy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Activity_Btn" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Security_Btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/security"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Privacy_Btn" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/About_Btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/about"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Security_Btn" />
+
+    <TextView
+        android:id="@+id/Profile_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="87dp"
+        android:text="Profile"
+        android:textSize="23dp"
+        app:layout_constraintStart_toEndOf="@+id/Profile_Btn"
+        app:layout_constraintTop_toBottomOf="@+id/Set_Id" />
+
+    <TextView
+        android:id="@+id/Notification_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
+        android:text="Notification"
+        android:textSize="23dp"
+        app:layout_constraintStart_toEndOf="@+id/Notfn_Id"
+        app:layout_constraintTop_toBottomOf="@+id/Profile_Id" />
+
+    <TextView
+        android:id="@+id/Activities_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="18dp"
+        android:text="Activities"
+        android:textSize="23dp"
+        app:layout_constraintStart_toEndOf="@+id/Activity_Btn"
+        app:layout_constraintTop_toBottomOf="@+id/Notification_Id" />
+
+    <TextView
+        android:id="@+id/Privacy_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="17dp"
+        android:text="Privacy"
+        android:textSize="23dp"
+        app:layout_constraintStart_toEndOf="@+id/Privacy_Btn"
+        app:layout_constraintTop_toBottomOf="@+id/Activities_Id" />
+
+    <TextView
+        android:id="@+id/Security_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
+        android:text="Security"
+        android:textSize="23dp"
+        app:layout_constraintStart_toEndOf="@+id/Security_Btn"
+        app:layout_constraintTop_toBottomOf="@+id/Privacy_Id" />
+
+    <TextView
+        android:id="@+id/About_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="15dp"
+        android:text="About"
+        android:textSize="23dp"
+        app:layout_constraintStart_toEndOf="@+id/About_Btn"
+        app:layout_constraintTop_toBottomOf="@+id/Security_Id" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Prof_Id"
+        android:layout_width="25dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="185dp"
+        android:layout_marginEnd="33dp"
+        android:background="@drawable/right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Notifn_Id"
+        android:layout_width="25dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="33dp"
+        android:background="@drawable/right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Prof_Id" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Act_Id"
+        android:layout_width="25dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="33dp"
+        android:background="@drawable/right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Notifn_Id" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Priv_Id"
+        android:layout_width="25dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="33dp"
+        android:background="@drawable/right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Act_Id" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Sec_Id"
+        android:layout_width="25dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="33dp"
+        android:background="@drawable/right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Priv_Id" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Abt_Id"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="33dp"
+        android:background="@drawable/right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Sec_Id" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
