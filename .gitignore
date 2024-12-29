@@ -1,6 +1,6 @@
-<<<<<<< HEAD
 # Gradle files
 .gradle/
+!build.gradle       # Do not ignore build.gradle
 build/
 
 # Local configuration file (sdk path, etc)
@@ -28,24 +28,14 @@ render.experimental.xml
 *.keystore
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+!google-services.json
 
 # Android Profiling
 *.hprof
-=======
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+
+# Other
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
->>>>>>> b7ae7e4 (Initalization of Vidgram - Splash Screen)
+
+# Excluded
+!build.gradle.kts       # Exception for build.gradle
+!settings.gradle.kts
