@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AudioCallingActivity">
+
+    <Button
+        android:id="@+id/Back_Btn"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="61dp"
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="16dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Time_Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4:30"
+        tools:layout_editor_absoluteX="185dp"
+        tools:layout_editor_absoluteY="180dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="219dp"
+        android:layout_height="288dp"
+        app:srcCompat="@drawable/profile"
+        tools:layout_editor_absoluteX="94dp"
+        tools:layout_editor_absoluteY="301dp" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="209dp"
+        android:layout_height="38dp"
+        android:ems="10"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="94dp"
+        tools:layout_editor_absoluteY="797dp" />
+
+    <Button
+        android:id="@+id/Camera_On_Btn"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:text="Camera"
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="773dp" />
+
+    <Button
+        android:id="@+id/Mic_Btn"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:text="Mic"
+        tools:layout_editor_absoluteX="179dp"
+        tools:layout_editor_absoluteY="773dp" />
+
+    <Button
+        android:id="@+id/Call_End_Btn"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:text="CallEnd"
+        tools:layout_editor_absoluteX="249dp"
+        tools:layout_editor_absoluteY="773dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
