@@ -23,12 +23,14 @@ class EmailSignUpActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
         binding.useContactButton.setOnClickListener{
             val intent = Intent(this,PhoneNumberSignUpActivity::class.java)
             intent.putExtras(bundle!!)
             startActivity(intent)
             finish()
         }
+        
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
