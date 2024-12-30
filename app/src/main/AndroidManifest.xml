@@ -30,9 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NameSignUpActivity" />
+        <activity android:name=".view.activity.authentication.NameSignUpActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.activity.authentication.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,18 +40,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GenderSignUpActivity" />
+        <activity android:name=".view.activity.authentication.GenderSignUpActivity" />
         <activity
-            android:name=".ForgotPasswordActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
+            android:name=".view.activity.authentication.ForgotPasswordActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PhoneNumberSignUpActivity"
+            android:name=".view.activity.authentication.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,10 +59,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VerificationSignUpActivity" />
-        <activity android:name=".EmailSignUpActivity" />
-        <activity android:name=".PasswordSignUpActivity" />
-        <activity android:name=".TermsAndConditionActivity" />
+        <activity
+            android:name=".view.activity.authentication.PhoneNumberSignUpActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.authentication.VerificationSignUpActivity" />
+        <activity android:name=".view.activity.authentication.EmailSignUpActivity" />
+        <activity android:name=".view.activity.authentication.PasswordSignUpActivity" />
+        <activity android:name=".view.activity.authentication.TermsAndConditionActivity" />
+
+        <activity
+            android:name=".view.activity.BottomNavigationActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
