@@ -27,11 +27,11 @@ class BottomNavigationActivity : AppCompatActivity() {
         binding = ActivityBottomNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(HomeFragment())
+        replaceFragment(HomeFragment<Any>())
 
         binding.bottomNavigation.setOnItemSelectedListener { menu ->
             when(menu.itemId){
-                R.id.navHome -> replaceFragment(HomeFragment())
+                R.id.navHome -> replaceFragment(HomeFragment<Any>())
                     R.id.navMessage -> replaceFragment(MessageFragment())
                         R.id.navPost -> replaceFragment(PostFragment())
                             R.id.navCommunity -> replaceFragment(CommunityFragment())

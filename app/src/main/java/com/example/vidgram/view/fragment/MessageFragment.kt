@@ -15,7 +15,7 @@ class MessageFragment : Fragment() {
     private val imageList: ArrayList<Int> = ArrayList()
     private val nameList: ArrayList<String> = ArrayList()
     private val messageList: ArrayList<String> = ArrayList()
-    private lateinit var chatAdapter : ChatRecyclerViewAdapter;
+    private lateinit var chatAdapter : ChatRecyclerViewAdapter
 
 
 

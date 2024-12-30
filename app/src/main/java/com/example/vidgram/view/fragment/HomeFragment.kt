@@ -12,13 +12,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentHomeBinding
+import com.example.vidgram.databinding.FragmentMyProfileBinding
+import com.example.vidgram.view.adapter.PostFeedRecyclerViewAdapter
+import com.example.vidgram.view.adapter.ViewPagerAdapter
 import com.example.vidgram.view.model.Post
 import com.example.vidgram.view.model.Story
 import com.example.vidgram.view.model.StoryAdapter
 import com.example.week2.adapter.PostAdapter
 
-class HomeFragment : Fragment() {
+
+class HomeFragment<StoryRecyclerViewAdapter> : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+
+    // Story Recycler View
+    private val storyImageList: ArrayList<Int> = ArrayList()
+    private val storyNameList: ArrayList<String> = ArrayList()
+//    private lateinit var storyAdapter : StoryRecyclerViewAdapter
+
+
+    // Post Feed Recycler View
+    private val postImageList: ArrayList<Int> = ArrayList()
+    private val postProfileImageList: ArrayList<Int> = ArrayList()
+    private val postNameList: ArrayList<String> = ArrayList()
+    private val messageList: ArrayList<String> = ArrayList()
+    private lateinit var postFeedAdapter : PostFeedRecyclerViewAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
