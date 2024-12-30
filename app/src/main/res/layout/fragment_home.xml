@@ -105,5 +105,38 @@
 
     <!--    </FrameLayout>-->
 
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:context=".fragment.storyFragment">-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- RecyclerView for Stories -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="50dp"
+                    android:id="@+id/recyclerViewStories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:clipToPadding="false"
+                     />
+
+                <!-- RecyclerView for Posts -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewPosts"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+            </LinearLayout>
+<!--    </FrameLayout>-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
