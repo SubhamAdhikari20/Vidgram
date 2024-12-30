@@ -36,7 +36,9 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="55dp"
+        android:layout_marginEnd="1dp"
         android:contentDescription="TODO"
         android:src="@drawable/cover_profile"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +53,7 @@
         android:src="@drawable/profile_pic"
         app:civ_border_color="#224DFA"
         app:civ_border_width="3dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -204,8 +207,12 @@
         android:id="@+id/myProfileTableLayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="1dp"
         android:backgroundTint="#D9D9D9"
+        app:tabIconTint="@color/black"
+        app:tabIndicatorColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editProfileButton">
@@ -213,21 +220,25 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/photo_icon"
-            />
+            android:icon="@drawable/photo_icon" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/video_icon"
-            />
+            android:icon="@drawable/video_icon" />
 
     </com.google.android.material.tabs.TabLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/myProfileViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myProfileTableLayout" />
 

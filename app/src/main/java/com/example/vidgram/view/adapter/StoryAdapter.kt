@@ -1,4 +1,5 @@
-package com.example.vidgram.view.adapter
+package com.example.vidgram.view.model
+
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
-import com.example.vidgram.view.Story
-
 
 class StoryAdapter(private val stories: List<Story>) :
     RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {
