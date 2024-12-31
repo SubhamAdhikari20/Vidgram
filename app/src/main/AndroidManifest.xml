@@ -12,9 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vidgram"
         tools:targetApi="31">
-
         <activity
-            android:name=".NameSignUpActivity"
+            android:name=".ChatActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.activity.BottomNavigationActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.activity.authentication.NameSignUpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +46,7 @@
         </activity>
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.activity.authentication.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +55,7 @@
         </activity>
 
         <activity
-            android:name=".GenderSignUpActivity"
+            android:name=".view.activity.authentication.GenderSignUpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +64,7 @@
         </activity>
 
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".view.activity.authentication.ForgotPasswordActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,7 +73,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".view.activity.authentication.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,7 +81,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".PhoneNumberSignUpActivity"
+        <activity android:name=".view.activity.authentication.PhoneNumberSignUpActivity"
             android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -74,7 +89,7 @@
         </intent-filter>
         </activity>
 
-        <activity android:name=".VerificationSignUpActivity"
+        <activity android:name=".view.activity.authentication.VerificationSignUpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -82,7 +97,7 @@
         </intent-filter>
         </activity>
 
-        <activity android:name=".VerificationForgotPasswordActivity"
+        <activity android:name=".view.activity.authentication.VerificationForgotPasswordActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -90,7 +105,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".EmailSignUpActivity"
+        <activity android:name=".view.activity.authentication.EmailSignUpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -98,7 +113,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".PasswordSignUpActivity"
+        <activity android:name=".view.activity.authentication.PasswordSignUpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -106,7 +121,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TermsAndConditionActivity"
+        <activity android:name=".view.activity.authentication.TermsAndConditionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -114,7 +129,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ChangePasswordActivity"
+        <activity android:name=".view.activity.authentication.ChangePasswordActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

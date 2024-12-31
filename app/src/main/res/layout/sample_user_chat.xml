@@ -42,6 +42,15 @@
             android:layout_marginTop="3dp"
             android:textSize="15sp"
             android:text="TextView" />
+
+        <TextView
+            android:id="@+id/timestampTextView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="12:30 PM"
+            android:textColor="@color/black" />
+
+
     </LinearLayout>
 
 </LinearLayout>
