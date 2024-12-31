@@ -1,25 +1,16 @@
 package com.example.vidgram
-import com.google.android.material.appbar.MaterialToolbar
-
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.example.vidgram.databinding.ActivityChatBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 class ChatActivity : AppCompatActivity() {
 
@@ -27,34 +18,36 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var messageList: RecyclerView
     private lateinit var messageAdapter: MessageAdapter
-    private lateinit var messageInput: EditText
-    private lateinit var sendButton: Button
     private lateinit var receiverId: String
     private lateinit var senderId: String
     private lateinit var chatId: String
 
-    private lateinit var receiverNameTextView: TextView
-
-
     // Define a mutable list to hold messages
     private val messages = mutableListOf<Message>()
 
+    // ViewBinding instance
+    private lateinit var binding: ActivityChatBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
 
+        // Initialize ViewBinding
+        binding = ActivityChatBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Initialize Firebase instances
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
 
-        messageList = findViewById(R.id.messageRecyclerView)
-        messageInput = findViewById(R.id.messageInput)
-        sendButton = findViewById(R.id.sendButton)
-
-        receiverNameTextView = findViewById(R.id.receiverNameTextView)
+        // Initialize RecyclerView and other views via binding
+        messageList = binding.messageRecyclerView
+        val messageInput = binding.messageInput
+        val sendButton = binding.sendButton
+        val receiverNameTextView = binding.receiverNameTextView
 
         // Get user data passed from MessageListActivity
         receiverId = intent.getStringExtra("receiverId") ?: ""
-        senderId = "123"
+        senderId = "123" // Example sender ID
 
         // Create chat ID based on user IDs
         chatId = if (senderId < receiverId) "$senderId-$receiverId" else "$receiverId-$senderId"
@@ -69,13 +62,12 @@ class ChatActivity : AppCompatActivity() {
 
         // Handle sending new messages
         sendButton.setOnClickListener {
-            sendMessage()
+            sendMessage(messageInput)
         }
+
+        // Set receiver name from intent
         val receiverName = intent.getStringExtra("name") ?: "Receiver"
         receiverNameTextView.text = receiverName
-
-
-
     }
 
     private fun loadMessages() {
@@ -95,7 +87,7 @@ class ChatActivity : AppCompatActivity() {
         })
     }
 
-    private fun sendMessage() {
+    private fun sendMessage(messageInput: EditText) {
         val messageText = messageInput.text.toString()
         if (messageText.isNotEmpty()) {
             val message = Message(senderId, receiverId, messageText, System.currentTimeMillis())

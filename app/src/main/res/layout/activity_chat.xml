@@ -17,7 +17,16 @@
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
+
     <!-- RecyclerView for displaying messages -->
+
+    <Button
+        android:id="@+id/myButton"
+        android:layout_width="143dp"
+        android:layout_height="79dp"
+        android:padding="10dp"
+        android:text="video call" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
