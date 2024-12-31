@@ -59,7 +59,6 @@ dependencies {
 
 
     implementation(libs.glide)
-    implementation(libs.picasso)
 
 
 }

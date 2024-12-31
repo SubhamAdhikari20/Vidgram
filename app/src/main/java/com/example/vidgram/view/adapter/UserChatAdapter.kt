@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.vidgram.R
-import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -34,12 +34,16 @@ class UserChatAdapter(
         holder.timestampTextView.text =
             SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(user.timestamp))
 
-        // Set profile image (if available)
+        // Set profile image (if available) using Glide
         if (user.profilepic.isNullOrEmpty()) {
-            Picasso.get().load(R.drawable.user) // Load default image if profile pic is missing
+            Glide.with(context)
+                .load(R.drawable.user) // Load default image if profile pic is missing
                 .into(holder.profileImageView)
         } else {
-            Picasso.get().load(user.profilepic) // Load user's profile picture
+            Glide.with(context)
+                .load(user.profilepic) // Load user's profile picture
+//                .placeholder(R.drawable.loading) // Optional: loading placeholder
+//                .error(R.drawable.error) // Optional: error placeholder
                 .into(holder.profileImageView)
         }
 
