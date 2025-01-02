@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/myProfileFragment"
+    android:id="@+id/othersProfileFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.MyProfileFragment">
+    tools:context=".view.fragment.OthersProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -79,7 +79,7 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="220dp"
-        android:src="@drawable/profile_pic"
+        android:src="@drawable/other_profile_img"
         app:civ_border_color="#224DFA"
         app:civ_border_width="3dp"
 
@@ -212,30 +212,31 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/editProfileButton"
+        android:id="@+id/followProfileButton"
         android:layout_width="125dp"
         android:layout_height="35dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/profile_section_btns"
-        android:text="Edit Profile"
+        android:text="Follow"
         android:textAllCaps="false"
+        android:backgroundTint="@color/createAccountColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/contactMeButton"
+        android:id="@+id/messageButton"
         android:layout_width="125dp"
         android:layout_height="35dp"
         android:layout_marginStart="15dp"
         android:background="@drawable/profile_section_btns"
-        android:text="Contact Me"
+        android:text="Message"
         android:textAllCaps="false"
-        app:layout_constraintStart_toEndOf="@+id/editProfileButton"
-        app:layout_constraintTop_toTopOf="@+id/editProfileButton" />
+        app:layout_constraintStart_toEndOf="@+id/followProfileButton"
+        app:layout_constraintTop_toTopOf="@+id/followProfileButton" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/myProfileTableLayout"
+        android:id="@+id/otherProfileTableLayout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginStart="1dp"
@@ -246,7 +247,7 @@
         app:tabIndicatorColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfileButton">
+        app:layout_constraintTop_toBottomOf="@+id/followProfileButton">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -261,7 +262,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/myProfileViewPager"
+        android:id="@+id/otherProfileViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
@@ -273,8 +274,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myProfileTableLayout" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-

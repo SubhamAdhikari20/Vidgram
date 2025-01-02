@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentMyProfileBinding
 import com.example.vidgram.view.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MyProfileFragment : Fragment() {
-    private lateinit var binding : FragmentMyProfileBinding
+    private lateinit var binding: FragmentMyProfileBinding
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     var icons = arrayOf(
         R.drawable.photo_icon,
@@ -53,7 +54,6 @@ class MyProfileFragment : Fragment() {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,13 +61,18 @@ class MyProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentMyProfileBinding.inflate(inflater, container, false)
 
-        val fragmentManager : FragmentManager = childFragmentManager
+        val fragmentManager: FragmentManager = childFragmentManager
         viewPagerAdapter = ViewPagerAdapter(fragmentManager, lifecycle)
         binding.myProfileViewPager.adapter = viewPagerAdapter
-        TabLayoutMediator(binding.myProfileTableLayout, binding.myProfileViewPager){
+        TabLayoutMediator(binding.myProfileTableLayout, binding.myProfileViewPager) {
 //            tabs, position -> tabs.text = data[position]
-                tabs, position -> tabs.icon = resources.getDrawable(icons[position], null)
+                tabs, position ->
+            tabs.icon = resources.getDrawable(icons[position], null)
         }.attach()
+
+        binding.editProfileButton.setOnClickListener {
+            replaceFragment(OthersProfileFragment())
+        }
 
         /*
         viewPagerAdapter = ViewPagerAdapter(requireActivity().supportFragmentManager)
@@ -87,8 +92,11 @@ class MyProfileFragment : Fragment() {
 
     }
 
-//    override fun onStart() {
-//        super.onStart()
-//
-//    }
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager: FragmentManager = parentFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout, fragment)
+        fragmentTransaction.commit()
+    }
+
 }

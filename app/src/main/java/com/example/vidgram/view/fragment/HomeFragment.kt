@@ -2,11 +2,17 @@ package com.example.vidgram.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuProvider
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentHomeBinding
@@ -16,7 +22,6 @@ import com.example.vidgram.view.model.Story
 import com.example.vidgram.view.adapter.StoryAdapter
 import com.example.vidgram.view.adapter.PostAdapter
 
-
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
@@ -25,7 +30,6 @@ class HomeFragment : Fragment() {
     private val storyNameList: ArrayList<String> = ArrayList()
 //    private lateinit var storyAdapter : StoryRecyclerViewAdapter
 
-
     // Post Feed Recycler View
     private val postImageList: ArrayList<Int> = ArrayList()
     private val postAvaterImageList: ArrayList<Int> = ArrayList()
@@ -33,9 +37,9 @@ class HomeFragment : Fragment() {
     private val messageList: ArrayList<String> = ArrayList()
     private lateinit var postFeedAdapter : PostFeedRecyclerViewAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -45,10 +49,52 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+//        binding.toolbar.inflateMenu(R.menu.home_page_toolbar)
+//        binding.toolbar.setOnMenuItemClickListener { menu ->
+//            when (menu.itemId) {
+//                R.id.searchMenuButton -> {
+//
+//                    true
+//                }
+//                R.id.profileMenuButton -> {
+//                    replaceFragment(MyProfileFragment())
+//                    true
+//                }
+//
+//                else -> false
+//            }
+//        }
+
+        // Attach MenuProvider to handle the menu
+        binding.toolbar.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+//                if (binding.toolbar.menu == null){
+//                    menuInflater.inflate(R.menu.home_page_toolbar, menu)
+//                }
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.searchMenuButton -> {
+                        // Handle search button click
+                        replaceFragment(SearchFragment())
+                        true
+                    }
+                    R.id.profileMenuButton -> {
+                        // Navigate to profile fragment
+                        replaceFragment(MyProfileFragment())
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         // Navigate to profile fragment on button click
-        binding.profileButton.setOnClickListener {
-            replaceFragment(MyProfileFragment())
-        }
+//        binding.profileButton.setOnClickListener {
+//            replaceFragment(MyProfileFragment())
+//        }
+
 
         // Initialize RecyclerView for stories
         binding.recyclerViewStories.layoutManager =
@@ -89,12 +135,9 @@ class HomeFragment : Fragment() {
         val postAdapter = PostAdapter(posts)
         binding.recyclerViewPosts.adapter = postAdapter
 
-        // Add scroll listener for fade-in/out effect
-
 
         return binding.root
     }
-
 
 
     private fun replaceFragment(fragment: Fragment) {

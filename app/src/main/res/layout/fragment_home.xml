@@ -7,62 +7,71 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.HomeFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:background="@color/white"
         android:elevation="5dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="10dp">
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            app:menu="@menu/home_page_toolbar"
+            android:background="@color/white"
+            android:elevation="5dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme">
 
-            <TextView
-                android:id="@+id/titleProfileTexView"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/vidgram_logo_top"
-                android:drawablePadding="5dp"
-                android:fontFamily="@font/irish_grover"
-                android:text="Vidgram"
-                android:textColor="@color/green"
-                android:textSize="20sp" />
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="10dp">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/searchButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="170dp"
-                android:background="@drawable/search_icon" />
+                <TextView
+                    android:id="@+id/titleProfileTexView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/vidgram_logo_top"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/irish_grover"
+                    android:text="Vidgram"
+                    android:textColor="@color/green"
+                    android:textSize="20sp" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/profileButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="27dp"
-                android:background="@drawable/profile_icon" />
+<!--                <androidx.appcompat.widget.AppCompatButton-->
+<!--                    android:id="@+id/searchButton"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_marginStart="170dp"-->
+<!--                    android:background="@drawable/search_icon" />-->
 
-        </LinearLayout>
+<!--                <androidx.appcompat.widget.AppCompatButton-->
+<!--                    android:id="@+id/profileButton"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_marginStart="27dp"-->
+<!--                    android:background="@drawable/profile_icon" />-->
 
-    </androidx.appcompat.widget.Toolbar>
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
@@ -74,14 +83,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <!-- RecyclerView for Stories -->
             <androidx.recyclerview.widget.RecyclerView
@@ -90,8 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                tools:listitem="@layout/item_story"
-                />
+                tools:listitem="@layout/item_story" />
 
             <!-- RecyclerView for Posts -->
             <androidx.recyclerview.widget.RecyclerView
