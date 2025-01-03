@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vidgram.model.Message
 import com.example.vidgram.adapter.MessageAdapter
 import com.example.vidgram.databinding.ActivityChatBinding
-import com.example.vidgram.model.Message
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
