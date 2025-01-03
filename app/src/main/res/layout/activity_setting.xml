@@ -241,17 +241,19 @@
             android:id="@+id/button8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
             android:text="Button"
-            app:layout_constraintStart_toStartOf="@+id/Log_id"
-            tools:layout_editor_absoluteY="47dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Log_id" />
 
         <Button
             android:id="@+id/button9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="4dp"
-            tools:layout_editor_absoluteY="94dp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button8" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
