@@ -16,13 +16,19 @@ constraintlayout = "2.2.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseDatabase = "21.0.0"
 firebaseAuth = "23.1.0"
+navigationFragmentKtx = "2.8.5"
 radiogroupplus = "1.0.1"
 readablebottombar = "0.2"
 repo = "Version"
-gridlayout = "1.0.0"
+legacySupportV4 = "1.0.0"
+runtimeAndroid = "1.7.6"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationFragmentKtx" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 dynamicsizes = { module = "com.github.MrNouri:DynamicSizes", version.ref = "dynamicsizes" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
@@ -40,7 +46,8 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 radiogroupplus = { module = "com.github.worker8:radiogroupplus", version.ref = "radiogroupplus" }
 readablebottombar = { module = "com.github.iammert:ReadableBottomBar", version.ref = "readablebottombar" }
 repo = { module = "com.github.User:Repo", version.ref = "repo" }
-androidx-gridlayout = { group = "androidx.gridlayout", name = "gridlayout", version.ref = "gridlayout" }
+androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
+androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

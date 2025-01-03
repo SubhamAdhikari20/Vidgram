@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.BottomNavigationActivity">
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
@@ -15,6 +16,7 @@
         android:background="@color/white"
         app:menu="@menu/navigation_bar"
         app:labelVisibilityMode="unlabeled"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

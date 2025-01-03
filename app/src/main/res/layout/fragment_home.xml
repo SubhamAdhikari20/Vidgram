@@ -7,128 +7,110 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.HomeFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:background="@color/white"
         android:elevation="5dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="10dp">
-
-            <TextView
-                android:id="@+id/titleProfileTexView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/vidgram_logo_top"
-                android:drawablePadding="5dp"
-                android:fontFamily="@font/irish_grover"
-                android:text="Vidgram"
-                android:textColor="@color/green"
-                android:textSize="20sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/searchButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="170dp"
-                android:background="@drawable/search_icon" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/profileButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="27dp"
-                android:background="@drawable/profile_icon" />
-
-        </LinearLayout>
-
-    </androidx.appcompat.widget.Toolbar>
-
-
-<!--    <ScrollView-->
-<!--        android:id="@+id/homePageScrollView"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_marginStart="1dp"-->
-<!--        android:layout_marginTop="1dp"-->
-<!--        android:layout_marginEnd="1dp"-->
-<!--        android:layout_marginBottom="1dp"-->
-<!--        android:scrollbars="none"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/toolbar">-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/storyRecyclerView"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                tools:listitem="@layout/sample_story"-->
-<!--                />-->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/postRecyclerView"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-<!--        </LinearLayout>-->
-<!--    </ScrollView>-->
-
-<!--    <FrameLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        tools:context=".fragment.storyFragment">-->
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            app:menu="@menu/home_page_toolbar"
+            android:background="@color/white"
+            android:elevation="5dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="10dp">
 
-                <!-- RecyclerView for Stories -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="50dp"
-                    android:id="@+id/recyclerViewStories"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/titleProfileTexView"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    tools:listitem="@layout/item_story"
-                    android:clipToPadding="false"
-                     />
+                    android:drawableStart="@drawable/vidgram_logo_top"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/irish_grover"
+                    android:text="Vidgram"
+                    android:textColor="@color/green"
+                    android:textSize="20sp" />
 
-                <!-- RecyclerView for Posts -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewPosts"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    tools:listitem="@layout/insta_post"
-                    />
+<!--                <androidx.appcompat.widget.AppCompatButton-->
+<!--                    android:id="@+id/searchButton"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_marginStart="170dp"-->
+<!--                    android:background="@drawable/search_icon" />-->
+
+<!--                <androidx.appcompat.widget.AppCompatButton-->
+<!--                    android:id="@+id/profileButton"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_marginStart="27dp"-->
+<!--                    android:background="@drawable/profile_icon" />-->
 
             </LinearLayout>
-<!--    </FrameLayout>-->
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- RecyclerView for Stories -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewStories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                tools:listitem="@layout/item_story" />
+
+            <!-- RecyclerView for Posts -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPosts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/sample_post" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!--    </FrameLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

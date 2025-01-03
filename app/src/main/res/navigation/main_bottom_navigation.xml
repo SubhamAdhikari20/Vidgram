@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_bottom_navigation"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.example.vidgram.view.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_message"
+            app:destination="@id/message" />
+    </fragment>
+    <fragment
+        android:id="@+id/message"
+        android:name="com.example.vidgram.view.fragment.MessageFragment"
+        android:label="fragment_message"
+        tools:layout="@layout/fragment_message" >
+        <action
+            android:id="@+id/action_message_to_myProfile"
+            app:destination="@id/myProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/myProfile"
+        android:name="com.example.vidgram.view.fragment.MyProfileFragment"
+        android:label="fragment_my_profile"
+        tools:layout="@layout/fragment_my_profile" >
+        <action
+            android:id="@+id/action_myProfile_to_addPost"
+            app:destination="@id/addPost" />
+    </fragment>
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.example.vidgram.view.fragment.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notification_to_home"
+            app:destination="@id/home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addPost"
+        android:name="com.example.vidgram.view.fragment.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" >
+        <action
+            android:id="@+id/action_addPost_to_notification"
+            app:destination="@id/notification" />
+    </fragment>
+</navigation>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -15,52 +16,55 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/postFeedProfileImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/my_story_icon" />
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/postUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="25dp"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintStart_toEndOf="@+id/postFeedProfileImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/postFeedTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
                 android:layout_marginTop="7dp"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                app:layout_constraintStart_toStartOf="@+id/postUserName"
+                app:layout_constraintTop_toBottomOf="@+id/postUserName" />
 
-            <Button
-                android:id="@+id/button2"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/postFeedFollowButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="18dp"
-                android:text="Button"
-                app:layout_constraintEnd_toStartOf="@+id/button3"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="30dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/follow_post_custom_btn"
+                android:text="Follow"
+                android:textAllCaps="false"
+                android:textColor="@color/createAccountColor"
+                app:layout_constraintEnd_toStartOf="@+id/postFeedMenuButton"
+                app:layout_constraintTop_toTopOf="@+id/postFeedMenuButton" />
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="16dp"
-                android:text="Button"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/postFeedMenuButton"
+                android:layout_width="10dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/three_dot_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,60 +76,126 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/postFeedTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_margin="10dp"
                 android:text="TextView" />
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/postFeedMedia"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/husky" />
+                android:layout_height="300dp"
+                app:srcCompat="@drawable/person1" />
 
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            >
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:text="Button"
-                app:layout_constraintStart_toEndOf="@+id/button5"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/postFeedLikeButton"
+                android:layout_width="30dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/like_btn_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/postFeedLikeText"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="2dp"
-                android:text="Button"
-                app:layout_constraintStart_toEndOf="@+id/button7"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/postFeedLikeButton"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="2dp"
-                android:text="Button"
-                app:layout_constraintStart_toEndOf="@+id/button4"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/postFeedDislikeButton"
+                android:layout_width="30dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/dislike_btn_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/postFeedLikeText"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/postFeedCommentButton"
+                android:layout_width="37dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/comment_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/postFeedDislikeText"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/postFeedShareButton"
+                android:layout_width="30dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/share_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/postFeedCommentText"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/postFeedDislikeText"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/postFeedDislikeButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/postFeedCommentText"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/postFeedCommentButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/postFeedShareText"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="1dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/postFeedShareButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
