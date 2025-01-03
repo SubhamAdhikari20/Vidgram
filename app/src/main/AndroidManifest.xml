@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vidgram"
         tools:targetApi="31">
+
+
+<!--        for chatactivity-->
+        <activity
+            android:name=".ChatActivity"
+            android:exported="true"/>
         <activity
             android:name=".view.activity.ChatMessageActivity"
             android:exported="true">
