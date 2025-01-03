@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vidgram.R
 import com.example.vidgram.view.Story
-import com.example.vidgram.view.adapter.StoryAdapter
+import com.example.vidgram.view.model.StoryAdapter
 
 class DashboardFragment : Fragment() {
 
