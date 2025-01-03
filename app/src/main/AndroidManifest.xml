@@ -31,6 +31,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".view.activity.authentication.SecurityActivity"
+            android:exported="false" />
+        <activity
             android:name=".IncomingCallActivity"
             android:exported="true" >
             <intent-filter>
