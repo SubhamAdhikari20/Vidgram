@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+    implementation(libs.androidx.gridlayout)
 
     testImplementation(libs.junit)
     implementation (libs.glide)

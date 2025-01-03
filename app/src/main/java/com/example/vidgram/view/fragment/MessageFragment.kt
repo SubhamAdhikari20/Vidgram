@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.vidgram.ChatActivity
+import com.example.vidgram.view.activity.ChatActivity
 import com.example.vidgram.R
 import com.example.vidgram.UserChatAdapter
 import com.example.vidgram.UserChatInfo

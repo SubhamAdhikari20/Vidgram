@@ -140,7 +140,7 @@ class HomeFragment : Fragment() {
             // Handle comment click
             openCommentDialog(post)
         }
-
+        
         binding.recyclerViewPosts.adapter = postAdapter
 
 

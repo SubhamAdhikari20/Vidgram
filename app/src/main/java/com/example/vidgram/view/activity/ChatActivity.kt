@@ -1,4 +1,4 @@
-package com.example.vidgram
+package com.example.vidgram.view.activity
 
 import android.os.Bundle
 import android.widget.Button
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vidgram.databinding.ActivityChatBinding
+import com.example.vidgram.model.Message
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 

@@ -1,4 +1,4 @@
-package com.example.vidgram
+package com.example.vidgram.model
 data class UserChatInfo(
     var userID: String = "",
     var name: String ?=null,  // User's name
