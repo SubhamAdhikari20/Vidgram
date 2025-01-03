@@ -10,8 +10,10 @@ import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentSearchBinding
 
 
+
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

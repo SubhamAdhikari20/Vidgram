@@ -10,8 +10,9 @@ import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityBottomNavigationBinding
 import com.example.vidgram.databinding.FragmentAddPostBinding
 import com.example.vidgram.databinding.FragmentHomeBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class AddPostFragment : DialogFragment() {
+class AddPostFragment : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddPostBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,7 @@ class AddPostFragment : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentAddPostBinding.inflate(inflater, container, false)
 

@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentMyProfileBinding
-import com.example.vidgram.view.adapter.ViewPagerAdapter
+import com.example.vidgram.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MyProfileFragment : Fragment() {

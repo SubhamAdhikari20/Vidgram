@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentMessageBinding
-import com.example.vidgram.view.adapter.ChatRecyclerViewAdapter
+import com.example.vidgram.adapter.ChatRecyclerViewAdapter
 
 class MessageFragment : Fragment() {
     private lateinit var binding : FragmentMessageBinding

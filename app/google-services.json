@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "457709438284",
-    "project_id": "vidgram-5fbf3",
-    "storage_bucket": "vidgram-5fbf3.firebasestorage.app"
+    "project_number": "788424324398",
+    "firebase_url": "https://vidgram-code-gang-007-default-rtdb.firebaseio.com",
+    "project_id": "vidgram-code-gang-007",
+    "storage_bucket": "vidgram-code-gang-007.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:457709438284:android:cc4a124cc0b9e14795bbe9",
+        "mobilesdk_app_id": "1:788424324398:android:fc3ab35fe2b09d6068b6bf",
         "android_client_info": {
           "package_name": "com.example.vidgram"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCO3J5mucITsgf_MRzuV57xxYlg2FyMByU"
+          "current_key": "AIzaSyCsC5B9Npo8WIgcEEqjF2Ks4uQkG40KZC0"
         }
       ],
       "services": {

@@ -16,11 +16,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentHomeBinding
-import com.example.vidgram.view.adapter.PostFeedRecyclerViewAdapter
-import com.example.vidgram.view.model.Post
-import com.example.vidgram.view.model.Story
-import com.example.vidgram.view.adapter.StoryAdapter
-import com.example.vidgram.view.adapter.PostAdapter
+import com.example.vidgram.adapter.PostFeedRecyclerViewAdapter
+import com.example.vidgram.model.Post
+import com.example.vidgram.model.Story
+import com.example.vidgram.adapter.StoryAdapter
+import com.example.vidgram.adapter.PostAdapter
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -132,11 +132,23 @@ class HomeFragment : Fragment() {
             Post("Emma Brown", R.drawable.my_story_icon, R.drawable.person1, "Amazing hike!", "12:00", "24k", "1k", "1,080", "2.4k")
         )
 
-        val postAdapter = PostAdapter(posts)
+        val postAdapter = PostAdapter(posts) { post ->
+            // Handle comment click
+            openCommentDialog(post)
+        }
+        
         binding.recyclerViewPosts.adapter = postAdapter
 
 
         return binding.root
+    }
+
+    private fun openCommentDialog(post: Post) {
+        val commentDialog = CommentFragment() // Replace with your dialog fragment
+        val bundle = Bundle()
+//        bundle.putParcelable("post", post) // Pass the clicked post object
+        commentDialog.arguments = bundle
+        commentDialog.show(parentFragmentManager, "CommentFragment")
     }
 
 
