@@ -42,7 +42,6 @@ android {
 
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -52,19 +51,14 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.gridlayout)
     implementation(libs.androidx.runtime.android)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.navigation.ui)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+    implementation (libs.glide)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     testImplementation(libs.junit)
-    implementation (libs.glide)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-
-    implementation(libs.glide)
 
 }

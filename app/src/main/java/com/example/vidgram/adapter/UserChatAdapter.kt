@@ -1,4 +1,4 @@
-package com.example.vidgram
+package com.example.vidgram.adapter
 
 import android.content.Context
 import android.util.Log
@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
+import com.example.vidgram.model.UserChatInfo
 import java.text.SimpleDateFormat
 import java.util.*
 

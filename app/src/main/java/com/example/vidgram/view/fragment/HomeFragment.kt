@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -32,7 +33,7 @@ class HomeFragment : Fragment() {
     private val postAvaterImageList: ArrayList<Int> = ArrayList()
     private val postNameList: ArrayList<String> = ArrayList()
     private val messageList: ArrayList<String> = ArrayList()
-    private lateinit var postFeedAdapter : PostFeedRecyclerViewAdapter
+//    private lateinit var postFeedAdapter : PostFeedRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,9 +95,9 @@ class HomeFragment : Fragment() {
 
 
         // Add Story Button Logic
-        binding.addStoryImage.setOnClickListener {
-            openAddStoryFragment()
-        }
+//        binding.addStoryImage.setOnClickListener {
+//            openAddStoryFragment()
+//        }
 
         // Initialize RecyclerView for stories
         binding.recyclerViewStories.layoutManager =

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Notification_Activity">
+    tools:context=".view.activity.NotificationActivity">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/back_btn"

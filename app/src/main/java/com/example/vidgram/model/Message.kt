@@ -1,4 +1,4 @@
-package com.example.vidgram
+package com.example.vidgram.model
 
 data class Message(
     val senderId: String = "",

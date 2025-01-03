@@ -8,18 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.vidgram.ChatActivity
+import com.example.vidgram.view.activity.ChatActivity
 import com.example.vidgram.R
-import com.example.vidgram.UserChatAdapter
-import com.example.vidgram.UserChatInfo
+import com.example.vidgram.adapter.UserChatAdapter
+import com.example.vidgram.model.UserChatInfo
 import com.example.vidgram.databinding.FragmentMessageBinding
 import com.example.vidgram.adapter.ChatRecyclerViewAdapter
 
-import com.google.firebase.auth.FirebaseAuth
+
 import com.google.firebase.database.*
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class MessageFragment : Fragment() {
 

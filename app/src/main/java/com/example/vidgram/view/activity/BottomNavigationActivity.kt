@@ -30,8 +30,6 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         replaceFragment(HomeFragment())
 
-
-
         binding.bottomNavigation.setOnItemSelectedListener { menu ->
             when(menu.itemId){
                 R.id.navHome -> replaceFragment(HomeFragment())
@@ -43,7 +41,6 @@ class BottomNavigationActivity : AppCompatActivity() {
             }
             true
         }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
