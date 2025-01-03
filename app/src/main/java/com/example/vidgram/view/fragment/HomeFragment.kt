@@ -16,7 +16,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentHomeBinding
-import com.example.vidgram.adapter.PostFeedRecyclerViewAdapter
 import com.example.vidgram.model.Post
 import com.example.vidgram.model.Story
 import com.example.vidgram.adapter.StoryAdapter
@@ -96,6 +95,11 @@ class HomeFragment : Fragment() {
 //        }
 
 
+        // Add Story Button Logic
+        binding.addStoryImage.setOnClickListener {
+            openAddStoryFragment()
+        }
+
         // Initialize RecyclerView for stories
         binding.recyclerViewStories.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -136,7 +140,7 @@ class HomeFragment : Fragment() {
             // Handle comment click
             openCommentDialog(post)
         }
-        
+
         binding.recyclerViewPosts.adapter = postAdapter
 
 
@@ -156,6 +160,11 @@ class HomeFragment : Fragment() {
         val fragmentManager: FragmentManager = parentFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout, fragment)
+        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
+    }
+
+    private fun openAddStoryFragment() {
+        replaceFragment(AddStoryFragment())
     }
 }
