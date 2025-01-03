@@ -92,8 +92,6 @@
         android:id="@+id/Profile_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="96dp"
         android:text="Profile"
         android:textSize="23dp"
         app:layout_constraintStart_toEndOf="@+id/Profile_Btn"
@@ -103,7 +101,6 @@
         android:id="@+id/Notification_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:text="Notification"
         android:textSize="23dp"
@@ -114,8 +111,6 @@
         android:id="@+id/Activities_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:text="Activities"
         android:textSize="23dp"
         app:layout_constraintStart_toEndOf="@+id/Activity_Btn"
@@ -125,8 +120,6 @@
         android:id="@+id/Privacy_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:text="Privacy"
         android:textSize="23dp"
         app:layout_constraintStart_toEndOf="@+id/Privacy_Btn"
@@ -136,8 +129,6 @@
         android:id="@+id/Security_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:text="Security"
         android:textSize="23dp"
         app:layout_constraintStart_toEndOf="@+id/Security_Btn"
@@ -147,8 +138,6 @@
         android:id="@+id/About_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:text="About"
         android:textSize="23dp"
         app:layout_constraintStart_toEndOf="@+id/About_Btn"
@@ -213,48 +202,5 @@
         android:background="@drawable/right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Sec_Id" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="159dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/About_Id">
-
-
-        <TextView
-            android:id="@+id/Log_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="16dp"
-            android:text="Logins"
-            android:textSize="23dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:text="Button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Log_id" />
-
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button8" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
