@@ -1,4 +1,4 @@
-package com.example.vidgram.view.adapter
+package com.example.vidgram.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

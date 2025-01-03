@@ -1,18 +1,20 @@
-package com.example.vidgram.view.adapter
+package com.example.vidgram.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
-import com.example.vidgram.view.model.Post
+import com.example.vidgram.model.Post
 
 class PostAdapter(
-    private val postList: List<Post>
-    ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+    private val postList: List<Post>,
+    private val onCommentClick: (Post) -> Unit
+) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val username: TextView = itemView.findViewById(R.id.postUserName)
@@ -21,6 +23,7 @@ class PostAdapter(
         val like: TextView = itemView.findViewById(R.id.postFeedLikeText)
         val dislike: TextView = itemView.findViewById(R.id.postFeedDislikeText)
         val comment: TextView = itemView.findViewById(R.id.postFeedCommentText)
+        val commentButton: Button = itemView.findViewById(R.id.postFeedCommentButton)
         val share: TextView = itemView.findViewById(R.id.postFeedShareText)
         val userAvatar: ImageView = itemView.findViewById(R.id.postFeedProfileImage)
         val postImage: ImageView = itemView.findViewById(R.id.postFeedMedia)
@@ -47,6 +50,15 @@ class PostAdapter(
         holder.share.text = post.share
         holder.userAvatar.setImageResource(post.userAvatar)
         holder.postImage.setImageResource(post.postImage)
+
+        // Set click listener for the comment
+        holder.comment.setOnClickListener {
+            onCommentClick(post) // Trigger callback when comment is clicked
+        }
+
+        holder.commentButton.setOnClickListener {
+            onCommentClick(post) // Pass the clicked post
+        }
 
         // Set images using Glide or Picasso
 //        Glide.with(holder.itemView.context).load(post.userAvatar).into(holder.userAvatar)

@@ -13,7 +13,7 @@ import com.example.vidgram.R
 import com.example.vidgram.UserChatAdapter
 import com.example.vidgram.UserChatInfo
 import com.example.vidgram.databinding.FragmentMessageBinding
-import com.example.vidgram.view.adapter.ChatRecyclerViewAdapter
+import com.example.vidgram.adapter.ChatRecyclerViewAdapter
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*

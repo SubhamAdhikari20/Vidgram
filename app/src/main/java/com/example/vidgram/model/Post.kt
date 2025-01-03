@@ -1,4 +1,4 @@
-package com.example.vidgram.view.model
+package com.example.vidgram.model
 
 data class Post(
     val username: String,        // Username of the post author

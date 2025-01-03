@@ -14,10 +14,12 @@ import com.example.vidgram.view.fragment.CommunityFragment
 import com.example.vidgram.view.fragment.HomeFragment
 import com.example.vidgram.view.fragment.MessageFragment
 import com.example.vidgram.view.fragment.NotificationFragment
-import com.example.vidgram.view.fragment.PostFragment
+import com.example.vidgram.view.fragment.AddPostFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class BottomNavigationActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBottomNavigationBinding
+    lateinit var bottomSheetDialog: BottomSheetDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +30,13 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         replaceFragment(HomeFragment())
 
+
+
         binding.bottomNavigation.setOnItemSelectedListener { menu ->
             when(menu.itemId){
                 R.id.navHome -> replaceFragment(HomeFragment())
                     R.id.navMessage -> replaceFragment(MessageFragment())
-                        R.id.navPost -> replaceFragment(PostFragment())
+                        R.id.navPost -> showAddPostDialog()
                             R.id.navCommunity -> replaceFragment(CommunityFragment())
                                 R.id.navNotification -> replaceFragment(NotificationFragment())
                                     else -> {}
@@ -48,6 +52,10 @@ class BottomNavigationActivity : AppCompatActivity() {
         }
     }
 
+    private fun showAddPostDialog() {
+        val addPostFragment = AddPostFragment()
+        addPostFragment.show(supportFragmentManager, "AddPostFragment")
+    }
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager : FragmentManager = supportFragmentManager
