@@ -13,7 +13,6 @@ import com.example.vidgram.databinding.ActivityBottomNavigationBinding
 import com.example.vidgram.view.fragment.CommunityFragment
 import com.example.vidgram.view.fragment.HomeFragment
 import com.example.vidgram.view.fragment.MessageFragment
-import com.example.vidgram.view.fragment.MyProfileFragment
 import com.example.vidgram.view.fragment.NotificationFragment
 import com.example.vidgram.view.fragment.PostFragment
 
@@ -27,11 +26,11 @@ class BottomNavigationActivity : AppCompatActivity() {
         binding = ActivityBottomNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        replaceFragment(HomeFragment<Any>())
+        replaceFragment(HomeFragment())
 
         binding.bottomNavigation.setOnItemSelectedListener { menu ->
             when(menu.itemId){
-                R.id.navHome -> replaceFragment(HomeFragment<Any>())
+                R.id.navHome -> replaceFragment(HomeFragment())
                     R.id.navMessage -> replaceFragment(MessageFragment())
                         R.id.navPost -> replaceFragment(PostFragment())
                             R.id.navCommunity -> replaceFragment(CommunityFragment())
@@ -48,6 +47,7 @@ class BottomNavigationActivity : AppCompatActivity() {
             insets
         }
     }
+
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager : FragmentManager = supportFragmentManager

@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
     implementation(libs.circleimageview)
+    implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.gridlayout)
     testImplementation(libs.junit)
     implementation (libs.glide)

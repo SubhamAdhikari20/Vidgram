@@ -1,4 +1,4 @@
-package com.example.week2.adapter
+package com.example.vidgram.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,31 +10,50 @@ import com.bumptech.glide.Glide
 import com.example.vidgram.R
 import com.example.vidgram.view.model.Post
 
-class PostAdapter(private val postList: List<Post>) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(
+    private val postList: List<Post>
+    ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+
+    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val username: TextView = itemView.findViewById(R.id.postUserName)
+        val caption: TextView = itemView.findViewById(R.id.postFeedTitle)
+        val time: TextView = itemView.findViewById(R.id.postFeedTime)
+        val like: TextView = itemView.findViewById(R.id.postFeedLikeText)
+        val dislike: TextView = itemView.findViewById(R.id.postFeedDislikeText)
+        val comment: TextView = itemView.findViewById(R.id.postFeedCommentText)
+        val share: TextView = itemView.findViewById(R.id.postFeedShareText)
+        val userAvatar: ImageView = itemView.findViewById(R.id.postFeedProfileImage)
+        val postImage: ImageView = itemView.findViewById(R.id.postFeedMedia)
+//        val likeButton: ImageView = itemView.findViewById(R.id.likeButton)
+//        val commentButton: ImageView = itemView.findViewById(R.id.commentButton)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.insta_post, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.sample_post, parent, false)
         return PostViewHolder(itemView)
     }
+
+    override fun getItemCount() = postList.size
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = postList[position]
         // Bind data to the views
         holder.username.text = post.username
         holder.caption.text = post.caption
+        holder.time.text = post.time
+        holder.like.text = post.like
+        holder.dislike.text = post.dislike
+        holder.comment.text = post.comment
+        holder.share.text = post.share
+        holder.userAvatar.setImageResource(post.userAvatar)
+        holder.postImage.setImageResource(post.postImage)
+
         // Set images using Glide or Picasso
-        Glide.with(holder.itemView.context).load(post.userAvatar).into(holder.userAvatar)
-        Glide.with(holder.itemView.context).load(post.postImage).into(holder.postImage)
+//        Glide.with(holder.itemView.context).load(post.userAvatar).into(holder.userAvatar)
+//        Glide.with(holder.itemView.context).load(post.postImage).into(holder.postImage)
     }
 
-    override fun getItemCount() = postList.size
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val username: TextView = itemView.findViewById(R.id.username)
-        val caption: TextView = itemView.findViewById(R.id.caption)
-        val userAvatar: ImageView = itemView.findViewById(R.id.userAvatar)
-        val postImage: ImageView = itemView.findViewById(R.id.postImage)
-        val likeButton: ImageView = itemView.findViewById(R.id.likeButton)
-        val commentButton: ImageView = itemView.findViewById(R.id.commentButton)
-    }
+
+
 }
