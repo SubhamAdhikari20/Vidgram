@@ -8,12 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.vidgram.view.activity.ChatActivity
 import com.example.vidgram.R
 import com.example.vidgram.adapter.UserChatAdapter
 import com.example.vidgram.model.UserChatInfo
 import com.example.vidgram.databinding.FragmentMessageBinding
 import com.example.vidgram.adapter.ChatRecyclerViewAdapter
+import com.example.vidgram.view.activity.ChatMessageActivity
 
 
 import com.google.firebase.database.*
@@ -27,10 +27,10 @@ class MessageFragment : Fragment() {
     private lateinit var usersRef: DatabaseReference
     private lateinit var chatsRef: DatabaseReference
 
-    private val imageList: ArrayList<Int> = ArrayList()
-    private val nameList: ArrayList<String> = ArrayList()
-    private val messageList: ArrayList<String> = ArrayList()
-    private lateinit var chatAdapter : ChatRecyclerViewAdapter;
+//    private val imageList: ArrayList<Int> = ArrayList()
+//    private val nameList: ArrayList<String> = ArrayList()
+//    private val messageList: ArrayList<String> = ArrayList()
+//    private late init var chatAdapter : ChatRecyclerViewAdapter;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class MessageFragment : Fragment() {
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = UserChatAdapter(userChatInfoList, requireContext()) { user ->
             val chatId = generateChatId(user)
-            val intent = Intent(requireContext(), ChatActivity::class.java).apply {
+            val intent = Intent(requireContext(), ChatMessageActivity::class.java).apply {
                 putExtra("name", user.name)
                 putExtra("chatID", chatId)
                 putExtra("receiverId", user.userID)
@@ -65,19 +65,19 @@ class MessageFragment : Fragment() {
         // Fetch user data from Firebase
         fetchUserData()
 
-        initializeData()
+//        initializeData()
 
-        // Set up adapter
-        chatAdapter = ChatRecyclerViewAdapter(
-            requireContext(),
-            imageList,
-            nameList,
-            messageList
-        )
+//        // Set up adapter
+//        chatAdapter = ChatRecyclerViewAdapter(
+//            requireContext(),
+//            imageList,
+//            nameList,
+//            messageList
+//        )
 
         // Vertical Scroll
-        binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.chatRecyclerView.adapter = chatAdapter
+//        binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+//        binding.chatRecyclerView.adapter = chatAdapter
 
 
         return binding.root
@@ -160,50 +160,51 @@ class MessageFragment : Fragment() {
 //            FirebaseAuth.getInstance().currentUser?.uid
         return if (loggedInUserId != null) {
             if (loggedInUserId < user.userID) {
-                "$loggedInUserId-${user.userID}"
-            } else {
                 "${user.userID}-$loggedInUserId"
+            } else {
+                "$loggedInUserId-${user.userID}"
+
             }
         } else {
             ""
         }
     }
 
-    private fun initializeData() {
-        // Populate data
-        imageList.add(R.drawable.user_chat_male)
-        imageList.add(R.drawable.user_chat_female)
-        imageList.add(R.drawable.user_chat_male)
-        imageList.add(R.drawable.user_chat_female)
-        imageList.add(R.drawable.user_chat_male)
-        imageList.add(R.drawable.user_chat_male)
-        imageList.add(R.drawable.user_chat_female)
-        imageList.add(R.drawable.user_chat_male)
-        imageList.add(R.drawable.user_chat_female)
-        imageList.add(R.drawable.user_chat_male)
-
-        nameList.add("Subham")
-        nameList.add("Rijan")
-        nameList.add("Yogesh")
-        nameList.add("Helan")
-        nameList.add("Prajesh")
-        nameList.add("Subham")
-        nameList.add("Rijan")
-        nameList.add("Yogesh")
-        nameList.add("Helan")
-        nameList.add("Prajesh")
-
-        messageList.add("This is hell a good")
-        messageList.add("This is hell a good")
-        messageList.add("This is hell a good")
-        messageList.add("This is hell a good")
-        messageList.add("This is hell a good")
-        messageList.add("This is hell a good")
-        messageList.add("This is hell a good")
-        messageList.add("This is hell a good")
-        messageList.add("This is hell a good")
-        messageList.add("This is hell a good")
-    }
+//    private fun initializeData() {
+//        // Populate data
+//        imageList.add(R.drawable.user_chat_male)
+//        imageList.add(R.drawable.user_chat_female)
+//        imageList.add(R.drawable.user_chat_male)
+//        imageList.add(R.drawable.user_chat_female)
+//        imageList.add(R.drawable.user_chat_male)
+//        imageList.add(R.drawable.user_chat_male)
+//        imageList.add(R.drawable.user_chat_female)
+//        imageList.add(R.drawable.user_chat_male)
+//        imageList.add(R.drawable.user_chat_female)
+//        imageList.add(R.drawable.user_chat_male)
+//
+//        nameList.add("Subham")
+//        nameList.add("Rijan")
+//        nameList.add("Yogesh")
+//        nameList.add("Helan")
+//        nameList.add("Prajesh")
+//        nameList.add("Subham")
+//        nameList.add("Rijan")
+//        nameList.add("Yogesh")
+//        nameList.add("Helan")
+//        nameList.add("Prajesh")
+//
+//        messageList.add("This is hell a good")
+//        messageList.add("This is hell a good")
+//        messageList.add("This is hell a good")
+//        messageList.add("This is hell a good")
+//        messageList.add("This is hell a good")
+//        messageList.add("This is hell a good")
+//        messageList.add("This is hell a good")
+//        messageList.add("This is hell a good")
+//        messageList.add("This is hell a good")
+//        messageList.add("This is hell a good")
+//    }
 
     companion object {
 

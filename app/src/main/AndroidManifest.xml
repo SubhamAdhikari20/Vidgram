@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Vidgram"
         tools:targetApi="31">
+        <activity
+            android:name=".view.activity.ChatActivity"
+            android:exported="true" >
 
+        </activity>
         <activity
             android:name=".view.activity.BottomNavigationActivity"
             android:exported="true" >

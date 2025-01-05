@@ -99,6 +99,12 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/messageRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <EditText
@@ -109,16 +115,17 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/message_search_bar"
-        android:drawableStart="@drawable/camera_icon"
-        android:drawableEnd="@drawable/send_message_icon"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:hint="Message"
-        android:inputType="text"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    android:drawableStart="@drawable/camera_icon"
+    android:drawableEnd="@drawable/send_message_icon"
+    android:drawablePadding="10dp"
+    android:ems="10"
+    android:hint="Message"
+    android:inputType="text"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
