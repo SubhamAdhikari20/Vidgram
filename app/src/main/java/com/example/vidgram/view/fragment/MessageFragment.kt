@@ -53,7 +53,7 @@ class MessageFragment : Fragment() {
         adapter = UserChatAdapter(userChatInfoList, requireContext()) { user ->
             val chatId = generateChatId(user)
             val intent = Intent(requireContext(), ChatMessageActivity::class.java).apply {
-                putExtra("name", user.name)
+                putExtra("name", user.fullName)
                 putExtra("chatID", chatId)
                 putExtra("receiverId", user.userID)
                 putExtra("receiverName", user.username)
@@ -128,7 +128,7 @@ class MessageFragment : Fragment() {
 
                                 val userChatInfo = UserChatInfo(
                                     userID = userID,
-                                    name = user?.name,
+                                    fullName= user?.fullName,
                                     username = user?.username ?: "Unknown",
                                     profilepic = user?.profilepic ?: "",
                                     lastMessage = lastMessage,

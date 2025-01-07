@@ -101,7 +101,7 @@ class PhoneNumberSignUpActivity : AppCompatActivity() {
             bundle?.putString("phonenumber", phoneNumber)
             bundle?.putString("country", country)
 
-            val intent = Intent(this, VerificationSignUpActivity::class.java)
+            val intent = Intent(this, EmailSignUpActivity::class.java)
             intent.putExtras(bundle!!)
             startActivity(intent)
             finish()

@@ -106,19 +106,14 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:gravity="center"
+            android:gravity="start"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/maleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_weight="1"
-                android:text="Male" />
+
 
             <RadioButton
                 android:id="@+id/male"
+                android:text="Male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -130,19 +125,14 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:gravity="center"
+            android:gravity="start"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/femaleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_weight="1"
-                android:text="Female" />
+
 
             <RadioButton
                 android:id="@+id/female"
+                android:text="Female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

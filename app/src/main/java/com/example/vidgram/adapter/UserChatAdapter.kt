@@ -27,9 +27,9 @@ class UserChatAdapter(
 
     override fun onBindViewHolder(holder: UserChatViewHolder, position: Int) {
         val user = userList[position]
-        holder.usernameTextView.text = user.name // Display the user's name
+        holder.usernameTextView.text = user.fullName // Display the user's name
 
-        Log.d("UserChatAdapter", "User: ${user.name}")
+        Log.d("UserChatAdapter", "User: ${user.fullName}")
 
         holder.lastMessageTextView.text = user.lastMessage // Display last message
         holder.timestampTextView.text =
