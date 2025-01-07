@@ -51,7 +51,7 @@ class ChatMessageActivity : AppCompatActivity() {
 
         // Get user data passed from MessageListActivity
         receiverId = intent.getStringExtra("receiverId") ?: ""
-        senderId = "123" // Example sender ID (replace with actual sender ID)
+        senderId = auth.currentUser?.uid.toString()// Example sender ID (replace with actual sender ID)
 
         // Create chat ID based on user IDs
         chatId = if (senderId < receiverId) "$receiverId-$senderId" else "$senderId-$receiverId"

@@ -14,6 +14,7 @@ import com.example.vidgram.model.UserChatInfo
 import com.example.vidgram.databinding.FragmentMessageBinding
 import com.example.vidgram.adapter.ChatRecyclerViewAdapter
 import com.example.vidgram.view.activity.ChatMessageActivity
+import com.google.firebase.auth.FirebaseAuth
 
 
 import com.google.firebase.database.*
@@ -92,8 +93,7 @@ class MessageFragment : Fragment() {
     private fun fetchUserData() {
         userChatInfoList.clear()
 
-        val loggedInUserId = "123"
-//            FirebaseAuth.getInstance().currentUser?.uid
+        val loggedInUserId = FirebaseAuth.getInstance().currentUser?.uid
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
@@ -156,8 +156,7 @@ class MessageFragment : Fragment() {
     }
 
     private fun generateChatId(user: UserChatInfo): String {
-        val loggedInUserId = "123"
-//            FirebaseAuth.getInstance().currentUser?.uid
+        val loggedInUserId = FirebaseAuth.getInstance().currentUser?.uid
         return if (loggedInUserId != null) {
             if (loggedInUserId < user.userID) {
                 "${user.userID}-$loggedInUserId"
