@@ -76,7 +76,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/arrowButtonFP1"
         android:layout_width="30dp"
-        android:layout_height="29dp"
+        android:layout_height="30dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/arrow"

@@ -7,45 +7,40 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.NotificationActivity">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/back_btn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="57dp"
-        android:background="@drawable/arrow"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout6"
+        android:layout_width="412dp"
+        android:layout_height="73dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notification"
-        android:textSize="30dp"
-        tools:layout_editor_absoluteX="138dp"
-        tools:layout_editor_absoluteY="57dp" />
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="130dp"
+            android:text="Notification"
+            android:textSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/notifn_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notification"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="163dp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button12"
-        android:layout_width="35dp"
-        android:layout_height="36dp"
-        android:background="@drawable/notifi"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="163dp" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button13"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:background="@drawable/notibtn"
-        tools:layout_editor_absoluteX="360dp"
-        tools:layout_editor_absoluteY="163dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="816dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
 </androidx.constraintlayout.widget.ConstraintLayout>
