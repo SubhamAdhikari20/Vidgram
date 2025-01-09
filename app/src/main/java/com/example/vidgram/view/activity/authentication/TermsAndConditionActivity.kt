@@ -18,7 +18,7 @@ import com.example.vidgram.viewmodel.UserAuthViewModel
 class TermsAndConditionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTermsAndConditionBinding
     private lateinit var userViewModel: UserAuthViewModel
-    lateinit var loadingDialogUtils: LoadingDialogUtils
+    private lateinit var loadingDialogUtils: LoadingDialogUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class TermsAndConditionActivity : AppCompatActivity() {
         // Handle back button click
         binding.arrowButton7.setOnClickListener {
             val intent = Intent(this, PasswordSignUpActivity::class.java)
-            intent.putExtras(bundle!!) // Pass the data to the next activity
+            intent.putExtras(bundle!!)
             startActivity(intent)
             finish()
         }

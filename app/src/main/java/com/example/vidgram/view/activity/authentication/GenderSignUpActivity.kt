@@ -67,7 +67,7 @@ class GenderSignUpActivity : AppCompatActivity() {
                 val intent = Intent(this, PhoneNumberSignUpActivity::class.java)
                 intent.putExtras(bundle!!)
                 startActivity(intent)
-                finish() //
+                finish()
             }
         }
 

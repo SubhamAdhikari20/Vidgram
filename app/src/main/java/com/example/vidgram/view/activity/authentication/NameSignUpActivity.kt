@@ -15,8 +15,8 @@ import com.example.vidgram.viewmodel.UserAuthViewModel
 
 class NameSignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNameSignUpBinding
-    lateinit var userAuthViewModel: UserAuthViewModel
-    lateinit var loadingDialogUtils: LoadingDialogUtils
+    private lateinit var userAuthViewModel: UserAuthViewModel
+    private lateinit var loadingDialogUtils: LoadingDialogUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

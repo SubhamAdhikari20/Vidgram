@@ -15,7 +15,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var userAuthViewModel: UserAuthViewModel
-    lateinit var loadingDialogUtils: LoadingDialogUtils
+    private lateinit var loadingDialogUtils: LoadingDialogUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
