@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.authentication.AddNumberActivity">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button4"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/back_arrow_resized"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Number"
+        android:textSize="24dp"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="30dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnConfirmChange"
+        android:layout_width="364dp"
+        android:layout_height="47dp"
+        android:background="@drawable/authentication_btn"
+        android:text="Confirm Change"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="23dp"
+        tools:layout_editor_absoluteY="802dp" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="118dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
