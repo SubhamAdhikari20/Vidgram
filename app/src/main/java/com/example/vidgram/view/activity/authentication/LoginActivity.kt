@@ -34,15 +34,15 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.loginButton.setOnClickListener {
-
+            loadingDialogUtils.show()
             val email = binding.emailInputText.text.toString()
             val pass = binding.passwordInputText.text.toString()
 
             if (email.isNotEmpty() && pass.isNotEmpty()) {
-                loadingDialogUtils.show()
                 // Call ViewModel to login
                 userAuthViewModel.login(email, pass) { success, message ->
                     if (success) {
+
                         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
                         val intent = Intent(this, BottomNavigationActivity::class.java)
                         startActivity(intent)
