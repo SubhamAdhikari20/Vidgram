@@ -99,10 +99,10 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_image">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subham Adhikari" />
+            android:text="Name comes here" />
 
         <TextView
             android:id="@+id/textView6"
@@ -242,11 +242,11 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="1dp"
         android:backgroundTint="#D9D9D9"
-        app:tabIconTint="@color/black"
-        app:tabIndicatorColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfileButton">
+        app:layout_constraintTop_toBottomOf="@+id/editProfileButton"
+        app:tabIconTint="@color/black"
+        app:tabIndicatorColor="@color/black">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

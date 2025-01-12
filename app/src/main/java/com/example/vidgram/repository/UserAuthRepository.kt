@@ -1,6 +1,7 @@
 package com.example.vidgram.repository
 
 import com.example.vidgram.model.UserAuthModel
+import com.google.firebase.auth.FirebaseUser
 
 interface UserAuthRepository {
     fun login(
@@ -24,6 +25,27 @@ interface UserAuthRepository {
         userID:String,
         userModel: UserAuthModel,
         callback:(Boolean, String) -> Unit
+    )
+
+    fun logout(
+        callback: (Boolean, String) -> Unit
+    )
+
+    // Authentication Database
+    fun getCurrentUser(
+
+    ) : FirebaseUser?
+
+    // Real-time Database
+    fun getUserFromDatabase(
+        userID: String,
+        callback: (UserAuthModel?, Boolean, String) -> Unit
+    )
+
+    fun editProfile(
+        userID: String,
+        data: MutableMap<String, Any>,
+        callback: (Boolean, String) -> Unit
     )
 
 }
