@@ -2,6 +2,7 @@ package com.example.vidgram.view.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -15,9 +16,13 @@ import com.example.vidgram.view.fragment.HomeFragment
 import com.example.vidgram.view.fragment.MessageFragment
 import com.example.vidgram.view.fragment.NotificationFragment
 import com.example.vidgram.view.fragment.AddPostFragment
+import com.example.vidgram.view.fragment.NewAddPost
+import com.example.vidgram.viewmodel.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class BottomNavigationActivity : AppCompatActivity() {
+    private val sharedViewModel: SharedViewModel by viewModels() // Shared ViewModel
+
     private lateinit var binding : ActivityBottomNavigationBinding
     lateinit var bottomSheetDialog: BottomSheetDialog
 
@@ -50,7 +55,7 @@ class BottomNavigationActivity : AppCompatActivity() {
     }
 
     private fun showAddPostDialog() {
-        val addPostFragment = AddPostFragment()
+        val addPostFragment =  NewAddPost()
         addPostFragment.show(supportFragmentManager, "AddPostFragment")
     }
 

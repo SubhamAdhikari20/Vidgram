@@ -11,6 +11,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
@@ -19,9 +20,11 @@ import com.example.vidgram.model.Post
 import com.example.vidgram.model.Story
 import com.example.vidgram.adapter.StoryAdapter
 import com.example.vidgram.adapter.PostAdapter
+import com.example.vidgram.viewmodel.SharedViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     // Story Recycler View
     private val storyImageList: ArrayList<Int> = ArrayList()
@@ -124,7 +127,7 @@ class HomeFragment : Fragment() {
         // Initialize RecyclerView for posts
         binding.recyclerViewPosts.layoutManager = LinearLayoutManager(requireContext())
 
-        val posts = listOf(
+        val posts = mutableListOf(
             Post("John Doe", R.drawable.my_story_icon, R.drawable.person1, "Enjoying the sunset!", "12:00", "24k", "1k", "1,080", "2.4k"),
             Post("Alice Smith", R.drawable.my_story_icon, R.drawable.person1, "Had a great day!", "12:00", "24k", "1k", "1,080", "2.4k"),
             Post("Bob Lee", R.drawable.my_story_icon, R.drawable.person1, "Coffee break!", "12:00", "24k", "1k", "1,080", "2.4k"),
@@ -144,7 +147,10 @@ class HomeFragment : Fragment() {
 
 
         return binding.root
+
     }
+
+
 
     private fun openCommentDialog(post: Post) {
         val commentDialog = CommentFragment() // Replace with your dialog fragment

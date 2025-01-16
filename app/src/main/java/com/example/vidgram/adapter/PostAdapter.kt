@@ -66,6 +66,11 @@ class PostAdapter(
     }
 
 
+    fun updatePosts(newPosts: List<Post>) {
+        (postList as MutableList).clear()
+        postList.addAll(newPosts)
+        notifyDataSetChanged()
+    }
 
 
 }

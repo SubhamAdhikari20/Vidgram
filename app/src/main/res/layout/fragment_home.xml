@@ -78,6 +78,8 @@
             android:orientation="vertical">
 
             <!-- RecyclerView for Stories -->
+
+            <!-- RecyclerView for Posts -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewStories"
                 android:layout_width="match_parent"
@@ -86,7 +88,6 @@
                 android:orientation="horizontal"
                 tools:listitem="@layout/item_story" />
 
-            <!-- RecyclerView for Posts -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewPosts"
                 android:layout_width="match_parent"
