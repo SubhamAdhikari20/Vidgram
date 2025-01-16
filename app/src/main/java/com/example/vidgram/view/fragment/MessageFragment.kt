@@ -47,6 +47,11 @@ class MessageFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMessageBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Initialize RecyclerView and Adapter
         userChatInfoList = mutableListOf()
@@ -80,8 +85,6 @@ class MessageFragment : Fragment() {
 //        binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 //        binding.chatRecyclerView.adapter = chatAdapter
 
-
-        return binding.root
     }
 
     override fun onResume() {
@@ -92,7 +95,6 @@ class MessageFragment : Fragment() {
 
     private fun fetchUserData() {
         userChatInfoList.clear()
-
         val loggedInUserId = FirebaseAuth.getInstance().currentUser?.uid
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -205,9 +207,6 @@ class MessageFragment : Fragment() {
 //        messageList.add("This is hell a good")
 //    }
 
-    companion object {
-
-    }
 
 
 }

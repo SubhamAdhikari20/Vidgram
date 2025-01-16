@@ -20,9 +20,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
             android:elevation="5dp"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme">
@@ -30,8 +30,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
                 android:orientation="horizontal"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="10dp">
@@ -74,6 +72,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editProfileImageView" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/editCoverImageBtn"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/edit_profile_custom_btns"
+        android:drawableEnd="@drawable/edit_profile_btn_icon"
+        android:padding="5dp"
+        android:text="Edit Cover"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/editProfileImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/profile_image" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/editPictureBtn"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="150dp"
+        android:background="@drawable/edit_profile_custom_btns"
+        android:drawableEnd="@drawable/edit_profile_btn_icon"
+        android:padding="5dp"
+        android:text="Edit Picture"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/nameProfileCardView"
         android:layout_width="match_parent"
@@ -88,7 +118,7 @@
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image">
+        app:layout_constraintTop_toBottomOf="@+id/editPictureBtn">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,6 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
+                android:textColor="#9C9696"
                 android:textSize="13sp" />
 
             <TextView
@@ -115,18 +146,16 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/emailProfileCardView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nameProfileCardView"
+        app:layout_constraintStart_toStartOf="@+id/nameProfileCardView"
         app:layout_constraintTop_toBottomOf="@+id/nameProfileCardView">
 
         <LinearLayout
@@ -140,6 +169,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email"
+                android:textColor="#9C9696"
                 android:textSize="13sp" />
 
             <TextView
@@ -155,18 +185,16 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/contactProfileCardView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/emailProfileCardView"
+        app:layout_constraintStart_toStartOf="@+id/emailProfileCardView"
         app:layout_constraintTop_toBottomOf="@+id/emailProfileCardView">
 
         <LinearLayout
@@ -180,6 +208,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Contact"
+                android:textColor="#9C9696"
                 android:textSize="13sp" />
 
             <TextView
@@ -193,19 +222,17 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/passwordProfileCardView"
-        android:layout_width="match_parent"
+        android:id="@+id/bioProfileCardView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/contactProfileCardView"
+        app:layout_constraintStart_toStartOf="@+id/contactProfileCardView"
         app:layout_constraintTop_toBottomOf="@+id/contactProfileCardView">
 
         <LinearLayout
@@ -215,20 +242,60 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/passwordLabelTextView"
+                android:id="@+id/bioLabelTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Password"
+                android:text="Bio"
+                android:textColor="#9C9696"
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/passwordTextView"
+                android:id="@+id/bioTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="***********"
+                android:text="Bio"
                 android:textSize="16sp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/passwordProfileCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="12dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintEnd_toEndOf="@+id/bioProfileCardView"
+        app:layout_constraintStart_toStartOf="@+id/bioProfileCardView"
+        app:layout_constraintTop_toBottomOf="@+id/bioProfileCardView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/genderLabelTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:textColor="#9C9696"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/genderTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

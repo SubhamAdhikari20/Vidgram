@@ -22,7 +22,5 @@ class NotificationFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_notification, container, false)
     }
 
-    companion object {
 
-    }
 }

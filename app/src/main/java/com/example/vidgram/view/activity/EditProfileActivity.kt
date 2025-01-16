@@ -19,6 +19,7 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
 
@@ -27,5 +28,11 @@ class EditProfileActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        // Go back to the previous fragment or activity
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

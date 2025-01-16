@@ -1,17 +1,20 @@
 package com.example.vidgram.view.fragment
 
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
@@ -20,11 +23,9 @@ import com.example.vidgram.model.Post
 import com.example.vidgram.model.Story
 import com.example.vidgram.adapter.StoryAdapter
 import com.example.vidgram.adapter.PostAdapter
-import com.example.vidgram.viewmodel.SharedViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     // Story Recycler View
     private val storyImageList: ArrayList<Int> = ArrayList()
@@ -49,29 +50,56 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-//        binding.toolbar.inflateMenu(R.menu.home_page_toolbar)
-//        binding.toolbar.setOnMenuItemClickListener { menu ->
-//            when (menu.itemId) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        // Set up the toolbar in the hosting activity
+//        val activity = activity as? AppCompatActivity
+//        activity?.setSupportActionBar(binding.toolbar)
+//        activity?.supportActionBar?.setDisplayShowTitleEnabled(false)
+
+
+        // Configure the Toolbar
+//        binding.toolbar.title = "" // Remove default title if needed
+//        binding.toolbar.inflateMenu(R.menu.home_page_toolbar) // Inflate the menu directly into the Toolbar
+
+        // Add a back button
+//        binding.toolbar.navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.back_arrow_resized)
+//        binding.toolbar.setNavigationOnClickListener {
+//            // Handle the back button click
+//            requireActivity().onBackPressedDispatcher.onBackPressed()
+//        }
+
+//        // Handle menu item clicks
+//        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+//            when (menuItem.itemId) {
 //                R.id.searchMenuButton -> {
-//
+//                    replaceFragment(SearchFragment())
 //                    true
 //                }
 //                R.id.profileMenuButton -> {
 //                    replaceFragment(MyProfileFragment())
 //                    true
 //                }
-//
 //                else -> false
 //            }
 //        }
 
+
+
         // Attach MenuProvider to handle the menu
         binding.toolbar.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-//                if (binding.toolbar.menu == null){
-//                    menuInflater.inflate(R.menu.home_page_toolbar, menu)
-//                }
+                if (binding.toolbar.menu.isEmpty()){
+                    menuInflater.inflate(R.menu.home_page_toolbar, menu)
+                }
+                else{
+//                    TODO("Menu Already Implemented")
+                }
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -89,7 +117,10 @@ class HomeFragment : Fragment() {
                     else -> false
                 }
             }
+
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+
 
         // Navigate to profile fragment on button click
 //        binding.profileButton.setOnClickListener {
@@ -127,7 +158,7 @@ class HomeFragment : Fragment() {
         // Initialize RecyclerView for posts
         binding.recyclerViewPosts.layoutManager = LinearLayoutManager(requireContext())
 
-        val posts = mutableListOf(
+        val posts = listOf(
             Post("John Doe", R.drawable.my_story_icon, R.drawable.person1, "Enjoying the sunset!", "12:00", "24k", "1k", "1,080", "2.4k"),
             Post("Alice Smith", R.drawable.my_story_icon, R.drawable.person1, "Had a great day!", "12:00", "24k", "1k", "1,080", "2.4k"),
             Post("Bob Lee", R.drawable.my_story_icon, R.drawable.person1, "Coffee break!", "12:00", "24k", "1k", "1,080", "2.4k"),
@@ -144,10 +175,6 @@ class HomeFragment : Fragment() {
         }
 
         binding.recyclerViewPosts.adapter = postAdapter
-
-
-        return binding.root
-
     }
 
 
@@ -168,6 +195,7 @@ class HomeFragment : Fragment() {
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
+
 
     private fun openAddStoryFragment() {
         replaceFragment(AddStoryFragment())

@@ -1,11 +1,11 @@
 package com.example.vidgram.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.example.vidgram.repository.UserAuthRepository
-import com.example.vidgram.model.UserAuthModel
+import com.example.vidgram.repository.UserRepository
+import com.example.vidgram.model.UserModel
 import com.google.firebase.auth.FirebaseUser
 
-class UserAuthViewModel(private val repo: UserAuthRepository) {
+class UserViewModel(private val repo: UserRepository) {
     // Request to Repository Interface
     fun login(
         email:String,
@@ -33,7 +33,7 @@ class UserAuthViewModel(private val repo: UserAuthRepository) {
 
     fun addUserToDatabase(
         userID:String,
-        userModel: UserAuthModel,
+        userModel: UserModel,
         callback:(Boolean, String) -> Unit
     ){
         repo.addUserToDatabase(userID, userModel, callback)
@@ -44,8 +44,8 @@ class UserAuthViewModel(private val repo: UserAuthRepository) {
     }
 
 
-    var _userData = MutableLiveData<UserAuthModel?>()
-    var userData = MutableLiveData<UserAuthModel?>()        // continuous observation of userData
+    var _userData = MutableLiveData<UserModel?>()
+    var userData = MutableLiveData<UserModel?>()        // continuous observation of userData
         get() = _userData
 
     fun getUserFromDatabase(
