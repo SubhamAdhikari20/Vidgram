@@ -1,7 +1,7 @@
 package com.example.vidgram.repository
 
 import android.util.Log
-import com.example.vidgram.model.UserAuthModel
+import com.example.vidgram.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -9,7 +9,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class UserAuthRepositoryImpl:UserAuthRepository {
+class UserRepositoryImpl:UserRepository {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private var database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private var reference = database.reference.child("users")
@@ -60,7 +60,7 @@ class UserAuthRepositoryImpl:UserAuthRepository {
 
     override fun addUserToDatabase(
         userID: String,
-        userModel: UserAuthModel,
+        userModel: UserModel,
         callback: (Boolean, String) -> Unit
     ) {
         reference.child(userID.toString()).setValue(userModel).addOnCompleteListener {
@@ -91,12 +91,12 @@ class UserAuthRepositoryImpl:UserAuthRepository {
 
     override fun getUserFromDatabase(
         userID: String,
-        callback: (UserAuthModel?, Boolean, String) -> Unit
+        callback: (UserModel?, Boolean, String) -> Unit
     ) {
         reference.child(userID).addValueEventListener(object: ValueEventListener {   // anonymous function implementation
             override fun onDataChange(snapshot: DataSnapshot) {     // snapshot stores all the fetched data the database
                 if (snapshot.exists()){
-                    val userModel = snapshot.getValue(UserAuthModel::class.java)
+                    val userModel = snapshot.getValue(UserModel::class.java)
                     Log.d("userId",userModel?.email.toString())
                     callback(userModel, true, "Fetched")
                 }

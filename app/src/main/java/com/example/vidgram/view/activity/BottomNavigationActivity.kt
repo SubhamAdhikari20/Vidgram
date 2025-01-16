@@ -1,6 +1,7 @@
 package com.example.vidgram.view.activity
 
 import android.os.Bundle
+import android.window.OnBackInvokedDispatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -42,7 +43,7 @@ class BottomNavigationActivity : AppCompatActivity() {
             true
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.bottomNavigationLayout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
@@ -57,8 +58,18 @@ class BottomNavigationActivity : AppCompatActivity() {
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager : FragmentManager = supportFragmentManager
         val fragmentTransaction : FragmentTransaction = fragmentManager.beginTransaction()
+//        val fragmentTransaction : FragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
+//            R.anim.goback_slide_in_right, // Enter animation
+//            R.anim.goback_slide_out_left, // Exit animation
+//            R.anim.goback_slide_in_left,  // Pop enter animation (back)
+//            R.anim.goback_slide_out_right // Pop exit animation (back)
+//        )
 
         fragmentTransaction.replace(R.id.frameLayout, fragment)
         fragmentTransaction.commit()
     }
+
+
+
+
 }

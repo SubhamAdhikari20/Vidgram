@@ -23,7 +23,5 @@ class VideosMyProfileFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_videos_my_profile, container, false)
     }
 
-    companion object {
 
-    }
 }

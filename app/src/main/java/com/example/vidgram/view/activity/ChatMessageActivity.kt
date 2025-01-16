@@ -86,6 +86,7 @@ class ChatMessageActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
         binding.toolbar.overflowIcon = ContextCompat.getDrawable(this, R.drawable.three_dot_icon2)
 
@@ -99,9 +100,10 @@ class ChatMessageActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         // Go back to the previous fragment or activity
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
+
     // Inflate the toolbar menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater

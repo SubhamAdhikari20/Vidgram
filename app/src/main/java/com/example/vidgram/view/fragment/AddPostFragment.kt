@@ -1,15 +1,15 @@
 package com.example.vidgram.view.fragment
 
+
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.vidgram.R
-import com.example.vidgram.databinding.ActivityBottomNavigationBinding
 import com.example.vidgram.databinding.FragmentAddPostBinding
-import com.example.vidgram.databinding.FragmentHomeBinding
+import com.example.vidgram.view.activity.NewPostActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AddPostFragment : BottomSheetDialogFragment() {
@@ -26,22 +26,23 @@ class AddPostFragment : BottomSheetDialogFragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentAddPostBinding.inflate(inflater, container, false)
-
-        // Set up click listeners for the options
-        binding.takePhotoPostTexView.setOnClickListener {
-
-            dismiss()
-        }
-
-        binding.uploadGalleryPhotoTexView.setOnClickListener {
-
-            dismiss()
-        }
-
-
         return binding.root
     }
 
-    companion object {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Set up click listeners for the options
+        binding.takePhotoLinearLayout.setOnClickListener {
+            val intent = Intent(requireContext(), NewPostActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.uploadGalleryLinearLayout.setOnClickListener {
+            val intent = Intent(requireContext(), NewPostActivity::class.java)
+            startActivity(intent)
+        }
+
     }
+
 }

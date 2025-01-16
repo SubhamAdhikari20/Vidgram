@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vidgram.databinding.ActivityLoginBinding
-import com.example.vidgram.viewmodel.UserAuthViewModel
-import com.example.vidgram.repository.UserAuthRepository
-import com.example.vidgram.repository.UserAuthRepositoryImpl
+import com.example.vidgram.viewmodel.UserViewModel
+import com.example.vidgram.repository.UserRepositoryImpl
 import com.example.vidgram.utils.LoadingDialogUtils
 import com.example.vidgram.view.activity.BottomNavigationActivity
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var userAuthViewModel: UserAuthViewModel
+    private lateinit var userViewModel: UserViewModel
     private lateinit var loadingDialogUtils: LoadingDialogUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +24,8 @@ class LoginActivity : AppCompatActivity() {
         loadingDialogUtils =LoadingDialogUtils(this)
 
         // Initialize ViewModel directly
-        val userAuthRepository = UserAuthRepositoryImpl()  // Instantiate Repository
-        userAuthViewModel = UserAuthViewModel(userAuthRepository)  // Create ViewModel with repository
+        val userRepository = UserRepositoryImpl()  // Instantiate Repository
+        userViewModel = UserViewModel(userRepository)  // Create ViewModel with repository
 
         binding.createAccountButton.setOnClickListener {
             val intent = Intent(this, NameSignUpActivity::class.java)
@@ -40,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (email.isNotEmpty() && pass.isNotEmpty()) {
                 // Call ViewModel to login
-                userAuthViewModel.login(email, pass) { success, message ->
+                userViewModel.login(email, pass) { success, message ->
                     if (success) {
 
                         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
