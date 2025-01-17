@@ -1,21 +1,21 @@
 package com.example.vidgram.view.fragment
 
 import android.os.Bundle
-import android.view.ContextMenu
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentHomeBinding
@@ -23,14 +23,18 @@ import com.example.vidgram.model.Post
 import com.example.vidgram.model.Story
 import com.example.vidgram.adapter.StoryAdapter
 import com.example.vidgram.adapter.PostAdapter
+import com.example.vidgram.viewmodel.PostViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var postViewModel: PostViewModel
+    private val posts = mutableListOf<Post>()
 
     // Story Recycler View
     private val storyImageList: ArrayList<Int> = ArrayList()
     private val storyNameList: ArrayList<String> = ArrayList()
 //    private lateinit var storyAdapter : StoryRecyclerViewAdapter
+lateinit var postAdapter: PostAdapter
 
     // Post Feed Recycler View
     private val postImageList: ArrayList<Int> = ArrayList()
@@ -50,6 +54,13 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        postViewModel = ViewModelProvider(requireActivity()).get(PostViewModel::class.java)
+
+        // Initialize postAdapter with an empty mutable list or with existing posts
+
+
+// Later when you need to update the list, you can call:
+
         return binding.root
     }
 
@@ -158,23 +169,26 @@ class HomeFragment : Fragment() {
         // Initialize RecyclerView for posts
         binding.recyclerViewPosts.layoutManager = LinearLayoutManager(requireContext())
 
-        val posts = listOf(
-            Post("John Doe", R.drawable.my_story_icon, R.drawable.person1, "Enjoying the sunset!", "12:00", "24k", "1k", "1,080", "2.4k"),
-            Post("Alice Smith", R.drawable.my_story_icon, R.drawable.person1, "Had a great day!", "12:00", "24k", "1k", "1,080", "2.4k"),
-            Post("Bob Lee", R.drawable.my_story_icon, R.drawable.person1, "Coffee break!", "12:00", "24k", "1k", "1,080", "2.4k"),
-            Post("Emma Brown", R.drawable.my_story_icon, R.drawable.person1, "Amazing hike!", "12:00", "24k", "1k", "1,080", "2.4k"),
-            Post("John Doe", R.drawable.my_story_icon, R.drawable.person1, "Enjoying the sunset!", "12:00", "24k", "1k", "1,080", "2.4k"),
-            Post("Alice Smith", R.drawable.my_story_icon, R.drawable.person1, "Had a great day!", "12:00", "24k", "1k", "1,080", "2.4k"),
-            Post("Bob Lee", R.drawable.my_story_icon, R.drawable.person1, "Coffee break!", "12:00", "24k", "1k", "1,080", "2.4k"),
-            Post("Emma Brown", R.drawable.my_story_icon, R.drawable.person1, "Amazing hike!", "12:00", "24k", "1k", "1,080", "2.4k")
-        )
 
-        val postAdapter = PostAdapter(posts) { post ->
-            // Handle comment click
-            openCommentDialog(post)
+
+
+        postViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
+
+        // Initialize the RecyclerView and Adapter
+        postAdapter = PostAdapter(posts) { post ->
+            // Handle comment click if needed
         }
 
-        binding.recyclerViewPosts.adapter = postAdapter
+
+        // Observe the LiveData for posts from the ViewModel
+        postViewModel.posts.observe(viewLifecycleOwner, Observer { updatedPosts ->
+            postAdapter.updatePosts(updatedPosts) // Update the adapter with new posts
+        })
+
+        // Load the initial posts
+        postViewModel.loadPosts()
+
+
     }
 
 
@@ -199,5 +213,8 @@ class HomeFragment : Fragment() {
 
     private fun openAddStoryFragment() {
         replaceFragment(AddStoryFragment())
+    }
+    fun addPostToAdapter(post: Post) {
+        postAdapter.addPost(post) // Add post to the adapter
     }
 }
