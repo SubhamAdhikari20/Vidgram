@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
 import com.example.vidgram.model.Post
-
 class PostAdapter(
-    private val postList: List<Post>,
+    private val postList: MutableList<Post> = mutableListOf(),
     private val onCommentClick: (Post) -> Unit
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
@@ -27,8 +26,6 @@ class PostAdapter(
         val share: TextView = itemView.findViewById(R.id.postFeedShareText)
         val userAvatar: ImageView = itemView.findViewById(R.id.postFeedProfileImage)
         val postImage: ImageView = itemView.findViewById(R.id.postFeedMedia)
-//        val likeButton: ImageView = itemView.findViewById(R.id.likeButton)
-//        val commentButton: ImageView = itemView.findViewById(R.id.commentButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -40,7 +37,8 @@ class PostAdapter(
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = postList[position]
-        // Bind data to the views
+
+        // Bind text data
         holder.username.text = post.username
         holder.caption.text = post.caption
         holder.time.text = post.time
@@ -48,24 +46,41 @@ class PostAdapter(
         holder.dislike.text = post.dislike
         holder.comment.text = post.comment
         holder.share.text = post.share
-        holder.userAvatar.setImageResource(post.userAvatar)
-        holder.postImage.setImageResource(post.postImage)
 
-        // Set click listener for the comment
+        // Bind user avatar and post image with Glide
+        val context = holder.itemView.context
+        val density = context.resources.displayMetrics.density
+        val avatarSize = (40 * density).toInt()  // 40dp converted to pixels
+
+        Glide.with(context)
+            .load(post.userAvatar) // Load image from URI string
+            .placeholder(R.drawable.user) // Placeholder if image not found
+            .override(avatarSize, avatarSize) // Resize to 40dp
+            .into(holder.userAvatar)
+
+        Glide.with(context)
+            .load(post.postImage) // Load image from URI string
+            .placeholder(R.drawable.husky) // Placeholder if image not found
+            .centerCrop()
+            .into(holder.postImage)
+
+        // Set click listeners
         holder.comment.setOnClickListener {
-            onCommentClick(post) // Trigger callback when comment is clicked
+            onCommentClick(post)
         }
-
         holder.commentButton.setOnClickListener {
-            onCommentClick(post) // Pass the clicked post
+            onCommentClick(post)
         }
-
-        // Set images using Glide or Picasso
-//        Glide.with(holder.itemView.context).load(post.userAvatar).into(holder.userAvatar)
-//        Glide.with(holder.itemView.context).load(post.postImage).into(holder.postImage)
     }
-
-
-
+    fun addPost(post: Post) {
+        postList.add(post) // Add the post to the list
+        notifyItemInserted(postList.size - 1) // Notify RecyclerView about the new item
+    }
+    // Update posts list and refresh RecyclerView
+    fun updatePosts(newPosts: List<Post>) {
+        (postList as MutableList).clear()  // Clear the existing list
+        postList.addAll(newPosts)  // Add new posts
+        notifyDataSetChanged()  // Notify adapter that the data has changed
+    }
 
 }

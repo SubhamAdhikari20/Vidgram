@@ -2,6 +2,7 @@ package com.example.vidgram.view.fragment
 
 import android.os.Bundle
 import android.view.ContextMenu
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -16,6 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentHomeBinding
@@ -23,14 +26,18 @@ import com.example.vidgram.model.Post
 import com.example.vidgram.model.Story
 import com.example.vidgram.adapter.StoryAdapter
 import com.example.vidgram.adapter.PostAdapter
+import com.example.vidgram.viewmodel.PostViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var postViewModel: PostViewModel
+    private val posts = mutableListOf<Post>()
 
     // Story Recycler View
     private val storyImageList: ArrayList<Int> = ArrayList()
     private val storyNameList: ArrayList<String> = ArrayList()
 //    private lateinit var storyAdapter : StoryRecyclerViewAdapter
+lateinit var postAdapter: PostAdapter
 
     // Post Feed Recycler View
     private val postImageList: ArrayList<Int> = ArrayList()
@@ -50,6 +57,11 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        postViewModel = ViewModelProvider(requireActivity()).get(PostViewModel::class.java)
+
+        // Initialize postAdapter with an empty mutable list or with existing posts
+        // Later when you need to update the list, you can call:
+        
         return binding.root
     }
 
@@ -89,8 +101,6 @@ class HomeFragment : Fragment() {
 //            }
 //        }
 
-
-
         // Attach MenuProvider to handle the menu
         binding.toolbar.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -98,7 +108,7 @@ class HomeFragment : Fragment() {
                     menuInflater.inflate(R.menu.home_page_toolbar, menu)
                 }
                 else{
-//                    TODO("Menu Already Implemented")
+//                    
                 }
             }
 
@@ -117,10 +127,7 @@ class HomeFragment : Fragment() {
                     else -> false
                 }
             }
-
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-
 
         // Navigate to profile fragment on button click
 //        binding.profileButton.setOnClickListener {
@@ -175,6 +182,23 @@ class HomeFragment : Fragment() {
         }
 
         binding.recyclerViewPosts.adapter = postAdapter
+
+        
+//        postViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
+//
+//        // Initialize the RecyclerView and Adapter
+//        postAdapter = PostAdapter(posts) { post ->
+//            // Handle comment click if needed
+//        }
+//        
+        // Observe the LiveData for posts from the ViewModel
+//        postViewModel.posts.observe(viewLifecycleOwner, Observer { updatedPosts ->
+//            postAdapter.updatePosts(updatedPosts) // Update the adapter with new posts
+//        })
+//
+//        // Load the initial posts
+//        postViewModel.loadPosts()
+        
     }
 
 
@@ -196,8 +220,11 @@ class HomeFragment : Fragment() {
         fragmentTransaction.commit()
     }
 
-
     private fun openAddStoryFragment() {
         replaceFragment(AddStoryFragment())
+    }
+
+    fun addPostToAdapter(post: Post) {
+        postAdapter.addPost(post) // Add post to the adapter
     }
 }
