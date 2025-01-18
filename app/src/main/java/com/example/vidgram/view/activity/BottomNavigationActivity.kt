@@ -53,10 +53,10 @@ class BottomNavigationActivity : AppCompatActivity() {
 
 
         // In BottomNavigationActivity
-        postViewModel.posts.observe(this, Observer { updatedPosts ->
-            val homeFragment = supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName) as? HomeFragment
-            homeFragment?.postAdapter?.updatePosts(updatedPosts)  // Update HomeFragment's adapter
-        })
+//        postViewModel.posts.observe(this, Observer { updatedPosts ->
+//            val homeFragment = supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName) as? HomeFragment
+//            homeFragment?.postAdapter?.updatePosts(updatedPosts)  // Update HomeFragment's adapter
+//        })
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.bottomNavigationLayout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -85,18 +85,19 @@ class BottomNavigationActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frameLayout, fragment)
         fragmentTransaction.commit()
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == ADD_POST_REQUEST_CODE && resultCode == RESULT_OK) {
-            val newPost = data?.getParcelableExtra<Post>("new_post")
-            newPost?.let {
-                // Pass post to HomeFragment's PostAdapter
-                val homeFragment =
-                    supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName) as? HomeFragment
-                homeFragment?.addPostToAdapter(it)
-            }
-        }
-
-
-    }}
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (requestCode == ADD_POST_REQUEST_CODE && resultCode == RESULT_OK) {
+//            val newPost = data?.getParcelableExtra<Post>("new_post")
+//            newPost?.let {
+//                // Pass post to HomeFragment's PostAdapter
+//                val homeFragment =
+//                    supportFragmentManager.findFragmentByTag(HomeFragment::class.java.simpleName) as? HomeFragment
+//                homeFragment?.addPostToAdapter(it)
+//            }
+//        }
+//
+//
+//    }
+}
