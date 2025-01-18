@@ -30,15 +30,6 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-        <SelectionState runConfigName="EditProfileActivity">
-            <option name="selectionMode" value="DROPDOWN" />
-        </SelectionState>
-        <SelectionState runConfigName="NotificationActivity">
-            <option name="selectionMode" value="DROPDOWN" />
-        </SelectionState>
-        <SelectionState runConfigName="NewPostActivity">
-            <option name="selectionMode" value="DROPDOWN" />
-        </SelectionState>
       <SelectionState runConfigName="ChatMessageActivity">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>

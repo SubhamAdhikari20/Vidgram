@@ -142,63 +142,63 @@ class NewPostActivity : AppCompatActivity() {
             checkPermissionsAndOpenPicker()
         }
 
-        binding.postButton.setOnClickListener {
-            try {
-                val postDescription = binding.postDescEditTextField.text.toString()
-
-                // Ensure the description is not empty
-                if (postDescription.isBlank()) {
-                    Toast.makeText(this, "Post description cannot be empty", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                // Retrieve image drawable as a string
-                val imageUriString = binding.postImageView.drawable?.toString() ?: run {
-                    Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                // User avatar URI
-                val userAvatarUriString = "android.resource://$packageName/${R.drawable.person1}"
-
-                // Create a new Post object
-                val post = Post(
-                    caption = postDescription,
-                    postImage = imageUriString,  // Store the URI string
-                    username = "Yogesh",
-                    userAvatar = userAvatarUriString, // Store the URI string for the avatar
-                    time = "2025",
-                    like = "0",
-                    dislike = "0",
-                    comment = "",
-                    share = ""
-                )
-
-                // Add the post to the ViewModel
-                postViewModel.addNewPost(post)
-
-                // Notify success
-                Toast.makeText(this, "Post added successfully!", Toast.LENGTH_SHORT).show()
-                val intent = Intent()
-                intent.putExtra("new_post", post)
-
-                setResult(RESULT_OK, intent)
-                finish()
-            } catch (e: Exception) {
-                // Handle any unexpected errors
-                Toast.makeText(this, "Failed to add post: ${e.message}", Toast.LENGTH_LONG).show()
-                e.printStackTrace() // Optional: Log the exception for debugging purposes
-            }
-
-
-
-
-
-        // Update the ViewModel with the new post
-
-            // Finish activity and return to HomeFragment
-            finish()
-        }
+//        binding.postButton.setOnClickListener {
+//            try {
+//                val postDescription = binding.postDescEditTextField.text.toString()
+//
+//                // Ensure the description is not empty
+//                if (postDescription.isBlank()) {
+//                    Toast.makeText(this, "Post description cannot be empty", Toast.LENGTH_SHORT).show()
+//                    return@setOnClickListener
+//                }
+//
+//                // Retrieve image drawable as a string
+//                val imageUriString = binding.postImageView.drawable?.toString() ?: run {
+//                    Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+//                    return@setOnClickListener
+//                }
+//
+//                // User avatar URI
+//                val userAvatarUriString = "android.resource://$packageName/${R.drawable.person1}"
+//
+////                // Create a new Post object
+////                val post = Post(
+////                    caption = postDescription,
+////                    postImage = imageUriString,  // Store the URI string
+////                    username = "Yogesh",
+////                    userAvatar = userAvatarUriString, // Store the URI string for the avatar
+////                    time = "2025",
+////                    like = "0",
+////                    dislike = "0",
+////                    comment = "",
+////                    share = ""
+////                )
+//
+//                // Add the post to the ViewModel
+////                postViewModel.addNewPost(post)
+//
+//                // Notify success
+//                Toast.makeText(this, "Post added successfully!", Toast.LENGTH_SHORT).show()
+//                val intent = Intent()
+//                intent.putExtra("new_post", post)
+//
+//                setResult(RESULT_OK, intent)
+//                finish()
+//            } catch (e: Exception) {
+//                // Handle any unexpected errors
+//                Toast.makeText(this, "Failed to add post: ${e.message}", Toast.LENGTH_LONG).show()
+//                e.printStackTrace() // Optional: Log the exception for debugging purposes
+//            }
+//
+//
+//
+//
+//
+//        // Update the ViewModel with the new post
+//
+//            // Finish activity and return to HomeFragment
+//            finish()
+//        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.newPostLayout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.vidgram.R
 import com.example.vidgram.model.Post
 class PostAdapter(
-    private val postList: MutableList<Post> = mutableListOf(),
+    private val postList: List<Post> = mutableListOf(),
     private val onCommentClick: (Post) -> Unit
 ) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
@@ -47,22 +47,22 @@ class PostAdapter(
         holder.comment.text = post.comment
         holder.share.text = post.share
 
-        // Bind user avatar and post image with Glide
-        val context = holder.itemView.context
-        val density = context.resources.displayMetrics.density
-        val avatarSize = (40 * density).toInt()  // 40dp converted to pixels
-
-        Glide.with(context)
-            .load(post.userAvatar) // Load image from URI string
-            .placeholder(R.drawable.user) // Placeholder if image not found
-            .override(avatarSize, avatarSize) // Resize to 40dp
-            .into(holder.userAvatar)
-
-        Glide.with(context)
-            .load(post.postImage) // Load image from URI string
-            .placeholder(R.drawable.husky) // Placeholder if image not found
-            .centerCrop()
-            .into(holder.postImage)
+//        // Bind user avatar and post image with Glide
+//        val context = holder.itemView.context
+//        val density = context.resources.displayMetrics.density
+//        val avatarSize = (40 * density).toInt()  // 40dp converted to pixels
+//
+//        Glide.with(context)
+//            .load(post.userAvatar) // Load image from URI string
+//            .placeholder(R.drawable.user) // Placeholder if image not found
+//            .override(avatarSize, avatarSize) // Resize to 40dp
+//            .into(holder.userAvatar)
+//
+//        Glide.with(context)
+//            .load(post.postImage) // Load image from URI string
+//            .placeholder(R.drawable.husky) // Placeholder if image not found
+//            .centerCrop()
+//            .into(holder.postImage)
 
         // Set click listeners
         holder.comment.setOnClickListener {
@@ -72,15 +72,16 @@ class PostAdapter(
             onCommentClick(post)
         }
     }
-    fun addPost(post: Post) {
-        postList.add(post) // Add the post to the list
-        notifyItemInserted(postList.size - 1) // Notify RecyclerView about the new item
-    }
-    // Update posts list and refresh RecyclerView
-    fun updatePosts(newPosts: List<Post>) {
-        (postList as MutableList).clear()  // Clear the existing list
-        postList.addAll(newPosts)  // Add new posts
-        notifyDataSetChanged()  // Notify adapter that the data has changed
-    }
+
+//    fun addPost(post: Post) {
+//        postList.add(post) // Add the post to the list
+//        notifyItemInserted(postList.size - 1) // Notify RecyclerView about the new item
+//    }
+//    // Update posts list and refresh RecyclerView
+//    fun updatePosts(newPosts: List<Post>) {
+//        (postList as MutableList).clear()  // Clear the existing list
+//        postList.addAll(newPosts)  // Add new posts
+////        notifyDataSetChanged()  // Notify adapter that the data has changed
+//    }
 
 }

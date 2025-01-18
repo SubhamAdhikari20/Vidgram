@@ -19,17 +19,18 @@ class PostViewModel : ViewModel() {
         Log.d("post","Post added")
     }
 
-    fun loadPosts() {
-        val posts = listOf(
-            Post(
-                "John Doe",
-                "android.resource://com.example.vidgram/${R.drawable.my_story_icon}",
-                "android.resource://com.example.vidgram/${R.drawable.person1}",
-                "Enjoying the sunset!", "12:00", "24k", "1k", "1,080", "2.4k"
-            ),
-            // Add other posts here...
-        )
-        Log.d("PostViewModel", "Loading posts: ${posts.size} posts")
-
-        _posts.postValue(posts)  // Update the posts list asynchronously
-    }}
+//    fun loadPosts() {
+//        val posts = listOf(
+//            Post(
+//                "John Doe",
+//                "android.resource://com.example.vidgram/${R.drawable.my_story_icon}",
+//                "android.resource://com.example.vidgram/${R.drawable.person1}",
+//                "Enjoying the sunset!", "12:00", "24k", "1k", "1,080", "2.4k"
+//            ),
+//            // Add other posts here...
+//        )
+//        Log.d("PostViewModel", "Loading posts: ${posts.size} posts")
+//
+//        _posts.postValue(posts)  // Update the posts list asynchronously
+//    }
+}

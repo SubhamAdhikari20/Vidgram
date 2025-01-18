@@ -1,23 +1,18 @@
 package com.example.vidgram.view.fragment
 
 import android.os.Bundle
-import android.view.ContextMenu
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
@@ -224,7 +219,7 @@ lateinit var postAdapter: PostAdapter
         replaceFragment(AddStoryFragment())
     }
 
-    fun addPostToAdapter(post: Post) {
-        postAdapter.addPost(post) // Add post to the adapter
-    }
+//    fun addPostToAdapter(post: Post) {
+//        postAdapter.addPost(post) // Add post to the adapter
+//    }
 }
