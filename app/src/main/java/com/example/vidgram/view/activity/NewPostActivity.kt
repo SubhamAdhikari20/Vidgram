@@ -9,11 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -25,7 +21,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityNewPostBinding
+import com.example.vidgram.model.PostModel
+import com.example.vidgram.repository.PostRepositoryImpl
 import com.example.vidgram.repository.UserRepositoryImpl
+import com.example.vidgram.utils.LoadingDialogUtils
+import com.example.vidgram.viewmodel.PostViewModel
 import com.example.vidgram.viewmodel.UserViewModel
 
 class NewPostActivity : AppCompatActivity() {
@@ -34,6 +34,9 @@ class NewPostActivity : AppCompatActivity() {
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionsLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var userViewModel: UserViewModel
+    lateinit var postViewModel: PostViewModel
+    lateinit var loadingDialogUtils: LoadingDialogUtils
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +46,17 @@ class NewPostActivity : AppCompatActivity() {
         binding = ActivityNewPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val repo = UserRepositoryImpl()
-        userViewModel = UserViewModel(repo)
+        loadingDialogUtils = LoadingDialogUtils(this)
+
+        // User Backend Binding
+        val userRepo = UserRepositoryImpl()
+        userViewModel = UserViewModel(userRepo)
+
+
+        // Post Backend Binding
+        val postRepo = PostRepositoryImpl()
+        postViewModel = PostViewModel(postRepo)
+
 
         val currentUser = userViewModel.getCurrentUser()
         currentUser.let{    // it -> currentUser
@@ -55,7 +67,6 @@ class NewPostActivity : AppCompatActivity() {
             binding.newPostUserName.text = it?.fullName.toString()
 
         }
-
 
         setSupportActionBar(binding.newPostToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -126,8 +137,27 @@ class NewPostActivity : AppCompatActivity() {
             checkPermissionsAndOpenPicker()
         }
 
-        binding.postButton.setOnClickListener {
 
+        // Post Button
+        binding.postButton.setOnClickListener {
+            loadingDialogUtils.show()
+            var postDesc : String? = binding.postDescEditTextField.text.toString()
+            var postImage : String? = binding.newPostProfileImage.toString()
+            var postBy : String? = binding.newPostUserName.text .toString()
+            var postTimeStamp : Long? = binding.newPostUserName.text .toString().toLong()
+
+            var postModel = PostModel("", postImage, postDesc, postBy, postTimeStamp)
+            postViewModel.addPost(postModel){
+                success, message ->
+                if (success){
+                    Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
+                    finish()
+                }
+                else{
+                    Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
+                }
+                loadingDialogUtils.dismiss()
+            }
         }
 
 
