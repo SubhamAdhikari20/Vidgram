@@ -36,13 +36,13 @@ class UserChatAdapter(
             SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(user.timestamp))
 
         // Set profile image (if available) using Glide
-        if (user.profilepic.isNullOrEmpty()) {
+        if (user.profilePic.isNullOrEmpty()) {
             Glide.with(context)
                 .load(R.drawable.user) // Load default image if profile pic is missing
                 .into(holder.profileImageView)
         } else {
             Glide.with(context)
-                .load(user.profilepic) // Load user's profile picture
+                .load(user.profilePic) // Load user's profile picture
 //                .placeholder(R.drawable.loading) // Optional: loading placeholder
 //                .error(R.drawable.error) // Optional: error placeholder
                 .into(holder.profileImageView)
