@@ -13,7 +13,6 @@ interface PostRepository {
     fun addPost(
         postModel: PostModel,
         context: Context,  // Add the Context parameter
-
         callback: (Boolean, String) -> Unit
     )
 
@@ -36,6 +35,4 @@ interface PostRepository {
     fun getAllPost(
         callback: (List<PostModel>?, Boolean, String) -> Unit
     )
-
-
 }

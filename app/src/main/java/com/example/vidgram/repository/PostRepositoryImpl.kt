@@ -15,15 +15,12 @@ import com.google.firebase.database.ValueEventListener
 
 class PostRepositoryImpl : PostRepository {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val reference: DatabaseReference = database.reference.child("posts")     // reference variable has the access to products table
+    private val reference: DatabaseReference = database.reference.child("products")     // reference variable has the access to products table
 
 
-
-
-    override  fun addPost(
+    override fun addPost(
         postModel: PostModel,
         context: Context,  // Add the Context parameter
-
         callback: (Boolean, String) -> Unit
     ) {
         val imageUriString = postModel.postImaqe  // This is the URI string in the postModel
@@ -57,6 +54,12 @@ class PostRepositoryImpl : PostRepository {
                                 val postId = reference.push().key.toString()
                                 postModel.postId = postId
 
+        reference.child(postId).setValue(postModel).addOnCompleteListener {
+            if (it.isSuccessful) {
+                callback(true, "Post added successfully")
+            }
+            else{
+                callback(false, "${it.exception?.message}")
                                 reference.child(postId).setValue(postModel).addOnCompleteListener {
                                     if (it.isSuccessful) {
                                         callback(true, "Post added successfully")
@@ -89,10 +92,6 @@ class PostRepositoryImpl : PostRepository {
             callback(false, "Error: ${e.message}")
         }
     }
-
-
-
-
 
     override fun updatePost(
         postId: String,
@@ -166,6 +165,4 @@ class PostRepositoryImpl : PostRepository {
 
         })
     }
-
-
 }
