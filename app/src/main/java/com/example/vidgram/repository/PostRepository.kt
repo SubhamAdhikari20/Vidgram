@@ -1,7 +1,5 @@
 package com.example.vidgram.repository
 
-import android.content.Context
-import android.net.Uri
 import com.example.vidgram.model.PostModel
 
 interface PostRepository {
