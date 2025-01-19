@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.Manifest
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.cloudinary.android.MediaManager
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityNewPostBinding
 import com.example.vidgram.model.PostModel
@@ -38,6 +40,7 @@ class NewPostActivity : AppCompatActivity() {
     lateinit var loadingDialogUtils: LoadingDialogUtils
 
 
+    private var selectedImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,13 @@ class NewPostActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         loadingDialogUtils = LoadingDialogUtils(this)
+
+        val config = mutableMapOf<String, String>()
+        config["cloud_name"] = "drykew7pu"
+        config["api_key"] = "891342176588327"
+        config["api_secret"] = "-7N8kuVvR0FNLLPYFModBB_03UM"
+
+        MediaManager.init(this, config)
 
         // User Backend Binding
         val userRepo = UserRepositoryImpl()
@@ -105,6 +115,9 @@ class NewPostActivity : AppCompatActivity() {
         imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 binding.postImageView.setImageURI(it)
+                selectedImageUri = uri
+
+
                 binding.postImageView.visibility = View.VISIBLE
                 updatePostButtonState(true)
             }
@@ -142,12 +155,13 @@ class NewPostActivity : AppCompatActivity() {
         binding.postButton.setOnClickListener {
             loadingDialogUtils.show()
             var postDesc : String? = binding.postDescEditTextField.text.toString()
-            var postImage : String? = binding.newPostProfileImage.toString()
+            var postImage : String? = selectedImageUri.toString()
             var postBy : String? = binding.newPostUserName.text .toString()
-            var postTimeStamp : Long? = binding.newPostUserName.text .toString().toLong()
+            var postTimeStamp : String? = binding.newPostUserName.text .toString()
+            val profileImage: String? = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHtVmYuLaQpNM-dToMMFc3BSl0L-dXfhJX3A&s"
+            var postModel = PostModel("", postImage, profileImage,postDesc, postBy, postTimeStamp)
 
-            var postModel = PostModel("", postImage, postDesc, postBy, postTimeStamp)
-            postViewModel.addPost(postModel){
+            postViewModel.addPost(postModel,this@NewPostActivity){
                 success, message ->
                 if (success){
                     Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
@@ -182,6 +196,8 @@ class NewPostActivity : AppCompatActivity() {
         return true
     }
 
+
+
     private fun updatePostButtonState(isEnabled: Boolean) {
         if (isEnabled) {
             binding.postButton.background = ContextCompat.getDrawable(this, R.drawable.post_filled_custom_btn)
@@ -191,6 +207,7 @@ class NewPostActivity : AppCompatActivity() {
             binding.postButton.setTextColor(ContextCompat.getColor(this, R.color.postBtnTextColor))
         }
     }
+
 
     // Function to check and request permissions
     private fun checkPermissionsAndOpenPicker() {
@@ -217,6 +234,7 @@ class NewPostActivity : AppCompatActivity() {
             permissionsLauncher.launch(requiredPermissions)
         }
     }
+
 
     private fun openImagePickerDialog() {
         val options = arrayOf("Choose from Gallery", "Take a Photo")

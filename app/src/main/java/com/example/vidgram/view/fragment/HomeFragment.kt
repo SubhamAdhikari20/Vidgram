@@ -23,12 +23,18 @@ import com.example.vidgram.model.Post
 import com.example.vidgram.model.Story
 import com.example.vidgram.adapter.StoryAdapter
 import com.example.vidgram.adapter.PostAdapter
+import com.example.vidgram.model.PostModel
+import com.example.vidgram.repository.PostRepositoryImpl
 import com.example.vidgram.viewmodel.PostViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var postViewModel: PostViewModel
     private val posts = mutableListOf<Post>()
+
+    lateinit var postViewModel: PostViewModel
+
+
+    private lateinit var postsList: MutableList<PostModel>
 
     // Story Recycler View
     private val storyImageList: ArrayList<Int> = ArrayList()
@@ -54,7 +60,6 @@ lateinit var postAdapter: PostAdapter
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        postViewModel = ViewModelProvider(requireActivity()).get(PostViewModel::class.java)
 
         // Initialize postAdapter with an empty mutable list or with existing posts
 
@@ -166,27 +171,39 @@ lateinit var postAdapter: PostAdapter
         val storyAdapter = StoryAdapter(stories)
         binding.recyclerViewStories.adapter = storyAdapter
 
+
+
         // Initialize RecyclerView for posts
-        binding.recyclerViewPosts.layoutManager = LinearLayoutManager(requireContext())
+
+        postsList = mutableListOf()
+        postAdapter = PostAdapter(requireContext(), postsList)
 
 
 
 
-        postViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
-
-        // Initialize the RecyclerView and Adapter
-        postAdapter = PostAdapter(posts) { post ->
-            // Handle comment click if needed
-        }
+        val recyclerView = binding.recyclerViewPosts  // Access RecyclerView directly from the binding
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = postAdapter
 
 
-        // Observe the LiveData for posts from the ViewModel
-        postViewModel.posts.observe(viewLifecycleOwner, Observer { updatedPosts ->
-            postAdapter.updatePosts(updatedPosts) // Update the adapter with new posts
+        val repo = PostRepositoryImpl()
+        postViewModel =PostViewModel(repo)
+
+
+        postViewModel.getAllPost()
+
+// Set up an observer for the posts list
+        postViewModel.getAllPosts.observe(viewLifecycleOwner, { posts ->
+            // If posts is null, provide an empty list
+            val postAdapter = PostAdapter(requireContext(), (posts ?: emptyList()).toMutableList())
+            recyclerView.adapter = postAdapter
         })
 
-        // Load the initial posts
-        postViewModel.loadPosts()
+
+
+
+
+
 
 
     }
@@ -214,7 +231,5 @@ lateinit var postAdapter: PostAdapter
     private fun openAddStoryFragment() {
         replaceFragment(AddStoryFragment())
     }
-    fun addPostToAdapter(post: Post) {
-        postAdapter.addPost(post) // Add post to the adapter
-    }
+
 }

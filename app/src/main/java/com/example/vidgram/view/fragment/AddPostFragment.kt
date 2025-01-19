@@ -19,18 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AddPostFragment : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddPostBinding
-    private val postViewModel: PostViewModel by viewModels()
 
-    private val addPostResultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val newPost: Post? = result.data?.getParcelableExtra("newPost")
-                newPost?.let {
-                    // Add the new post to the ViewModel
-                    postViewModel.addNewPost(it)
-                }
-            }
-        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,7 +53,6 @@ class AddPostFragment : BottomSheetDialogFragment() {
     }
     private fun openNewPostActivity() {
         val intent = Intent(requireContext(), NewPostActivity::class.java)
-        addPostResultLauncher.launch(intent)
     }
 
 

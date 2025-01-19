@@ -1,5 +1,6 @@
 package com.example.vidgram.viewmodel
 
+import android.content.Context
 import androidx.compose.runtime.produceState
 import androidx.lifecycle.MutableLiveData
 import com.example.vidgram.model.PostModel
@@ -9,9 +10,10 @@ class PostViewModel(val repo: PostRepository) {
 
     fun addPost(
         postModel: PostModel,
+        context: Context,
         callback: (Boolean, String) -> Unit
     ){
-        repo.addPost(postModel, callback)
+        repo.addPost(postModel, context,callback)
     }
 
     fun updatePost(
@@ -43,7 +45,7 @@ class PostViewModel(val repo: PostRepository) {
     ){
         _loadingPostById.value = true
         repo.getPostById(postId){
-            post, success, message ->
+                post, success, message ->
             if (success){
                 _posts.value = post
                 _loadingPostById.value = false
@@ -63,7 +65,7 @@ class PostViewModel(val repo: PostRepository) {
     fun getAllPost(){
         _loadingPostById.value = true
         repo.getAllPost(){
-            posts, success, message ->
+                posts, success, message ->
             if (success){
                 _getAllPosts.value = posts
                 _loadingPostById.value = false

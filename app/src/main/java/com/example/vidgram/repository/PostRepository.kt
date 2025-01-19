@@ -1,5 +1,7 @@
 package com.example.vidgram.repository
 
+import android.content.Context
+import android.net.Uri
 import com.example.vidgram.model.PostModel
 
 interface PostRepository {
@@ -10,6 +12,8 @@ interface PostRepository {
 
     fun addPost(
         postModel: PostModel,
+        context: Context,  // Add the Context parameter
+
         callback: (Boolean, String) -> Unit
     )
 
@@ -32,4 +36,6 @@ interface PostRepository {
     fun getAllPost(
         callback: (List<PostModel>?, Boolean, String) -> Unit
     )
+
+
 }
