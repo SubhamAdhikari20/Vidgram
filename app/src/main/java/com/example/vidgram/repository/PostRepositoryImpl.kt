@@ -1,11 +1,5 @@
 package com.example.vidgram.repository
 
-import android.content.Context
-import android.net.Uri
-import android.util.Log
-import com.cloudinary.android.MediaManager
-import com.cloudinary.android.callback.ErrorInfo
-import com.cloudinary.android.callback.UploadCallback
 import com.example.vidgram.model.PostModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -15,72 +9,23 @@ import com.google.firebase.database.ValueEventListener
 
 class PostRepositoryImpl : PostRepository {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val reference: DatabaseReference = database.reference.child("posts")     // reference variable has the access to products table
+    private val reference: DatabaseReference = database.reference.child("products")     // reference variable has the access to products table
 
 
     override fun addPost(
         postModel: PostModel,
         callback: (Boolean, String) -> Unit
     ) {
-        val imageUriString = postModel.postImaqe  // This is the URI string in the postModel
-        val imageUri = Uri.parse(imageUriString) // assuming postModel has a postImageUri
+        val postId = reference.push().key.toString()
+        postModel.postId = postId
 
-        try {
-            // Obtain InputStream from the content:// URI
-            if (imageUri != null) {
-                // Upload image to Cloudinary
-                val uploadRequest = MediaManager.get().upload(imageUri).callback(object : UploadCallback {
-                    override fun onStart(requestId: String) {
-                        // Optional: Show loading indicator
-                    }
-
-                    override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {
-                        // Optional: You can update a progress bar if needed
-                    }
-
-                    override fun onSuccess(requestId: String, resultData: Map<*, *>) {
-                        val imageUrl = resultData["secure_url"] as? String
-                        Log.d("Cloudinary", "Upload successful: ${resultData["url"]}")
-
-                        if (imageUrl != null) {
-                            // Set the image URL in the postModel
-                            postModel.postImaqe = imageUrl
-
-                            // Now add the post to Firebase
-                            val postId = reference.push().key.toString()
-                            postModel.postId = postId
-
-                            reference.child(postId).setValue(postModel).addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    callback(true, "Post added successfully")
-                                }
-                                else {
-                                    callback(false, "${it.exception?.message}")
-                                }
-                            }
-                        }
-                    }
-
-                    override fun onError(requestId: String?, error: ErrorInfo?) {
-                        callback(false, "Error uploading image: ${error?.description}")
-                    }
-
-                    override fun onReschedule(requestId: String?, error: ErrorInfo?) {
-                        TODO("Not yet implemented")
-                    }
-                })
-
-                // Dispatch the upload request
-                uploadRequest.dispatch()
+        reference.child(postId).setValue(postModel).addOnCompleteListener {
+            if (it.isSuccessful) {
+                callback(true, "Post added successfully")
             }
-
-            else {
-                callback(false, "Unable to open image stream.")
+            else{
+                callback(false, "${it.exception?.message}")
             }
-
-        }
-        catch (e: Exception) {
-            callback(false, "Error: ${e.message}")
         }
     }
 
