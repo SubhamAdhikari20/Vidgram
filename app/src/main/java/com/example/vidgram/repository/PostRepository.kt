@@ -1,14 +1,35 @@
 package com.example.vidgram.repository
 
-import androidx.appcompat.view.ActionMode.Callback
 import com.example.vidgram.model.PostModel
 
 interface PostRepository {
+    // {
+    // "success": true
+    // "message" "Product Added successfully"
+    //  }
 
-    //callback
-    //success:true :Boolean
-    //message :"Post added" :string
-    fun getAllPosts(callback:(List<PostModel>, Boolean, String) ->Unit)
+    fun addPost(
+        postModel: PostModel,
+        callback: (Boolean, String) -> Unit
+    )
 
-    fun addPost(postModel: PostModel, callback: (Boolean, String) -> Unit)
+    fun updatePost(
+        postId:String,
+        data: MutableMap<String, Any>,
+        callback: (Boolean, String) -> Unit
+    )
+
+    fun deletePost(
+        postId:String,
+        callback: (Boolean, String) -> Unit
+    )
+
+    fun getPostById(
+        postId:String,
+        callback: (PostModel?, Boolean, String) -> Unit
+    )
+
+    fun getAllPost(
+        callback: (List<PostModel>?, Boolean, String) -> Unit
+    )
 }

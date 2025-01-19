@@ -132,7 +132,7 @@ class MessageFragment : Fragment() {
                                     userID = userID,
                                     fullName= user?.fullName,
                                     username = user?.username ?: "Unknown",
-                                    profilepic = user?.profilepic ?: "",
+                                    profilePic = user?.profilePic ?: "",
                                     lastMessage = lastMessage,
                                     timestamp = timestamp
                                 )

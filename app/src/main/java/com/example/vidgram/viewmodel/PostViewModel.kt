@@ -1,35 +1,73 @@
 package com.example.vidgram.viewmodel
 
-
-import android.util.Log
-import androidx.lifecycle.LiveData
+import androidx.compose.runtime.produceState
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.vidgram.R
-import com.example.vidgram.model.Post
 import com.example.vidgram.model.PostModel
-import com.example.vidgram.repository.PostRepositoryImp
+import com.example.vidgram.repository.PostRepository
 
-class PostViewModel (val postrepo : PostRepositoryImp) {
+class PostViewModel(val repo: PostRepository) {
 
-    var _posts = MutableLiveData<PostModel>()
-    var posts = MutableLiveData<PostModel>()
-        get() = _posts
-
-    var _getAllPosts = MutableLiveData<List<PostModel>>()
-    var getAllPosts = MutableLiveData<List<PostModel>>()
-        get() = _getAllPosts
-    fun getPosts(callback:(List<PostModel>, Boolean, String) ->Unit){
-            postrepo.getAllPosts(){
-                posts,success,message->
-                if(success){
-                    _getAllPosts.value = posts
-
-                }
-            }
+    fun addPost(
+        postModel: PostModel,
+        callback: (Boolean, String) -> Unit
+    ){
+        repo.addPost(postModel, callback)
     }
 
-    fun addPost(postModel: PostModel, callback: (Boolean, String) -> Unit){
-        postrepo.addPost(postModel,callback)
+    fun updatePost(
+        postId:String,
+        data: MutableMap<String, Any>,
+        callback: (Boolean, String) -> Unit
+    ){
+        repo.updatePost(postId, data, callback)
+    }
+
+    fun deletePost(
+        postId:String,
+        callback: (Boolean, String) -> Unit
+    ){
+        repo.deletePost(postId, callback)
+    }
+
+    var _posts = MutableLiveData<PostModel?>()
+    var posts = MutableLiveData<PostModel?>()
+        get() = _posts
+
+    var _loadingPostById = MutableLiveData<Boolean>()
+    var loadingPostById = MutableLiveData<Boolean>()
+        get() = _loadingPostById
+
+
+    fun getPostById(
+        postId:String,
+    ){
+        _loadingPostById.value = true
+        repo.getPostById(postId){
+            post, success, message ->
+            if (success){
+                _posts.value = post
+                _loadingPostById.value = false
+            }
+        }
+    }
+
+    var _loadingAllPost = MutableLiveData<Boolean>()
+    var loadingAllPost = MutableLiveData<Boolean>()
+        get() = _loadingAllPost
+
+    var _getAllPosts = MutableLiveData<List<PostModel>?>()
+    var getAllPosts = MutableLiveData<List<PostModel>?>()
+        get() = _getAllPosts
+
+
+    fun getAllPost(){
+        _loadingPostById.value = true
+        repo.getAllPost(){
+            posts, success, message ->
+            if (success){
+                _getAllPosts.value = posts
+                _loadingPostById.value = false
+            }
+        }
     }
 }

@@ -4,18 +4,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.Manifest
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -25,16 +19,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityNewPostBinding
-import com.example.vidgram.model.Post
+import com.example.vidgram.model.PostModel
+import com.example.vidgram.repository.PostRepositoryImpl
 import com.example.vidgram.repository.UserRepositoryImpl
+import com.example.vidgram.utils.LoadingDialogUtils
 import com.example.vidgram.viewmodel.PostViewModel
 import com.example.vidgram.viewmodel.UserViewModel
-import android.content.Context
-import android.net.Uri
-
 
 class NewPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewPostBinding
@@ -42,7 +34,10 @@ class NewPostActivity : AppCompatActivity() {
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionsLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var userViewModel: UserViewModel
-    private lateinit var postViewModel: PostViewModel
+    lateinit var postViewModel: PostViewModel
+    lateinit var loadingDialogUtils: LoadingDialogUtils
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,11 +46,17 @@ class NewPostActivity : AppCompatActivity() {
         binding = ActivityNewPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val repo = UserRepositoryImpl()
-        userViewModel = UserViewModel(repo)
+        loadingDialogUtils = LoadingDialogUtils(this)
 
-        // Initialize the PostViewModel to handle new post operations
-        postViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
+        // User Backend Binding
+        val userRepo = UserRepositoryImpl()
+        userViewModel = UserViewModel(userRepo)
+
+
+        // Post Backend Binding
+        val postRepo = PostRepositoryImpl()
+        postViewModel = PostViewModel(postRepo)
+
 
         val currentUser = userViewModel.getCurrentUser()
         currentUser.let{    // it -> currentUser
@@ -106,9 +107,6 @@ class NewPostActivity : AppCompatActivity() {
                 binding.postImageView.setImageURI(it)
                 binding.postImageView.visibility = View.VISIBLE
                 updatePostButtonState(true)
-
-                // Save the URI as a String for later use
-                val imageUriString = it.toString()
             }
         }
 
@@ -118,11 +116,8 @@ class NewPostActivity : AppCompatActivity() {
                 val imageBitmap = result.data?.extras?.get("data") as? Bitmap
                 imageBitmap?.let {
                     binding.postImageView.setImageBitmap(it)
-                    binding.postImageView.visibility = View.VISIBLE
+                    binding.postImageView.visibility = android.view.View.VISIBLE
                     updatePostButtonState(true)
-
-                    // Convert the Bitmap to URI and store the URI string
-                    val imageUriString = getImageUri(this, it).toString()
                 }
             }
         }
@@ -142,63 +137,31 @@ class NewPostActivity : AppCompatActivity() {
             checkPermissionsAndOpenPicker()
         }
 
-//        binding.postButton.setOnClickListener {
-//            try {
-//                val postDescription = binding.postDescEditTextField.text.toString()
-//
-//                // Ensure the description is not empty
-//                if (postDescription.isBlank()) {
-//                    Toast.makeText(this, "Post description cannot be empty", Toast.LENGTH_SHORT).show()
-//                    return@setOnClickListener
-//                }
-//
-//                // Retrieve image drawable as a string
-//                val imageUriString = binding.postImageView.drawable?.toString() ?: run {
-//                    Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
-//                    return@setOnClickListener
-//                }
-//
-//                // User avatar URI
-//                val userAvatarUriString = "android.resource://$packageName/${R.drawable.person1}"
-//
-////                // Create a new Post object
-////                val post = Post(
-////                    caption = postDescription,
-////                    postImage = imageUriString,  // Store the URI string
-////                    username = "Yogesh",
-////                    userAvatar = userAvatarUriString, // Store the URI string for the avatar
-////                    time = "2025",
-////                    like = "0",
-////                    dislike = "0",
-////                    comment = "",
-////                    share = ""
-////                )
-//
-//                // Add the post to the ViewModel
-////                postViewModel.addNewPost(post)
-//
-//                // Notify success
-//                Toast.makeText(this, "Post added successfully!", Toast.LENGTH_SHORT).show()
-//                val intent = Intent()
-//                intent.putExtra("new_post", post)
-//
-//                setResult(RESULT_OK, intent)
-//                finish()
-//            } catch (e: Exception) {
-//                // Handle any unexpected errors
-//                Toast.makeText(this, "Failed to add post: ${e.message}", Toast.LENGTH_LONG).show()
-//                e.printStackTrace() // Optional: Log the exception for debugging purposes
-//            }
-//
-//
-//
-//
-//
-//        // Update the ViewModel with the new post
-//
-//            // Finish activity and return to HomeFragment
-//            finish()
-//        }
+
+        // Post Button
+        binding.postButton.setOnClickListener {
+            loadingDialogUtils.show()
+            var postDesc : String? = binding.postDescEditTextField.text.toString()
+            var postImage : String? = binding.newPostProfileImage.toString()
+            var postBy : String? = binding.newPostUserName.text .toString()
+            var postTimeStamp : Long? = binding.newPostUserName.text .toString().toLong()
+
+            var postModel = PostModel("", postImage, postDesc, postBy, postTimeStamp)
+            postViewModel.addPost(postModel){
+                success, message ->
+                if (success){
+                    Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
+                    finish()
+                }
+                else{
+                    Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
+                }
+                loadingDialogUtils.dismiss()
+            }
+        }
+
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.newPostLayout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -276,9 +239,6 @@ class NewPostActivity : AppCompatActivity() {
         }
         builder.show()
     }
-    private fun getImageUri(context: Context, inImage: Bitmap): Uri {
-        val path = MediaStore.Images.Media.insertImage(context.contentResolver, inImage, "Title", null)
-        return Uri.parse(path)
-    }
-}
 
+
+}
