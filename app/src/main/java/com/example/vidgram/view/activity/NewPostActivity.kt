@@ -10,7 +10,11 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -40,6 +44,7 @@ class NewPostActivity : AppCompatActivity() {
     lateinit var loadingDialogUtils: LoadingDialogUtils
 
 
+
     private var selectedImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +53,17 @@ class NewPostActivity : AppCompatActivity() {
 
         binding = ActivityNewPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        loadingDialogUtils = LoadingDialogUtils(this)
+
+        // User Backend Binding
+        val userRepo = UserRepositoryImpl()
+        userViewModel = UserViewModel(userRepo)
+
+
+        // Post Backend Binding
+        val postRepo = PostRepositoryImpl()
+        postViewModel = PostViewModel(postRepo)
 
         loadingDialogUtils = LoadingDialogUtils(this)
 
@@ -161,7 +177,9 @@ class NewPostActivity : AppCompatActivity() {
             val profileImage: String? = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHtVmYuLaQpNM-dToMMFc3BSl0L-dXfhJX3A&s"
             var postModel = PostModel("", postImage, profileImage,postDesc, postBy, postTimeStamp)
 
-            postViewModel.addPost(postModel,this@NewPostActivity){
+            var postModel = PostModel("", postImage, postDesc, postBy, postTimeStamp)
+
+            postViewModel.addPost(postModel){
                 success, message ->
                 if (success){
                     Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
@@ -196,8 +214,6 @@ class NewPostActivity : AppCompatActivity() {
         return true
     }
 
-
-
     private fun updatePostButtonState(isEnabled: Boolean) {
         if (isEnabled) {
             binding.postButton.background = ContextCompat.getDrawable(this, R.drawable.post_filled_custom_btn)
@@ -207,7 +223,6 @@ class NewPostActivity : AppCompatActivity() {
             binding.postButton.setTextColor(ContextCompat.getColor(this, R.color.postBtnTextColor))
         }
     }
-
 
     // Function to check and request permissions
     private fun checkPermissionsAndOpenPicker() {
@@ -234,7 +249,6 @@ class NewPostActivity : AppCompatActivity() {
             permissionsLauncher.launch(requiredPermissions)
         }
     }
-
 
     private fun openImagePickerDialog() {
         val options = arrayOf("Choose from Gallery", "Take a Photo")

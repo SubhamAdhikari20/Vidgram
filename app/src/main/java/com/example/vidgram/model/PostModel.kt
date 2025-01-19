@@ -1,7 +1,7 @@
 package com.example.vidgram.model
 
 data class PostModel(
-    var postId: String ?= null,
+    var postID: String ?= null,
     var postImaqe:  String ?= null,
     var profileImage :String?= null,
     var postDescription:  String ?= null,
