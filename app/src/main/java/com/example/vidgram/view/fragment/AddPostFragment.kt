@@ -49,9 +49,6 @@ class AddPostFragment : BottomSheetDialogFragment() {
             startActivity(intent)
         }
 
-
-
-
     }
     private fun openNewPostActivity() {
         val intent = Intent(requireContext(), NewPostActivity::class.java)

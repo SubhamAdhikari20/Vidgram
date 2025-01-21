@@ -30,7 +30,6 @@ import com.example.vidgram.utils.LoadingDialogUtils
 import com.example.vidgram.viewmodel.PostViewModel
 import com.example.vidgram.viewmodel.UserViewModel
 
-
 class NewPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewPostBinding
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
@@ -62,7 +61,6 @@ class NewPostActivity : AppCompatActivity() {
         val postRepo = PostRepositoryImpl()
         postViewModel = PostViewModel(postRepo)
 
-        loadingDialogUtils = LoadingDialogUtils(this)
 
         val config = mutableMapOf<String, String>()
         config["cloud_name"] = "drykew7pu"
