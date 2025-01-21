@@ -174,18 +174,40 @@ lateinit var postAdapter: PostAdapter
 
 
 
+        /*
         // Initialize RecyclerView for posts
+        binding.recyclerViewPosts.layoutManager = LinearLayoutManager(requireContext())
+
+        val posts = listOf(
+            Post("John Doe", R.drawable.my_story_icon, R.drawable.person1, "Enjoying the sunset!", "12:00", "24k", "1k", "1,080", "2.4k"),
+            Post("Alice Smith", R.drawable.my_story_icon, R.drawable.person1, "Had a great day!", "12:00", "24k", "1k", "1,080", "2.4k"),
+            Post("Bob Lee", R.drawable.my_story_icon, R.drawable.person1, "Coffee break!", "12:00", "24k", "1k", "1,080", "2.4k"),
+            Post("Emma Brown", R.drawable.my_story_icon, R.drawable.person1, "Amazing hike!", "12:00", "24k", "1k", "1,080", "2.4k"),
+            Post("John Doe", R.drawable.my_story_icon, R.drawable.person1, "Enjoying the sunset!", "12:00", "24k", "1k", "1,080", "2.4k"),
+            Post("Alice Smith", R.drawable.my_story_icon, R.drawable.person1, "Had a great day!", "12:00", "24k", "1k", "1,080", "2.4k"),
+            Post("Bob Lee", R.drawable.my_story_icon, R.drawable.person1, "Coffee break!", "12:00", "24k", "1k", "1,080", "2.4k"),
+            Post("Emma Brown", R.drawable.my_story_icon, R.drawable.person1, "Amazing hike!", "12:00", "24k", "1k", "1,080", "2.4k")
+        )
+
+        val postAdapter = PostAdapter(posts) { post ->
+            // Handle comment click
+            openCommentDialog(post)
+        }
+
+        binding.recyclerViewPosts.adapter = postAdapter
+        */
+
+
 
         postsList = mutableListOf()
-        postAdapter = PostAdapter(requireContext(), postsList)
-
-
-
+        postAdapter = PostAdapter(requireContext(), postsList){ post ->
+            // Handle comment click
+            openCommentDialog(post)
+        }
 
         val recyclerView = binding.recyclerViewPosts  // Access RecyclerView directly from the binding
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = postAdapter
-
 
 
 
@@ -195,22 +217,18 @@ lateinit var postAdapter: PostAdapter
 // Set up an observer for the posts list
         postViewModel.getAllPosts.observe(viewLifecycleOwner, { posts ->
             // If posts is null, provide an empty list
-            val postAdapter = PostAdapter(requireContext(), (posts ?: emptyList()).toMutableList())
+            val postAdapter = PostAdapter(requireContext(), (posts ?: emptyList()).toMutableList()){ post ->
+                // Handle comment click
+                openCommentDialog(post)
+            }
             recyclerView.adapter = postAdapter
         })
-
-
-
-
-
-
-
 
     }
 
 
 
-    private fun openCommentDialog(post: Post) {
+    private fun openCommentDialog(post: PostModel) {
         val commentDialog = CommentFragment() // Replace with your dialog fragment
         val bundle = Bundle()
 //        bundle.putParcelable("post", post) // Pass the clicked post object
