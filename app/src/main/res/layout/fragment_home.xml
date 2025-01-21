@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="5dp"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,14 +21,14 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@android:color/transparent"
             app:menu="@menu/home_page_toolbar"
-            android:background="@color/white"
             android:elevation="5dp"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,19 +51,22 @@
                     android:textSize="20sp" />
 
         </LinearLayout>
-
     </androidx.appcompat.widget.Toolbar>
-
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#C7C2C2" />
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
         android:fillViewport="true"
         android:orientation="vertical"
         android:scrollbars="none"
@@ -78,6 +82,8 @@
             android:orientation="vertical">
 
             <!-- RecyclerView for Stories -->
+
+            <!-- RecyclerView for Posts -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewStories"
                 android:layout_width="match_parent"
@@ -86,7 +92,6 @@
                 android:orientation="horizontal"
                 tools:listitem="@layout/item_story" />
 
-            <!-- RecyclerView for Posts -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewPosts"
                 android:layout_width="match_parent"

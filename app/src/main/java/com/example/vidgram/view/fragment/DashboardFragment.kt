@@ -10,15 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vidgram.R
 import com.example.vidgram.model.Story
 import com.example.vidgram.adapter.StoryAdapter
+import com.example.vidgram.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
+    private lateinit var binding: FragmentDashboardBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,4 +53,6 @@ class DashboardFragment : Fragment() {
         // Set adapter
         recyclerView.adapter = StoryAdapter(stories)
     }
+
+
 }

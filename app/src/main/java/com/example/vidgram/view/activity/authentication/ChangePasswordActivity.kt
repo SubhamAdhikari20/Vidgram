@@ -2,7 +2,6 @@ package com.example.vidgram.view.activity.authentication
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,13 +9,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityChangePasswordBinding
-import com.example.vidgram.repository.UserAuthRepositoryImpl
+import com.example.vidgram.repository.UserRepositoryImpl
 import com.example.vidgram.utils.LoadingDialogUtils
-import com.example.vidgram.viewmodel.UserAuthViewModel
+import com.example.vidgram.viewmodel.UserViewModel
 
 class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var binding : ActivityChangePasswordBinding
-    private lateinit var userAuthViewModel: UserAuthViewModel
+    private lateinit var userViewModel: UserViewModel
     private lateinit var loadingDialogUtils: LoadingDialogUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +27,8 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         loadingDialogUtils = LoadingDialogUtils(this)
         val bundle = intent.extras
-        val repo = UserAuthRepositoryImpl()
-        userAuthViewModel = UserAuthViewModel(repo)
+        val repo = UserRepositoryImpl()
+        userViewModel = UserViewModel(repo)
 
 
         // Handle back button click
@@ -49,7 +48,7 @@ class ChangePasswordActivity : AppCompatActivity() {
 
             if (newPasswordActivity.isNotEmpty() && confirmPasswordActivity.isNotEmpty()) {
                 // Call ViewModel to login
-                userAuthViewModel.forgetPassword(email) { success, message ->
+                userViewModel.forgetPassword(email) { success, message ->
                     if (success) {
                         loadingDialogUtils.dismiss()
                         Toast.makeText(this, message, Toast.LENGTH_LONG).show()

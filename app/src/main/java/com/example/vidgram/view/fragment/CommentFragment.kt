@@ -23,18 +23,17 @@ class CommentFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCommentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        // Dismiss dialog when the horizontal bar is clicked (optional)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+//         Dismiss dialog when the horizontal bar is clicked (optional)
 //        binding.linearLayout4.setOnClickListener {
 //            dismiss()
 //        }
 
-        return binding.root
     }
 
-    companion object {
-        fun newInstance(): CommentFragment {
-            return CommentFragment()
-        }
-    }
 }

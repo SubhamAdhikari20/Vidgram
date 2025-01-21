@@ -10,14 +10,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityTermsAndConditionBinding
-import com.example.vidgram.model.UserAuthModel
-import com.example.vidgram.repository.UserAuthRepositoryImpl
+import com.example.vidgram.model.UserModel
+import com.example.vidgram.repository.UserRepositoryImpl
 import com.example.vidgram.utils.LoadingDialogUtils
-import com.example.vidgram.viewmodel.UserAuthViewModel
+import com.example.vidgram.viewmodel.UserViewModel
 
 class TermsAndConditionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTermsAndConditionBinding
-    private lateinit var userViewModel: UserAuthViewModel
+    private lateinit var userViewModel: UserViewModel
     private lateinit var loadingDialogUtils: LoadingDialogUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +28,8 @@ class TermsAndConditionActivity : AppCompatActivity() {
 
         loadingDialogUtils = LoadingDialogUtils(this)
         val bundle = intent.extras
-        val repo = UserAuthRepositoryImpl() // Assuming the repository is created here
-        userViewModel = UserAuthViewModel(repo)
+        val repo = UserRepositoryImpl() // Assuming the repository is created here
+        userViewModel = UserViewModel(repo)
 
         // Handle back button click
         binding.arrowButton7.setOnClickListener {
@@ -42,7 +42,7 @@ class TermsAndConditionActivity : AppCompatActivity() {
         // Handle agree button click
         binding.agreeButton.setOnClickListener {
             loadingDialogUtils.show()
-            val userDetails = UserAuthModel(
+            val userDetails = UserModel(
                 fullName = bundle?.getString("fullName"),
                 dob = bundle?.getString("dob"),
                 gender = bundle?.getString("gender"),
@@ -67,7 +67,7 @@ class TermsAndConditionActivity : AppCompatActivity() {
             ) { success, message, userID ->
                 if (success) {
                     // Handle success
-                    val userModel = UserAuthModel(userID, userDetails.fullName,
+                    val userModel = UserModel(userID, userDetails.fullName,
                         userDetails.dob,
                         userDetails.gender,
                         userDetails.country,
@@ -97,7 +97,7 @@ class TermsAndConditionActivity : AppCompatActivity() {
         }
     }
 
-    private fun addUser(userModel: UserAuthModel) {
+    private fun addUser(userModel: UserModel) {
 
         userViewModel.addUserToDatabase(userModel.userID?:"", userModel) { success, message ->
 

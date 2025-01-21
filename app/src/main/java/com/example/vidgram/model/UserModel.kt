@@ -1,7 +1,6 @@
 package com.example.vidgram.model
 
-
-class UserAuthModel(
+data class UserModel(
     var userID: String ?= null,
     var fullName:  String ?= null,
     var dob:  String ?= null,
@@ -10,5 +9,4 @@ class UserAuthModel(
     var contact: String ?= null,
     var email: String ?= null,
     var password:  String ?= null
-) {
-}
+)

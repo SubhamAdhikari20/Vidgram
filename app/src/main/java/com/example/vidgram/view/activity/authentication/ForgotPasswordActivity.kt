@@ -9,13 +9,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityForgotPasswordBinding
-import com.example.vidgram.repository.UserAuthRepositoryImpl
+import com.example.vidgram.repository.UserRepositoryImpl
 import com.example.vidgram.utils.LoadingDialogUtils
-import com.example.vidgram.viewmodel.UserAuthViewModel
+import com.example.vidgram.viewmodel.UserViewModel
 
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding : ActivityForgotPasswordBinding
-    private lateinit var userAuthViewModel: UserAuthViewModel
+    private lateinit var userViewModel: UserViewModel
     private lateinit var loadingDialogUtils: LoadingDialogUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +27,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         loadingDialogUtils = LoadingDialogUtils(this)
         val bundle = intent.extras
-        val repo = UserAuthRepositoryImpl()
-        userAuthViewModel = UserAuthViewModel(repo)
+        val repo = UserRepositoryImpl()
+        userViewModel = UserViewModel(repo)
 
 
         // Handle back button click
@@ -54,7 +54,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 finish()
 
                 // Call ViewModel to login
-//                userAuthViewModel.forgetPassword(email) { success, message ->
+//                userViewModel.forgetPassword(email) { success, message ->
 //                    if (success) {
 //                        loadingDialogUtils.dismiss()
 //                        Toast.makeText(this, message, Toast.LENGTH_LONG).show()

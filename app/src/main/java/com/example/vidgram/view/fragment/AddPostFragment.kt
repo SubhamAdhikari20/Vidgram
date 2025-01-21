@@ -1,24 +1,37 @@
 package com.example.vidgram.view.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityBottomNavigationBinding
 import com.example.vidgram.databinding.FragmentAddPostBinding
 import com.example.vidgram.databinding.FragmentHomeBinding
+import com.example.vidgram.model.Post
+import com.example.vidgram.view.activity.NewPostActivity
+import com.example.vidgram.viewmodel.PostViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AddPostFragment : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddPostBinding
+    private val postViewModel: PostViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+//    private val addPostResultLauncher =
+//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//            if (result.resultCode == Activity.RESULT_OK) {
+//                val newPost: Post? = result.data?.getParcelableExtra("newPost")
+//                newPost?.let {
+//                    // Add the new post to the ViewModel
+//                    postViewModel.addNewPost(it)
+//                }
+//            }
+//        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,22 +39,29 @@ class AddPostFragment : BottomSheetDialogFragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentAddPostBinding.inflate(inflater, container, false)
-
-        // Set up click listeners for the options
-        binding.takePhotoPostTexView.setOnClickListener {
-
-            dismiss()
-        }
-
-        binding.uploadGalleryPhotoTexView.setOnClickListener {
-
-            dismiss()
-        }
-
-
         return binding.root
     }
 
-    companion object {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Set up click listeners for the options
+        binding.takePhotoLinearLayout.setOnClickListener {
+            val intent = Intent(requireContext(), NewPostActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.uploadGalleryLinearLayout.setOnClickListener {
+            val intent = Intent(requireContext(), NewPostActivity::class.java)
+            startActivity(intent)
+        }
+
     }
+
+//    private fun openNewPostActivity() {
+//        val intent = Intent(requireContext(), NewPostActivity::class.java)
+//        addPostResultLauncher.launch(intent)
+//    }
+
+
 }
