@@ -10,11 +10,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -33,6 +29,7 @@ import com.example.vidgram.repository.UserRepositoryImpl
 import com.example.vidgram.utils.LoadingDialogUtils
 import com.example.vidgram.viewmodel.PostViewModel
 import com.example.vidgram.viewmodel.UserViewModel
+
 
 class NewPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewPostBinding
@@ -73,16 +70,6 @@ class NewPostActivity : AppCompatActivity() {
         config["api_secret"] = "-7N8kuVvR0FNLLPYFModBB_03UM"
 
         MediaManager.init(this, config)
-
-        // User Backend Binding
-        val userRepo = UserRepositoryImpl()
-        userViewModel = UserViewModel(userRepo)
-
-
-        // Post Backend Binding
-        val postRepo = PostRepositoryImpl()
-        postViewModel = PostViewModel(postRepo)
-
 
         val currentUser = userViewModel.getCurrentUser()
         currentUser.let{    // it -> currentUser
@@ -174,10 +161,9 @@ class NewPostActivity : AppCompatActivity() {
             var postImage : String? = selectedImageUri.toString()
             var postBy : String? = binding.newPostUserName.text .toString()
             var postTimeStamp : String? = binding.newPostUserName.text .toString()
-            val profileImage: String? = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHtVmYuLaQpNM-dToMMFc3BSl0L-dXfhJX3A&s"
-            var postModel = PostModel("", postImage, profileImage,postDesc, postBy, postTimeStamp)
+            val profileImage: String? = ""
 
-            var postModel = PostModel("", postImage, postDesc, postBy, postTimeStamp)
+            var postModel = PostModel("", postImage, profileImage, postDesc, postBy, postTimeStamp)
 
             postViewModel.addPost(postModel){
                 success, message ->
@@ -191,8 +177,6 @@ class NewPostActivity : AppCompatActivity() {
                 loadingDialogUtils.dismiss()
             }
         }
-
-
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.newPostLayout)) { v, insets ->

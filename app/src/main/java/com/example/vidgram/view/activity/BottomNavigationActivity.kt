@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityBottomNavigationBinding
 import com.example.vidgram.model.Post
+import com.example.vidgram.model.PostModel
 import com.example.vidgram.view.fragment.CommunityFragment
 import com.example.vidgram.view.fragment.HomeFragment
 import com.example.vidgram.view.fragment.MessageFragment
@@ -85,11 +86,12 @@ class BottomNavigationActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.frameLayout, fragment)
         fragmentTransaction.commit()
     }
+
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
 //
 //        if (requestCode == ADD_POST_REQUEST_CODE && resultCode == RESULT_OK) {
-//            val newPost = data?.getParcelableExtra<Post>("new_post")
+//            val newPost = data?.getParcelableExtra<PostModel>("new_post")
 //            newPost?.let {
 //                // Pass post to HomeFragment's PostAdapter
 //                val homeFragment =

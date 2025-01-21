@@ -10,10 +10,9 @@ class PostViewModel(val repo: PostRepository) {
 
     fun addPost(
         postModel: PostModel,
-        context: Context,
         callback: (Boolean, String) -> Unit
     ){
-        repo.addPost(postModel, context,callback)
+        repo.addPost(postModel, callback)
     }
 
     fun updatePost(

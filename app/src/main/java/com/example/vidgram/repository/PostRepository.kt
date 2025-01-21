@@ -12,7 +12,6 @@ interface PostRepository {
 
     fun addPost(
         postModel: PostModel,
-        context: Context,  // Add the Context parameter
         callback: (Boolean, String) -> Unit
     )
 
