@@ -4,16 +4,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.Manifest
-import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -24,18 +20,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.exifinterface.media.ExifInterface
 import com.cloudinary.android.MediaManager
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityNewPostBinding
 import com.example.vidgram.model.PostModel
 import com.example.vidgram.repository.PostRepositoryImpl
 import com.example.vidgram.repository.UserRepositoryImpl
-import com.example.vidgram.utils.ImageUtils
 import com.example.vidgram.utils.LoadingDialogUtils
 import com.example.vidgram.viewmodel.PostViewModel
 import com.example.vidgram.viewmodel.UserViewModel
-import com.squareup.picasso.Picasso
+
 
 class NewPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewPostBinding
@@ -45,8 +39,7 @@ class NewPostActivity : AppCompatActivity() {
     private lateinit var userViewModel: UserViewModel
     lateinit var postViewModel: PostViewModel
     lateinit var loadingDialogUtils: LoadingDialogUtils
-    lateinit var imageUtils: ImageUtils
-    var imageUri: Uri? = null
+
 
 
     private var selectedImageUri: Uri? = null
@@ -64,43 +57,19 @@ class NewPostActivity : AppCompatActivity() {
         val userRepo = UserRepositoryImpl()
         userViewModel = UserViewModel(userRepo)
 
+
         // Post Backend Binding
         val postRepo = PostRepositoryImpl()
         postViewModel = PostViewModel(postRepo)
 
-        imageUtils = ImageUtils(this)
-        imageUtils.registerActivity (
-            galleryCallback = { uri ->
-                uri?.let {
-                    imageUri = it
-                    val rotation = getCorrectRotation(this, it)
-                    Picasso.get().load(it).rotate(rotation.toFloat()).into(binding.postImageView)
-//                    binding.postImageView.setImageURI(imageUri)
-                    binding.postImageView.visibility = View.VISIBLE
-                    updatePostButtonState(true)
-                    Log.d("Gallery", "Image selected: $it")
-                }
-            },
+        loadingDialogUtils = LoadingDialogUtils(this)
 
-            cameraCallback = { uri ->
-                uri?.let {
-                    imageUri = it
-                    Picasso.get().load(it).into(binding.postImageView)
-                    binding.postImageView.visibility = View.VISIBLE
-                    updatePostButtonState(true)
-                    Log.d("Camera", "Photo taken: $it")
-                }
-            }
-        )
-
-        /*
         val config = mutableMapOf<String, String>()
-        config["cloud_name"] = "dbukovsi1"
-        config["api_key"] = "718742783263144"
-        config["api_secret"] = "udtElGelBPWkalRKw-RQrnqFRI8"
+        config["cloud_name"] = "drykew7pu"
+        config["api_key"] = "891342176588327"
+        config["api_secret"] = "-7N8kuVvR0FNLLPYFModBB_03UM"
 
         MediaManager.init(this, config)
-        */
 
         val currentUser = userViewModel.getCurrentUser()
         currentUser.let{    // it -> currentUser
@@ -145,7 +114,6 @@ class NewPostActivity : AppCompatActivity() {
 
         })
 
-        /*
         // Initialize the image picker launcher
         imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
@@ -158,21 +126,18 @@ class NewPostActivity : AppCompatActivity() {
             }
         }
 
-
         // Initialize the camera launcher
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val imageBitmap = result.data?.extras?.get("data") as? Bitmap
                 imageBitmap?.let {
                     binding.postImageView.setImageBitmap(it)
-//                    binding.postImageView.visibility = android.view.View.VISIBLE
+                    binding.postImageView.visibility = android.view.View.VISIBLE
                     updatePostButtonState(true)
                 }
             }
         }
-         */
 
-        /*
         // Initialize the permissions launcher
         permissionsLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val allGranted = permissions.all { it.value }
@@ -182,22 +147,34 @@ class NewPostActivity : AppCompatActivity() {
                 Toast.makeText(this, "Permissions required to proceed!", Toast.LENGTH_SHORT).show()
             }
         }
-         */
 
         // Handle "Add Image" button click
         binding.addPostImageView.setOnClickListener {
-            openImagePickerDialog()
-//            checkPermissionsAndOpenPicker()
+            checkPermissionsAndOpenPicker()
         }
 
 
         // Post Button
         binding.postButton.setOnClickListener {
-            if(imageUri == null) {
-                addPost("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png")
-            }
-            else{
-                uploadPostImage()
+            loadingDialogUtils.show()
+            var postDesc : String? = binding.postDescEditTextField.text.toString()
+            var postImage : String? = selectedImageUri.toString()
+            var postBy : String? = binding.newPostUserName.text .toString()
+            var postTimeStamp : String? = binding.newPostUserName.text .toString()
+            val profileImage: String? = ""
+
+            var postModel = PostModel("", postImage, profileImage, postDesc, postBy, postTimeStamp)
+
+            postViewModel.addPost(postModel){
+                success, message ->
+                if (success){
+                    Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
+                    finish()
+                }
+                else{
+                    Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
+                }
+                loadingDialogUtils.dismiss()
             }
         }
 
@@ -219,43 +196,6 @@ class NewPostActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
-    }
-
-    private fun addPost(url: String){
-        var postDesc : String? = binding.postDescEditTextField.text.toString()
-        var postBy : String? = binding.newPostUserName.text .toString()
-        var postTimeStamp : String? = binding.newPostFeedTime.text .toString()
-//        val profileImageUrl: String? = binding.newPostProfileImage.toString()
-
-        var postModel = PostModel(postId = "", postImageUrl = url, postDescription = postDesc, postBy = postBy, postTimeStamp = postTimeStamp)
-
-        postViewModel.addPost(postModel){
-                success, message ->
-            if (success){
-                Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
-                finish()
-            }
-            else{
-                Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
-            }
-            loadingDialogUtils.dismiss()
-        }
-    }
-
-    private fun uploadPostImage(){
-        loadingDialogUtils.show()
-        imageUri?.let { uri ->
-            postViewModel.uploadPostImage(this, uri) { imageUrl ->
-                Log.d("checkpoints", imageUrl.toString())
-                if (imageUrl != null) {
-                    addPost(imageUrl)
-                }
-                else {
-                    Toast.makeText(this@NewPostActivity, "Failed to upload image to Cloudinary", Toast.LENGTH_LONG).show()
-                    Log.e("Upload Error", "Failed to upload image to Cloudinary")
-                }
-            }
-        }
     }
 
     private fun updatePostButtonState(isEnabled: Boolean) {
@@ -301,35 +241,19 @@ class NewPostActivity : AppCompatActivity() {
         builder.setItems(options) { _, which ->
             when (which) {
                 0 -> { // Open Gallery
-                    imageUtils.launchGallery(this)
-//                    imagePickerLauncher.launch("image/*")
+                    imagePickerLauncher.launch("image/*")
                 }
                 1 -> { // Open Camera
-                    imageUtils.launchCamera(this)
-//                        cameraLauncher.launch(takePictureIntent)
-
+                    val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    if (takePictureIntent.resolveActivity(packageManager) != null) {
+                        cameraLauncher.launch(takePictureIntent)
+                    } else {
+                        Toast.makeText(this, "Camera not available!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
         builder.show()
-    }
-
-    private fun getCorrectRotation(context: Context, imageUri: Uri): Int {
-        return try {
-            val inputStream = context.contentResolver.openInputStream(imageUri)
-            val exif = ExifInterface(inputStream!!)
-            inputStream.close()
-
-            when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
-                ExifInterface.ORIENTATION_ROTATE_90 -> 90
-                ExifInterface.ORIENTATION_ROTATE_180 -> 180
-                ExifInterface.ORIENTATION_ROTATE_270 -> 270
-                else -> 0
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            0
-        }
     }
 
 

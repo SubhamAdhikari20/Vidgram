@@ -1,19 +1,18 @@
 package com.example.vidgram.viewmodel
 
 import android.content.Context
-import android.net.Uri
 import androidx.compose.runtime.produceState
 import androidx.lifecycle.MutableLiveData
 import com.example.vidgram.model.PostModel
 import com.example.vidgram.repository.PostRepository
 
-class PostViewModel(val postRepo: PostRepository) {
+class PostViewModel(val repo: PostRepository) {
 
     fun addPost(
         postModel: PostModel,
         callback: (Boolean, String) -> Unit
     ){
-        postRepo.addPost(postModel, callback)
+        repo.addPost(postModel, callback)
     }
 
     fun updatePost(
@@ -21,14 +20,14 @@ class PostViewModel(val postRepo: PostRepository) {
         data: MutableMap<String, Any>,
         callback: (Boolean, String) -> Unit
     ){
-        postRepo.updatePost(postId, data, callback)
+        repo.updatePost(postId, data, callback)
     }
 
     fun deletePost(
         postId:String,
         callback: (Boolean, String) -> Unit
     ){
-        postRepo.deletePost(postId, callback)
+        repo.deletePost(postId, callback)
     }
 
     var _posts = MutableLiveData<PostModel?>()
@@ -44,7 +43,7 @@ class PostViewModel(val postRepo: PostRepository) {
         postId:String,
     ){
         _loadingPostById.value = true
-        postRepo.getPostById(postId){
+        repo.getPostById(postId){
             post, success, message ->
             if (success){
                 _posts.value = post
@@ -63,22 +62,13 @@ class PostViewModel(val postRepo: PostRepository) {
 
 
     fun getAllPost(){
-        _loadingAllPost.value = true
-        postRepo.getAllPost(){
+        _loadingPostById.value = true
+        repo.getAllPost(){
             posts, success, message ->
             if (success){
                 _getAllPosts.value = posts
-                _loadingAllPost.value = false
+                _loadingPostById.value = false
             }
         }
     }
-
-    fun uploadPostImage(
-        context: Context,
-        imageUri: Uri,
-        callback: (String?) -> Unit
-    ){
-        postRepo.uploadPostImage(context, imageUri, callback)
-    }
-
 }
