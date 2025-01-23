@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_home_to_message"
-            app:destination="@id/message" />
+            app:destination="@id/messageModel" />
     </fragment>
     <fragment
-        android:id="@+id/message"
+        android:id="@+id/messageModel"
         android:name="com.example.vidgram.view.fragment.MessageFragment"
         android:label="fragment_message"
         tools:layout="@layout/fragment_message" >

@@ -10,9 +10,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.R
 import com.example.vidgram.adapter.UserChatAdapter
-import com.example.vidgram.model.UserChatInfo
 import com.example.vidgram.databinding.FragmentMessageBinding
-import com.example.vidgram.adapter.ChatRecyclerViewAdapter
+import com.example.vidgram.model.ChatModel
 import com.example.vidgram.view.activity.ChatMessageActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -22,7 +21,8 @@ import com.google.firebase.database.*
 class MessageFragment : Fragment() {
 
     private lateinit var binding: FragmentMessageBinding
-    private lateinit var userChatInfoList: MutableList<UserChatInfo>
+//    private lateinit var userChatInfoList: MutableList<ChatModel>
+    private lateinit var chatModelList: MutableList<ChatModel>
     private lateinit var adapter: UserChatAdapter
     private lateinit var database: FirebaseDatabase
     private lateinit var usersRef: DatabaseReference
@@ -54,14 +54,14 @@ class MessageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Initialize RecyclerView and Adapter
-        userChatInfoList = mutableListOf()
+        chatModelList = mutableListOf()
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = UserChatAdapter(userChatInfoList, requireContext()) { user ->
+        adapter = UserChatAdapter(chatModelList, requireContext()) { user ->
             val chatId = generateChatId(user)
             val intent = Intent(requireContext(), ChatMessageActivity::class.java).apply {
                 putExtra("name", user.fullName)
-                putExtra("chatID", chatId)
-                putExtra("receiverId", user.userID)
+                putExtra("chatId", chatId)
+                putExtra("receiverId", user.userId)
                 putExtra("receiverName", user.username)
             }
             startActivity(intent)
@@ -94,18 +94,18 @@ class MessageFragment : Fragment() {
     }
 
     private fun fetchUserData() {
-        userChatInfoList.clear()
+        chatModelList.clear()
         val loggedInUserId = FirebaseAuth.getInstance().currentUser?.uid
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
-                    val user = userSnapshot.getValue(UserChatInfo::class.java)
-                    val userID = userSnapshot.key ?: continue
-                    if (userID != loggedInUserId) {
-                        val chatID = generateChatId(UserChatInfo(userID = userID))
+                    val user = userSnapshot.getValue(ChatModel::class.java)
+                    val userId = userSnapshot.key ?: continue
+                    if (userId != loggedInUserId) {
+                        val chatId = generateChatId(ChatModel(userId = userId))
 
                         // Fetch last message for each chat
-                        chatsRef.child(chatID).limitToLast(1).addListenerForSingleValueEvent(object :
+                        chatsRef.child(chatId).limitToLast(1).addListenerForSingleValueEvent(object :
                             ValueEventListener {
                             override fun onDataChange(chatSnapshot: DataSnapshot) {
                                 var lastMessage = "No messages yet"
@@ -128,17 +128,16 @@ class MessageFragment : Fragment() {
                                     }
                                 }
 
-                                val userChatInfo = UserChatInfo(
-                                    userID = userID,
+                                val userChatInfo = ChatModel(
+                                    userId = userId,
                                     fullName= user?.fullName,
-                                    username = user?.username ?: "Unknown",
                                     profilePic = user?.profilePic ?: "",
                                     lastMessage = lastMessage,
                                     timestamp = timestamp
                                 )
 
-                                if (!userChatInfoList.any { it.userID == userID }) {
-                                    userChatInfoList.add(userChatInfo)
+                                if (!chatModelList.any { it.userId == userId }) {
+                                    chatModelList.add(userChatInfo)
                                 }
                                 adapter.notifyDataSetChanged()
                             }
@@ -157,16 +156,17 @@ class MessageFragment : Fragment() {
         })
     }
 
-    private fun generateChatId(user: UserChatInfo): String {
+    private fun generateChatId(user: ChatModel): String {
         val loggedInUserId = FirebaseAuth.getInstance().currentUser?.uid
         return if (loggedInUserId != null) {
-            if (loggedInUserId < user.userID) {
-                "${user.userID}-$loggedInUserId"
+            if (loggedInUserId < user.userId) {
+                "${user.userId}-$loggedInUserId"
             } else {
-                "$loggedInUserId-${user.userID}"
+                "$loggedInUserId-${user.userId}"
 
             }
-        } else {
+        } 
+        else {
             ""
         }
     }

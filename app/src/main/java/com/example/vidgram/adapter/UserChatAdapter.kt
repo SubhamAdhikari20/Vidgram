@@ -10,20 +10,30 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
+import com.example.vidgram.model.ChatModel
 import com.example.vidgram.model.UserChatInfo
 import java.text.SimpleDateFormat
 import java.util.*
 
 class UserChatAdapter(
-    private val userList: List<UserChatInfo>, // List of users
+    private val userList: List<ChatModel>, // List of users
     private val context: Context,
-    private val onItemClick: (UserChatInfo) -> Unit // On click callback
+    private val onItemClick: (ChatModel) -> Unit // On click callback
 ) : RecyclerView.Adapter<UserChatAdapter.UserChatViewHolder>() {
+
+    inner class UserChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val profileImageView: ImageView = itemView.findViewById(R.id.userChatImage)
+        val usernameTextView: TextView = itemView.findViewById(R.id.userChatName)
+        val lastMessageTextView: TextView = itemView.findViewById(R.id.userChatMessage)
+        val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserChatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.sample_user_chat, parent, false)
         return UserChatViewHolder(view)
     }
+
+    override fun getItemCount(): Int = userList.size
 
     override fun onBindViewHolder(holder: UserChatViewHolder, position: Int) {
         val user = userList[position]
@@ -54,12 +64,5 @@ class UserChatAdapter(
         }
     }
 
-    override fun getItemCount(): Int = userList.size
 
-    inner class UserChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val profileImageView: ImageView = itemView.findViewById(R.id.userChatImage)
-        val usernameTextView: TextView = itemView.findViewById(R.id.userChatName)
-        val lastMessageTextView: TextView = itemView.findViewById(R.id.userChatMessage)
-        val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
-    }
 }
