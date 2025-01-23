@@ -16,13 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vidgram.R
 import com.example.vidgram.adapter.MessageAdapter
 import com.example.vidgram.databinding.ActivityChatMessageBinding
-import com.example.vidgram.model.Message
+import com.example.vidgram.model.MessageModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class ChatMessageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatMessageBinding
-
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var messageList: RecyclerView
@@ -31,7 +30,7 @@ class ChatMessageActivity : AppCompatActivity() {
     private lateinit var senderId: String
     private lateinit var chatId: String
 
-    private val messages = mutableListOf<Message>()
+    private val messageModels = mutableListOf<MessageModel>()
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,11 +56,11 @@ class ChatMessageActivity : AppCompatActivity() {
         chatId = if (senderId < receiverId) "$receiverId-$senderId" else "$senderId-$receiverId"
 
         // Set up RecyclerView
-        messageAdapter = MessageAdapter(messages, senderId)
+        messageAdapter = MessageAdapter(messageModels, senderId)
         messageList.adapter = messageAdapter
         messageList.layoutManager = LinearLayoutManager(this)
 
-        // Retrieve and display messages from the database
+        // Retrieve and display messageModels from the database
         loadMessages()
 
         // Handle touch event on message input (detect click on drawableEnd)
@@ -114,10 +113,10 @@ class ChatMessageActivity : AppCompatActivity() {
     private fun loadMessages() {
         database.child("chats").child(chatId).addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val message = snapshot.getValue(Message::class.java)
-                message?.let {
-                    messages.add(it) // Add message to the list
-                    messageAdapter.notifyItemInserted(messages.size - 1) // Notify adapter of new message
+                val messageModel = snapshot.getValue(MessageModel::class.java)
+                messageModel?.let {
+                    messageModels.add(it) // Add message to the list
+                    messageAdapter.notifyItemInserted(messageModels.size - 1) // Notify adapter of new message
                 }
             }
 
@@ -131,8 +130,8 @@ class ChatMessageActivity : AppCompatActivity() {
     private fun sendMessage(messageInput: EditText) {
         val messageText = messageInput.text.toString()
         if (messageText.isNotEmpty()) {
-            val message = Message(senderId, receiverId, messageText, System.currentTimeMillis())
-            database.child("chats").child(chatId).push().setValue(message)
+            val messageModel = MessageModel(senderId, receiverId, messageText, System.currentTimeMillis())
+            database.child("chats").child(chatId).push().setValue(messageModel)
             messageInput.text.clear() // Clear the input field after sending
         }
     }

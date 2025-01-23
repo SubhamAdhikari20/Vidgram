@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.vidgram.model.Message
+import com.example.vidgram.model.MessageModel
 import com.example.vidgram.R
 
 class MessageAdapter(
-    private val messages: List<Message>,
+    private val messageModels: List<MessageModel>,
     private val currentUserId: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -19,7 +19,7 @@ class MessageAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        val message = messages[position]
+        val message = messageModels[position]
         return if (message.senderId == currentUserId) {
             VIEW_TYPE_SENT
         } else {
@@ -40,7 +40,7 @@ class MessageAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val message = messages[position]
+        val message = messageModels[position]
         if (holder is SentMessageViewHolder) {
             holder.bind(message)
         } else if (holder is ReceivedMessageViewHolder) {
@@ -48,21 +48,21 @@ class MessageAdapter(
         }
     }
 
-    override fun getItemCount(): Int = messages.size
+    override fun getItemCount(): Int = messageModels.size
 
     // ViewHolder for Sent Messages
     class SentMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
-        fun bind(message: Message) {
-            messageTextView.text = message.message
+        fun bind(messageModel: MessageModel) {
+            messageTextView.text = messageModel.message
         }
     }
 
     // ViewHolder for Received Messages
     class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
-        fun bind(message: Message) {
-            messageTextView.text = message.message
+        fun bind(messageModel: MessageModel) {
+            messageTextView.text = messageModel.message
         }
     }
 }
