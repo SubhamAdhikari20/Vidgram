@@ -62,7 +62,8 @@ lateinit var postAdapter: PostAdapter
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         // Initialize postAdapter with an empty mutable list or with existing posts
-
+        val repo = PostRepositoryImpl()
+        postViewModel =PostViewModel(repo)
 
 // Later when you need to update the list, you can call:
 
@@ -186,8 +187,7 @@ lateinit var postAdapter: PostAdapter
         recyclerView.adapter = postAdapter
 
 
-        val repo = PostRepositoryImpl()
-        postViewModel =PostViewModel(repo)
+
 
 
         postViewModel.getAllPost()
