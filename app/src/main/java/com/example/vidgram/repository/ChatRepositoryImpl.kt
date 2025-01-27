@@ -1,7 +1,6 @@
 package com.example.vidgram.repository
 
-import com.example.vidgram.model.ChatModel
-import com.example.vidgram.model.StoryModel
+import com.example.vidgram.model.UserChatInfo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -13,11 +12,31 @@ class ChatRepositoryImpl : ChatRepository {
     private val reference: DatabaseReference = database.reference.child("chats")
 
     override fun addChat(
-        chatModel: ChatModel,
+        chatModel: UserChatInfo,
         callback: (Boolean, String) -> Unit
     ) {
         val chatId = reference.push().key.toString()
-        chatModel.chatId = chatId
+//        chatModel.chatId = chatId
+        /*
+        reference.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (eachData in snapshot.children){
+                    val chatModel = eachData.getValue(UserChatInfo::class.java)
+                    if (chatModel != null){
+                        chatModel.add(chatModel)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+         */
+
+        /*
+        */
         reference.child(chatId).setValue(chatModel).addOnCompleteListener {
             if (it.isSuccessful) {
                 callback(true, "Chat added successfully")
@@ -59,12 +78,12 @@ class ChatRepositoryImpl : ChatRepository {
 
     override fun getChatById(
         chatId: String,
-        callback: (ChatModel?, Boolean, String) -> Unit
+        callback: (UserChatInfo?, Boolean, String) -> Unit
     ) {
         reference.child(chatId).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
-                    val chatModel = snapshot.getValue(ChatModel::class.java)
+                    val chatModel = snapshot.getValue(UserChatInfo::class.java)
                     callback(chatModel, true, "Chat fetched successfully")
                 }
             }
@@ -76,15 +95,15 @@ class ChatRepositoryImpl : ChatRepository {
         })
     }
 
-    override fun getAllChat(
-        callback: (List<ChatModel>?, Boolean, String) -> Unit
+    override fun getAllChats(
+        callback: (List<UserChatInfo>?, Boolean, String) -> Unit
     ) {
         reference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
-                    val chats = mutableListOf<ChatModel>()
+                    val chats = mutableListOf<UserChatInfo>()
                     for (eachData in snapshot.children){
-                        val chatModel = eachData.getValue(ChatModel::class.java)
+                        val chatModel = eachData.getValue(UserChatInfo::class.java)
                         if (chatModel != null){
                             chats.add(chatModel)
                         }

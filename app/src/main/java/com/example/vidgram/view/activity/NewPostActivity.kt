@@ -63,9 +63,9 @@ class NewPostActivity : AppCompatActivity() {
 
 
         val config = mutableMapOf<String, String>()
-        config["cloud_name"] = "drykew7pu"
-        config["api_key"] = "891342176588327"
-        config["api_secret"] = "-7N8kuVvR0FNLLPYFModBB_03UM"
+        config["cloud_name"] = "dbukovsi1"
+        config["api_key"] = "718742783263144"
+        config["api_secret"] = "udtElGelBPWkalRKw-RQrnqFRI8"
 
         MediaManager.init(this, config)
 
