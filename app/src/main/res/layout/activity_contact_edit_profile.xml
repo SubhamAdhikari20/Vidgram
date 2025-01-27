@@ -56,11 +56,10 @@
     <EditText
         android:id="@+id/contactEditProfileEditTextField"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="25dp"
         android:background="@drawable/custom_edit_profile_text_field"
         android:ems="10"
         android:gravity="top"
@@ -68,7 +67,6 @@
         android:inputType="phone"
         android:padding="10dp"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/contactSaveChangesButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
@@ -79,15 +77,15 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="700dp"
         android:background="@drawable/post_custom_btn"
         android:text="Save Changes"
         android:textAllCaps="false"
         android:textColor="#A59999"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactEditProfileEditTextField" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
