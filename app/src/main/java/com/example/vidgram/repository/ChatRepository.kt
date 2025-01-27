@@ -1,11 +1,11 @@
 package com.example.vidgram.repository
 
-import com.example.vidgram.model.ChatModel
+import com.example.vidgram.model.UserChatInfo
 
 interface ChatRepository {
 
     fun addChat(
-        chatModel: ChatModel,
+        chatModel: UserChatInfo,
         callback: (Boolean, String) -> Unit
     )
 
@@ -22,10 +22,10 @@ interface ChatRepository {
 
     fun getChatById(
         chatId:String,
-        callback: (ChatModel?, Boolean, String) -> Unit
+        callback: (UserChatInfo?, Boolean, String) -> Unit
     )
 
-    fun getAllChat(
-        callback: (List<ChatModel>?, Boolean, String) -> Unit
+    fun getAllChats(
+        callback: (List<UserChatInfo>?, Boolean, String) -> Unit
     )
 }

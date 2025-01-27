@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.Manifest
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.cloudinary.android.MediaManager
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityNewPostBinding
 import com.example.vidgram.model.PostModel
@@ -39,6 +41,8 @@ class NewPostActivity : AppCompatActivity() {
 
 
 
+    private var selectedImageUri: Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -57,6 +61,13 @@ class NewPostActivity : AppCompatActivity() {
         val postRepo = PostRepositoryImpl()
         postViewModel = PostViewModel(postRepo)
 
+
+        val config = mutableMapOf<String, String>()
+        config["cloud_name"] = "dbukovsi1"
+        config["api_key"] = "718742783263144"
+        config["api_secret"] = "udtElGelBPWkalRKw-RQrnqFRI8"
+
+        MediaManager.init(this, config)
 
         val currentUser = userViewModel.getCurrentUser()
         currentUser.let{    // it -> currentUser
@@ -105,6 +116,9 @@ class NewPostActivity : AppCompatActivity() {
         imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 binding.postImageView.setImageURI(it)
+                selectedImageUri = uri
+
+
                 binding.postImageView.visibility = View.VISIBLE
                 updatePostButtonState(true)
             }
@@ -142,11 +156,13 @@ class NewPostActivity : AppCompatActivity() {
         binding.postButton.setOnClickListener {
             loadingDialogUtils.show()
             var postDesc : String? = binding.postDescEditTextField.text.toString()
-            var postImage : String? = binding.newPostProfileImage.toString()
+            var postImage : String? = selectedImageUri.toString()
             var postBy : String? = binding.newPostUserName.text .toString()
-            var postTimeStamp : Long? = binding.newPostUserName.text .toString().toLong()
+            var postTimeStamp : String? = binding.newPostUserName.text .toString()
+            val profileImage: String? = ""
 
-            var postModel = PostModel("", postImage, postDesc, postBy, postTimeStamp)
+            var postModel = PostModel("", postImage, profileImage, postDesc, postBy, postTimeStamp)
+
             postViewModel.addPost(postModel){
                 success, message ->
                 if (success){
@@ -159,8 +175,6 @@ class NewPostActivity : AppCompatActivity() {
                 loadingDialogUtils.dismiss()
             }
         }
-
-
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.newPostLayout)) { v, insets ->

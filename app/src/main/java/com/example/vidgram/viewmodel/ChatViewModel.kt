@@ -1,13 +1,13 @@
 package com.example.vidgram.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.example.vidgram.model.ChatModel
+import com.example.vidgram.model.UserChatInfo
 import com.example.vidgram.repository.ChatRepository
 
 class ChatViewModel(val chatRepo: ChatRepository) {
 
     fun addChat(
-        chatModel: ChatModel,
+        chatModel: UserChatInfo,
         callback: (Boolean, String) -> Unit
     ){
         chatRepo.addChat(chatModel, callback)
@@ -29,42 +29,42 @@ class ChatViewModel(val chatRepo: ChatRepository) {
     }
 
 
-    var _chats = MutableLiveData<ChatModel?>()
-    var chats = MutableLiveData<ChatModel?>()
+    var _chats = MutableLiveData<UserChatInfo?>()
+    var chats = MutableLiveData<UserChatInfo?>()
         get() = _chats
 
-    var _loadingChatbyId = MutableLiveData<Boolean?>()
+    var _loadingChatById = MutableLiveData<Boolean?>()
     var loadingChatbyId = MutableLiveData<Boolean?>()
-        get() = _loadingChatbyId
+        get() = _loadingChatById
 
     fun getChatById(
         chatId:String,
     ){
-        _loadingChatbyId.value = true
+        _loadingChatById.value = true
         chatRepo.getChatById(chatId){
             chat, success, message ->
             if (success){
                 _chats.value = chat
-                _loadingChatbyId.value = false
+                _loadingChatById.value = false
             }
         }
     }
 
 
-    var _getAllChats = MutableLiveData<List<ChatModel>?>()
-    var getAllChats = MutableLiveData<List<ChatModel>?>()
-        get() = _getAllChats
+    var _getAllchats = MutableLiveData<List<UserChatInfo>?>()
+    var getAllchats = MutableLiveData<List<UserChatInfo>?>()
+        get() = _getAllchats
 
     var _loadingAllChats = MutableLiveData<Boolean?>()
     var loadingAllChats = MutableLiveData<Boolean?>()
         get() = _loadingAllChats
 
-    fun getAllChat(){
+    fun getAllChats(){
         _loadingAllChats.value = true
-        chatRepo.getAllChat(){
+        chatRepo.getAllChats(){
             chats, success, message ->
             if (success){
-                _getAllChats.value = chats
+                _getAllchats.value = chats
                 _loadingAllChats.value = false
             }
         }
