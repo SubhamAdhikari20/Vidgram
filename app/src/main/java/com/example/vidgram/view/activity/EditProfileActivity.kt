@@ -25,27 +25,12 @@ class EditProfileActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
 
         binding.nameProfileCardView.setOnClickListener {
-            val intent = Intent(this@EditProfileActivity, NameEditProfileActivity::class.java)
+            val intent = Intent(this@EditProfileActivity, BioEditProfileActivity::class.java)
             startActivity(intent)
         }
 
         binding.bioProfileCardView.setOnClickListener {
             val intent = Intent(this@EditProfileActivity, BioEditProfileActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.emailProfileCardView.setOnClickListener {
-            val intent = Intent(this@EditProfileActivity, EmailEditProfileActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.contactProfileCardView.setOnClickListener {
-            val intent = Intent(this@EditProfileActivity, ContactEditProfileActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.passwordProfileCardView.setOnClickListener {
-            val intent = Intent(this@EditProfileActivity, PasswordEditProfileActivity::class.java)
             startActivity(intent)
         }
 
