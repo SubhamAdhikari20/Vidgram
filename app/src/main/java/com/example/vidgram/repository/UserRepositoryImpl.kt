@@ -89,16 +89,18 @@ class UserRepositoryImpl:UserRepository {
         return auth.currentUser
     }
 
+    // Inside your Repository class
     override fun getUserFromDatabase(
         userID: String,
         callback: (UserModel?, Boolean, String) -> Unit
     ) {
-//        var query =  reference.child(userID).orderByChild("fullName")
-       reference.child(userID).addValueEventListener(object: ValueEventListener {   // anonymous function implementation
-            override fun onDataChange(snapshot: DataSnapshot) {     // snapshot stores all the fetched data the database
-                if (snapshot.exists()){
+        reference.child(userID).addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
                     val userModel = snapshot.getValue(UserModel::class.java)
-//                    Log.d("userId",userModel?.email.toString())
+                    Log.d("userId", userModel?.email.toString())
+
+                    // Update LiveData with the fetched user data
                     callback(userModel, true, "Fetched")
                 }
             }
@@ -109,31 +111,6 @@ class UserRepositoryImpl:UserRepository {
         })
     }
 
-    override fun getAllUsers(
-        callback: (ArrayList<UserModel>?, Boolean, String) -> Unit
-    ) {
-        reference.addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    var users = arrayListOf<UserModel>()
-                    for (eachData in snapshot.children){
-                        var userModel = eachData.getValue(UserModel::class.java)
-                        if (userModel != null){
-                            users.add(userModel)
-//                            Log.d("userIdImpl", userModel.userID.toString())
-                        }
-                    }
-
-                    callback(users, true, "All posts fetched successfully")
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                callback(null, true, error.message)
-            }
-
-        })
-    }
 
     override fun editProfile(
         userID: String,
