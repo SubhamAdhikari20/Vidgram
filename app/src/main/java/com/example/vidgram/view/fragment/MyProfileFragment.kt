@@ -45,7 +45,6 @@ class MyProfileFragment : Fragment() {
     private lateinit var permissionsLauncher: ActivityResultLauncher<Array<String>>
     private var photoFile: File? = null // Store the file created for the image
 
-
     private var icons = arrayOf(
         R.drawable.photo_icon,
         R.drawable.video_icon,
@@ -106,7 +105,8 @@ class MyProfileFragment : Fragment() {
 
         val currentUser = userViewModel.getCurrentUser()
         currentUser.let{    // it -> currentUser
-            userViewModel.getUserFromDatabase(it?.uid.toString())
+//            userViewModel.getUserFromDatabase(it?.uid.toString())
+            userViewModel.getUserFromDatabase("v4xWlr2zR6hwoXG4QhezWAUnHmx1")
         }
 
 
