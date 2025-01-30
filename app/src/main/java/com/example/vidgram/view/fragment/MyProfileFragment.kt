@@ -27,12 +27,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentMyProfileBinding
 import com.example.vidgram.adapter.ViewPagerAdapter
-import com.example.vidgram.model.UserChatInfo
-import com.example.vidgram.repository.ChatRepositoryImpl
 import com.example.vidgram.repository.UserRepositoryImpl
 import com.example.vidgram.view.activity.EditProfileActivity
-import com.example.vidgram.view.activity.MessageActivity
-import com.example.vidgram.viewmodel.ChatViewModel
 import com.example.vidgram.viewmodel.UserViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import java.io.File
@@ -49,7 +45,6 @@ class MyProfileFragment : Fragment() {
     private lateinit var permissionsLauncher: ActivityResultLauncher<Array<String>>
     private var photoFile: File? = null // Store the file created for the image
 
-
     private var icons = arrayOf(
         R.drawable.photo_icon,
         R.drawable.video_icon,
@@ -60,9 +55,6 @@ class MyProfileFragment : Fragment() {
         "Cancel Order",
         "Delivered Order",
     )
-
-    lateinit var chatViewModel: ChatViewModel
-    var chatModel = UserChatInfo()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,9 +67,6 @@ class MyProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var chatRepositoryImpl = ChatRepositoryImpl()
-        chatViewModel = ChatViewModel(chatRepositoryImpl)
 
         // Set up the toolbar in the hosting activity
 //        val activity = activity as? AppCompatActivity
@@ -114,11 +103,10 @@ class MyProfileFragment : Fragment() {
         val repo = UserRepositoryImpl()
         userViewModel = UserViewModel(repo)
 
-        val senderId: String
         val currentUser = userViewModel.getCurrentUser()
         currentUser.let{    // it -> currentUser
-            userViewModel.getUserFromDatabase(it?.uid.toString())
-            senderId = it?.uid.toString()
+//            userViewModel.getUserFromDatabase(it?.uid.toString())
+            userViewModel.getUserFromDatabase("v4xWlr2zR6hwoXG4QhezWAUnHmx1")
         }
 
 
@@ -126,11 +114,6 @@ class MyProfileFragment : Fragment() {
             binding.nameTextView.text = it?.fullName.toString()
 
         }
-
-        binding.contactMeButton.setOnClickListener {
-            replaceFragment(OthersProfileFragment())
-        }
-
 
         val fragmentManager: FragmentManager = childFragmentManager
         viewPagerAdapter = ViewPagerAdapter(fragmentManager, lifecycle)
@@ -153,6 +136,22 @@ class MyProfileFragment : Fragment() {
                 binding.profileImage.visibility = View.VISIBLE
             }
         }
+
+        /*
+        // Initialize the camera launcher
+        cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK && photoFile != null) {
+                val imageBitmap = result.data?.extras?.get("data") as? Bitmap
+                imageBitmap?.let {
+                    binding.profileImage.setImageBitmap(it)
+                    binding.profileImage.visibility = View.VISIBLE
+                }
+            }
+            else {
+                Toast.makeText(requireContext(), "Camera action canceled!", Toast.LENGTH_SHORT).show()
+            }
+        }
+         */
 
         // Initialize the camera launcher
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -292,7 +291,6 @@ class MyProfileFragment : Fragment() {
         val fragmentManager: FragmentManager = parentFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout, fragment)
-        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 

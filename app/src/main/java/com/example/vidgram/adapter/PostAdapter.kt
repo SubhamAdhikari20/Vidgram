@@ -10,45 +10,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
-import com.example.vidgram.model.Post
 import com.example.vidgram.model.PostModel
 import kotlin.math.min
 
-class PostAdapter(val context: Context, private val posts: MutableList<PostModel>, private val onCommentClick: (PostModel) -> Unit) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PostAdapter(private val context: Context, private val posts: MutableList<PostModel>) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.sample_post, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.sample_post, parent, false)
         return PostViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = posts[position]
-
-        /*
-        // Bind data to the views
-        holder.username.text = post.username
-        holder.caption.text = post.caption
-        holder.time.text = post.time
-        holder.like.text = post.like
-        holder.dislike.text = post.dislike
-        holder.comment.text = post.comment
-        holder.share.text = post.share
-        holder.userAvatar.setImageResource(post.userAvatar)
-        holder.postImage.setImageResource(post.postImage)
-
-        // Set click listener for the comment
-        holder.comment.setOnClickListener {
-            onCommentClick(post) // Trigger callback when comment is clicked
-        }
-
-        holder.commentButton.setOnClickListener {
-            onCommentClick(post) // Pass the clicked post
-        }
-         */
-
-
-        /*
-         */
 
         // Set Profile Image (Using Glide to load image from URL)
         val profileImageUrl = post.profileImage ?: ""
@@ -84,20 +57,11 @@ class PostAdapter(val context: Context, private val posts: MutableList<PostModel
             holder.postImage.setImageResource(R.drawable.person1)
         }
 
-        holder.comment.setOnClickListener {
-            onCommentClick(post) // Trigger callback when comment is clicked
-        }
-
-        holder.commentButton.setOnClickListener {
-            onCommentClick(post) // Pass the clicked post
-        }
-
         // Set Caption
         holder.caption.text = post.postDescription ?: "No caption provided"
 
         // Set Timestamp
         holder.time.text = post.postTimeStamp ?: "Unknown time"
-
     }
 
     override fun getItemCount(): Int {
