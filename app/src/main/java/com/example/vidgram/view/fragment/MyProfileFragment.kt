@@ -108,10 +108,11 @@ class MyProfileFragment : Fragment() {
 //            userViewModel.getUserFromDatabase(it?.uid.toString())
             userViewModel.getUserFromDatabase("v4xWlr2zR6hwoXG4QhezWAUnHmx1")
         }
-
+        var userName = ""
 
         userViewModel.userData.observe(requireActivity()){
-            binding.nameTextView.text = it?.fullName.toString()
+            userName = it?.fullName.toString()
+            binding.nameTextView.text = userName
 
         }
 

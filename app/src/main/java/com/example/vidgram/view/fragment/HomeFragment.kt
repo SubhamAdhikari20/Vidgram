@@ -1,5 +1,6 @@
 package com.example.vidgram.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,35 +25,25 @@ import com.example.vidgram.model.Story
 import com.example.vidgram.adapter.StoryAdapter
 import com.example.vidgram.adapter.PostAdapter
 import com.example.vidgram.model.PostModel
+import com.example.vidgram.model.StoryModel
 import com.example.vidgram.repository.PostRepositoryImpl
+import com.example.vidgram.repository.StoryRepositoryImpl
+import com.example.vidgram.view.activity.StoryActivity
 import com.example.vidgram.viewmodel.PostViewModel
+import com.example.vidgram.viewmodel.StoryViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private val posts = mutableListOf<Post>()
-
     lateinit var postViewModel: PostViewModel
-
-
     private lateinit var postsList: MutableList<PostModel>
-
-    // Story Recycler View
-    private val storyImageList: ArrayList<Int> = ArrayList()
-    private val storyNameList: ArrayList<String> = ArrayList()
-    //    private lateinit var storyAdapter : StoryRecyclerViewAdapter
+    private lateinit var storyList: MutableList<StoryModel>
     lateinit var postAdapter: PostAdapter
+    private lateinit var storyAdapter: StoryAdapter
 
-    // Post Feed Recycler View
-    private val postImageList: ArrayList<Int> = ArrayList()
-    private val postAvaterImageList: ArrayList<Int> = ArrayList()
-    private val postNameList: ArrayList<String> = ArrayList()
-    private val messageList: ArrayList<String> = ArrayList()
-//    private lateinit var postFeedAdapter : PostFeedRecyclerViewAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    lateinit var storyViewModel: StoryViewModel
 
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -154,24 +145,35 @@ class HomeFragment : Fragment() {
         binding.recyclerViewStories.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        val stories = listOf(
-            Story("John", R.drawable.person1),
-            Story("Alice", R.drawable.person1),
-            Story("Bob", R.drawable.person1),
-            Story("Emma", R.drawable.person1),
-            Story("John", R.drawable.person1),
-            Story("Alice", R.drawable.person1),
-            Story("Bob", R.drawable.person1),
-            Story("Emma", R.drawable.person1),
-            Story("John", R.drawable.person1),
-            Story("Alice", R.drawable.person1),
-            Story("Bob", R.drawable.person1),
-            Story("Emma", R.drawable.person1)
-        )
+       storyList = mutableListOf()
+        val storyRepo = StoryRepositoryImpl() // Initialize the repository
+        storyViewModel = StoryViewModel(storyRepo) // Initialize the ViewModel
 
-        val storyAdapter = StoryAdapter(stories)
+        // Initialize the adapter with the current storyList
+        storyAdapter = StoryAdapter(storyList) { story ->
+            // Handle the click event, navigate to the next activity
+            val intent = Intent(requireContext(), StoryActivity::class.java)
+            intent.putExtra("story_id", story.storyId) // Pass story ID
+            intent.putExtra("username", story.username) // Pass username
+            intent.putExtra("timestamp", story.storyTimeStamp) // Pass timestamp
+
+            intent.putExtra("story_image", story.storyImage) // Pass story image URL (or resource)
+            startActivity(intent)
+        }
         binding.recyclerViewStories.adapter = storyAdapter
 
+        // Call to get all stories from the ViewModel
+        storyViewModel.getAllStory()
+
+        // Observe the LiveData for changes in stories
+        storyViewModel.getAllStories.observe(viewLifecycleOwner) { stories ->
+            // Update the storyList with new data
+            storyList.clear() // Clear the existing list
+            if (stories != null) {
+                storyList.addAll(stories)
+            } // Add new stories to the list
+            storyAdapter.notifyDataSetChanged() // Notify the adapter that the data has changed
+        }
 
 
         // Initialize RecyclerView for posts
