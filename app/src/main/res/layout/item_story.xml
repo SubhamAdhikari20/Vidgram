@@ -15,7 +15,7 @@
 
         <!-- Circular ImageView -->
         <ImageView
-            android:id="@+id/imageViewStory"
+            android:id="@+id/storyImageView"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
@@ -27,7 +27,7 @@
 
     <!-- Text Below the Story -->
     <TextView
-        android:id="@+id/textViewStory"
+        android:id="@+id/storyUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

@@ -19,9 +19,7 @@ class PhotoGridFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_photo_grid, container, false)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(context, 3)
-        recyclerView.adapter = GridAdapter() // Use your custom adapter
+
         return view
     }
 }

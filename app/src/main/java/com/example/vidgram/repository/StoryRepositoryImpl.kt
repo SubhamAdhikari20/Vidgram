@@ -1,5 +1,10 @@
 package com.example.vidgram.repository
 
+import android.net.Uri
+import android.util.Log
+import com.cloudinary.android.MediaManager
+import com.cloudinary.android.callback.ErrorInfo
+import com.cloudinary.android.callback.UploadCallback
 import com.example.vidgram.model.StoryModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -15,17 +20,59 @@ class StoryRepositoryImpl : StoryRepository {
         storyModel: StoryModel,
         callback: (Boolean, String) -> Unit
     ) {
-        val storyId = reference.push().key.toString()
-        storyModel.storyId = storyId
+        val imageUriString  = storyModel.storyImage
+        val imageUri = Uri.parse(imageUriString) // assuming postModel has a postImageUri
 
-        reference.child(storyId).setValue(storyModel).addOnCompleteListener {
-            if (it.isSuccessful){
-                callback(true, "Story added successfully")
-            }
-            else{
-                callback(false, it.exception?.message.toString())
+        try{
+            // Obtain InputStream from the content:// URI
+            if (imageUri != null) {
+                // Upload image to Cloudinary
+                val uploadRequest = MediaManager.get().upload(imageUri).callback(object :
+                    UploadCallback {
+                    override fun onStart(requestId: String?) {
+                    }
+                    override fun onProgress(requestId: String?, bytes: Long, totalBytes: Long) {
+                    }
+
+                    override fun onSuccess(
+                        requestId: String?,
+                        resultData: MutableMap<Any?, Any?>?
+                    ) {
+                        val imageUrl = resultData?.get("secure_url") as? String
+                        Log.d("Cloudinary", "Upload successful: ${resultData?.get("url")}")
+                        storyModel.storyImage = imageUrl
+                        val storyId = reference.push().key.toString()
+                        storyModel.storyId = storyId
+
+
+                        reference.child(storyId).setValue(storyModel).addOnCompleteListener {
+                            if (it.isSuccessful){
+                                callback(true, "Story added successfully")
+                            }
+                            else{
+                                callback(false, it.exception?.message.toString())
+                            }
+                        }                    }
+
+                    override fun onError(requestId: String?, error: ErrorInfo?) {
+                        callback(false, "Error uploading image: ${error?.description}")
+                    }
+
+                    override fun onReschedule(requestId: String?, error: ErrorInfo?) {
+                    }
+
+
+                })
+                uploadRequest.dispatch()
+
+
             }
         }
+        catch (e: Exception) {
+            callback(false, "Error: ${e.message}")
+        }
+
+
     }
 
     override fun updateStory(
@@ -33,6 +80,7 @@ class StoryRepositoryImpl : StoryRepository {
         data: MutableMap<String, Any>,
         callback: (Boolean, String) -> Unit
     ) {
+
         reference.child(storyId).updateChildren(data).addOnCompleteListener {
             if (it.isSuccessful){
                 callback(true, "Story updated successfully")
@@ -100,4 +148,6 @@ class StoryRepositoryImpl : StoryRepository {
 
         })
     }
+
+
 }

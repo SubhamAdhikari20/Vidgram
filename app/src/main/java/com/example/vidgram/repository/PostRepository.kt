@@ -32,4 +32,6 @@ interface PostRepository {
     fun getAllPost(
         callback: (List<PostModel>?, Boolean, String) -> Unit
     )
+    fun getPostsByUsername(username: String, callback: (List<PostModel>?) -> Unit)
+
 }
