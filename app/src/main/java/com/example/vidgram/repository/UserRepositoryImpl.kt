@@ -93,11 +93,12 @@ class UserRepositoryImpl:UserRepository {
         userID: String,
         callback: (UserModel?, Boolean, String) -> Unit
     ) {
-        reference.child(userID).addValueEventListener(object: ValueEventListener {   // anonymous function implementation
+//        var query =  reference.child(userID).orderByChild("fullName")
+       reference.child(userID).addValueEventListener(object: ValueEventListener {   // anonymous function implementation
             override fun onDataChange(snapshot: DataSnapshot) {     // snapshot stores all the fetched data the database
                 if (snapshot.exists()){
                     val userModel = snapshot.getValue(UserModel::class.java)
-                    Log.d("userId",userModel?.email.toString())
+//                    Log.d("userId",userModel?.email.toString())
                     callback(userModel, true, "Fetched")
                 }
             }
@@ -105,6 +106,32 @@ class UserRepositoryImpl:UserRepository {
             override fun onCancelled(error: DatabaseError) {
                 callback(null, false, error.message)
             }
+        })
+    }
+
+    override fun getAllUsers(
+        callback: (ArrayList<UserModel>?, Boolean, String) -> Unit
+    ) {
+        reference.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    var users = arrayListOf<UserModel>()
+                    for (eachData in snapshot.children){
+                        var userModel = eachData.getValue(UserModel::class.java)
+                        if (userModel != null){
+                            users.add(userModel)
+//                            Log.d("userIdImpl", userModel.userID.toString())
+                        }
+                    }
+
+                    callback(users, true, "All posts fetched successfully")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(null, true, error.message)
+            }
+
         })
     }
 

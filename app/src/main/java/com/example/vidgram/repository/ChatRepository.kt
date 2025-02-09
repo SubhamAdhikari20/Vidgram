@@ -4,9 +4,9 @@ import com.example.vidgram.model.UserChatInfo
 
 interface ChatRepository {
 
-    fun addChat(
+    fun createOrGetChat(
         chatModel: UserChatInfo,
-        callback: (Boolean, String) -> Unit
+        callback: (UserChatInfo?, Boolean, String) -> Unit
     )
 
     fun updateChat(
@@ -26,6 +26,7 @@ interface ChatRepository {
     )
 
     fun getAllChats(
+        senderId: String,
         callback: (List<UserChatInfo>?, Boolean, String) -> Unit
     )
 }

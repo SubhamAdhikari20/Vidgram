@@ -1,6 +1,7 @@
 package com.example.vidgram.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.example.vidgram.model.UserChatInfo
 import com.example.vidgram.repository.UserRepository
 import com.example.vidgram.model.UserModel
 import com.google.firebase.auth.FirebaseUser
@@ -49,14 +50,36 @@ class UserViewModel(private val repo: UserRepository) {
         get() = _userData
 
     fun getUserFromDatabase(
-        userID: String,
+        userId: String,
     ) {
-        repo.getUserFromDatabase(userID){
-                user, success, message ->
+        repo.getUserFromDatabase(userId){
+            user, success, message ->
             if(success){
                 _userData.value = user
             }
 
+        }
+    }
+
+
+    var _getAllusers = MutableLiveData<List<UserModel>?>()
+    var getAllusers = MutableLiveData<List<UserModel>?>()
+        get() = _getAllusers
+
+    var _loadingAllUsers = MutableLiveData<Boolean?>()
+    var loadingAllUsers = MutableLiveData<Boolean?>()
+        get() = _loadingAllUsers
+
+    fun getAllUsers(
+        callback: (ArrayList<UserModel>?, Boolean, String) -> Unit
+    ){
+        _loadingAllUsers.value = true
+        repo.getAllUsers(){
+                users, success, message ->
+            if (success){
+                _getAllusers.value = users
+                _loadingAllUsers.value = false
+            }
         }
     }
 

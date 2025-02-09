@@ -16,9 +16,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class UserChatAdapter(
-    private val userList: List<ChatModel>, // List of users
-    private val context: Context,
-    private val onItemClick: (ChatModel) -> Unit // On click callback
+    val userList: List<ChatModel>, // List of users
+    val context: Context,
+    val onItemClick: (ChatModel) -> Unit // On click callback
 ) : RecyclerView.Adapter<UserChatAdapter.UserChatViewHolder>() {
 
     inner class UserChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

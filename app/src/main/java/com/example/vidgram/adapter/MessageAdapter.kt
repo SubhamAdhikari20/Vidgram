@@ -1,28 +1,49 @@
 package com.example.vidgram.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vidgram.model.MessageModel
 import com.example.vidgram.R
+import com.example.vidgram.model.Message
 
 class MessageAdapter(
-    private val messageModels: List<MessageModel>,
-    private val currentUserId: String
+    var context: Context,
+    val messageModelList: ArrayList<Message>,
+    val currentUserId: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    // ViewHolder for Sent Messages
+    inner class SentMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val messageTextView: TextView = itemView.findViewById(R.id.sentMessageTextView)
+        fun bind(messageModel: Message) {
+            messageTextView.text = messageModel.message
+        }
+    }
+
+    // ViewHolder for Received Messages
+    inner class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val messageTextView: TextView = itemView.findViewById(R.id.receivedMessageTextView)
+        fun bind(messageModel: Message) {
+            messageTextView.text = messageModel.message
+        }
+    }
+
     companion object {
-        private const val VIEW_TYPE_SENT = 1
-        private const val VIEW_TYPE_RECEIVED = 2
+        const val VIEW_TYPE_SENT = 1
+        const val VIEW_TYPE_RECEIVED = 2
     }
 
     override fun getItemViewType(position: Int): Int {
-        val message = messageModels[position]
+        val message = messageModelList[position]
         return if (message.senderId == currentUserId) {
             VIEW_TYPE_SENT
-        } else {
+        }
+        else {
             VIEW_TYPE_RECEIVED
         }
     }
@@ -40,29 +61,35 @@ class MessageAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val message = messageModels[position]
+        val message = messageModelList[position]
         if (holder is SentMessageViewHolder) {
             holder.bind(message)
-        } else if (holder is ReceivedMessageViewHolder) {
+        }
+        else if (holder is ReceivedMessageViewHolder) {
             holder.bind(message)
         }
     }
 
-    override fun getItemCount(): Int = messageModels.size
+    override fun getItemCount(): Int = messageModelList.size
 
-    // ViewHolder for Sent Messages
-    class SentMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
-        fun bind(messageModel: MessageModel) {
-            messageTextView.text = messageModel.message
+    fun updateData(newMessages: List<Message>) {
+        val diffCallback = object : DiffUtil.Callback() {
+            override fun getOldListSize() = messageModelList.size
+            override fun getNewListSize() = newMessages.size
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return messageModelList[oldItemPosition].messageId == newMessages[newItemPosition].messageId
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return messageModelList[oldItemPosition] == newMessages[newItemPosition]
+            }
         }
+
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        messageModelList.clear()
+        messageModelList.addAll(newMessages)
+        diffResult.dispatchUpdatesTo(this)
     }
 
-    // ViewHolder for Received Messages
-    class ReceivedMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
-        fun bind(messageModel: MessageModel) {
-            messageTextView.text = messageModel.message
-        }
-    }
 }

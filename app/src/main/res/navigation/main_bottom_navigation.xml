@@ -16,9 +16,9 @@
     </fragment>
     <fragment
         android:id="@+id/messageModel"
-        android:name="com.example.vidgram.view.fragment.MessageFragment"
+        android:name="com.example.vidgram.view.fragment.ChatFragment"
         android:label="fragment_message"
-        tools:layout="@layout/fragment_message" >
+        tools:layout="@layout/fragment_chat" >
         <action
             android:id="@+id/action_message_to_myProfile"
             app:destination="@id/myProfile" />

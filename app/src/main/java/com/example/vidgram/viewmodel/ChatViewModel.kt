@@ -6,11 +6,11 @@ import com.example.vidgram.repository.ChatRepository
 
 class ChatViewModel(val chatRepo: ChatRepository) {
 
-    fun addChat(
+    fun createOrGetChat(
         chatModel: UserChatInfo,
-        callback: (Boolean, String) -> Unit
+        callback: (UserChatInfo?, Boolean, String) -> Unit
     ){
-        chatRepo.addChat(chatModel, callback)
+        chatRepo.createOrGetChat(chatModel, callback)
     }
 
     fun updateChat(
@@ -59,12 +59,14 @@ class ChatViewModel(val chatRepo: ChatRepository) {
     var loadingAllChats = MutableLiveData<Boolean?>()
         get() = _loadingAllChats
 
-    fun getAllChats(){
+    fun getAllChats(
+        senderId: String,
+    ){
         _loadingAllChats.value = true
-        chatRepo.getAllChats(){
+        chatRepo.getAllChats(senderId){
             chats, success, message ->
             if (success){
-                _getAllchats.value = chats
+                _getAllchats.value = chats ?: emptyList()
                 _loadingAllChats.value = false
             }
         }

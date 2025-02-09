@@ -34,4 +34,15 @@ interface PostRepository {
     fun getAllPost(
         callback: (List<PostModel>?, Boolean, String) -> Unit
     )
+
+    fun uploadPostImage(
+        context: Context,
+        imageUri: Uri,
+        callback: (String?) -> Unit
+    )
+
+    fun getFileNameFromUri(
+        context: Context, uri: Uri
+    ): String?
+
 }

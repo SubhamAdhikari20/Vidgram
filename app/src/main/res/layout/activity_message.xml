@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.ChatMessageActivity">
+    tools:context=".view.activity.MessageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout3"
@@ -39,7 +39,7 @@
                 tools:layout_editor_absoluteY="10dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/chatCallButton"
+                    android:id="@+id/messageProfilePicture"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="1dp"
@@ -51,7 +51,7 @@
                     app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
-                    android:id="@+id/titleProfileTexView"
+                    android:id="@+id/profileFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -59,7 +59,7 @@
                     android:text="Vidgram"
                     android:textColor="@color/green"
                     android:textSize="20sp"
-                    app:layout_constraintStart_toEndOf="@+id/chatCallButton"
+                    app:layout_constraintStart_toEndOf="@+id/messageProfilePicture"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -68,8 +68,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="TextView"
-                    app:layout_constraintStart_toStartOf="@+id/titleProfileTexView"
-                    app:layout_constraintTop_toBottomOf="@+id/titleProfileTexView" />
+                    app:layout_constraintStart_toStartOf="@+id/profileFullName"
+                    app:layout_constraintTop_toBottomOf="@+id/profileFullName" />
 
 
                 <!--                <ImageView-->

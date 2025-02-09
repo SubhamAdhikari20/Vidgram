@@ -7,25 +7,28 @@ import com.example.vidgram.repository.MessageRepository
 class MessageViewModel(val messageRepo: MessageRepository) {
     
     fun sendMessage(
+        chatId: String,
         messageModel: Message,
         callback: (Boolean, String) -> Unit
     ){
-        messageRepo.sendMessage(messageModel, callback)
+        messageRepo.sendMessage(chatId, messageModel, callback)
     }
 
     fun updateMessage(
+        chatId: String,
         messageId:String,
         data: MutableMap<String, Any>,
         callback: (Boolean, String) -> Unit
     ){
-        messageRepo.updateMessage(messageId, data, callback)
+        messageRepo.updateMessage(chatId, messageId, data, callback)
     }
 
     fun deleteMessage(
+        chatId: String,
         messageId:String,
         callback: (Boolean, String) -> Unit
     ){
-        messageRepo.deleteMessage(messageId, callback)
+        messageRepo.deleteMessage(chatId, messageId, callback)
     }
 
 
@@ -38,10 +41,11 @@ class MessageViewModel(val messageRepo: MessageRepository) {
         get() = _loadingMessageById
     
     fun getMessageById(
+        chatId: String,
         messageId:String,
     ){
         _loadingMessageById.value = true
-        messageRepo.getMessageById(messageId){
+        messageRepo.getMessageById(chatId, messageId){
             chatMessage, success, message->
             if (success){
                 _chatMessages.value = chatMessage
@@ -59,9 +63,10 @@ class MessageViewModel(val messageRepo: MessageRepository) {
         get() = _loadingAllmessages
     
     fun getAllMessages(
+        chatId: String,
     ){
         _loadingAllmessages.value = true
-        messageRepo.getAllMessages(){
+        messageRepo.getAllMessages(chatId){
             chatMessages, success, message ->
             if (success){
                 _getAllmessages.value = chatMessages

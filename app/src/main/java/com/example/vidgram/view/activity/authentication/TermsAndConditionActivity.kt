@@ -49,7 +49,8 @@ class TermsAndConditionActivity : AppCompatActivity() {
                 country = bundle?.getString("country"),
                 contact = bundle?.getString("phonenumber"),
                 email = bundle?.getString("email"),
-                password = bundle?.getString("password")
+                password = bundle?.getString("password"),
+
             )
 
             Log.d("UserDetails", "Full Name: ${userDetails.fullName}")
