@@ -65,7 +65,7 @@ class MessageRepositoryImpl : MessageRepository {
 
     override fun getMessageById(
         chatId: String,
-        messageId: String, 
+        messageId: String,
         callback: (Message?, Boolean, String) -> Unit
     ) {
         reference.child(chatId).child("messages").child(messageId).addValueEventListener(object : ValueEventListener{

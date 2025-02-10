@@ -6,7 +6,7 @@ import com.example.vidgram.repository.MessageRepository
 import com.example.vidgram.repository.MessageRepositoryImpl
 
 class MessageViewModel(val messageRepo: MessageRepository) {
-    
+
     fun sendMessage(
         chatId: String,
         messageModel: Message,
@@ -40,14 +40,14 @@ class MessageViewModel(val messageRepo: MessageRepository) {
     var _loadingMessageById = MutableLiveData<Boolean?>()
     var loadingMessageById = MutableLiveData<Boolean?>()
         get() = _loadingMessageById
-    
+
     fun getMessageById(
         chatId: String,
         messageId:String,
     ){
         _loadingMessageById.value = true
         messageRepo.getMessageById(chatId, messageId){
-            chatMessage, success, message->
+                chatMessage, success, message->
             if (success){
                 _chatMessages.value = chatMessage
                 _loadingMessageById.value = false
@@ -62,13 +62,13 @@ class MessageViewModel(val messageRepo: MessageRepository) {
     var _loadingAllmessages = MutableLiveData<Boolean?>()
     var loadingAllmessages = MutableLiveData<Boolean?>()
         get() = _loadingAllmessages
-    
+
     fun getAllMessages(
         chatId: String,
     ){
         _loadingAllmessages.value = true
         messageRepo.getAllMessages(chatId){
-            chatMessages, success, message ->
+                chatMessages, success, message ->
             if (success){
                 _getAllmessages.value = chatMessages
                 _loadingAllmessages.value = false

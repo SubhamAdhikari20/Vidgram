@@ -129,7 +129,7 @@ class MessageActivity : AppCompatActivity() {
 
                     if(chatId == ""){
                         chatViewModel.createOrGetChat(chatModel){
-                            chat, success, message ->
+                                chat, success, message ->
                             if (success && chat != null){
                                 chatId = chat.chatId
 //                                Log.d("chatId I am here", chatId.toString())
@@ -194,7 +194,7 @@ class MessageActivity : AppCompatActivity() {
             val messageModel = Message(senderId = senderId, receiverId = receiverId, message = messageText, timestamp = System.currentTimeMillis())
 
             messageViewModel.sendMessage(chatId, messageModel) {
-                success, message ->
+                    success, message ->
                 if (success) {
                     binding.messageChatEditText.text.clear()    // Clear the input field after sending
 

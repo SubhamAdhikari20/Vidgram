@@ -81,7 +81,7 @@ class ChatRepositoryImpl : ChatRepository {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     val chatModel = snapshot.getValue(UserChatInfo::class.java)
-                    
+
                     // Convert messages map to list if needed
 //                    val messagesList = chatModel?.messages?.values?.toList() ?: emptyList()
 

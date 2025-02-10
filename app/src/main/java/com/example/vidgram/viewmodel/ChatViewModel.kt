@@ -39,11 +39,11 @@ class ChatViewModel(val chatRepo: ChatRepository) {
         get() = _loadingChatById
 
     fun getChatById(
-            chatId:String,
+        chatId:String,
     ){
         _loadingChatById.value = true
         chatRepo.getChatById(chatId){
-            chat, success, message ->
+                chat, success, message ->
             if (success){
                 _chats.value = chat
                 _loadingChatById.value = false
@@ -65,7 +65,7 @@ class ChatViewModel(val chatRepo: ChatRepository) {
     ){
         _loadingAllChats.value = true
         chatRepo.getAllChats(senderId){
-            chats, success, message ->
+                chats, success, message ->
             if (success){
                 _getAllchats.value = chats ?: emptyList()
                 _loadingAllChats.value = false
