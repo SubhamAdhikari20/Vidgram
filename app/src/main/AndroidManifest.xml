@@ -94,6 +94,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+
         <activity
             android:name=".view.activity.NewPostActivity"
             android:exported="true">

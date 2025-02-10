@@ -30,6 +30,7 @@ import com.example.vidgram.utils.LoadingDialogUtils
 import com.example.vidgram.viewmodel.PostViewModel
 import com.example.vidgram.viewmodel.UserViewModel
 
+
 class NewPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewPostBinding
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>

@@ -18,33 +18,35 @@ class PostRepositoryImpl : PostRepository {
     private val reference: DatabaseReference = database.reference.child("posts")     // reference variable has the access to products table
 
 
-    override fun addPost(
+
+
+    override  fun addPost(
         postModel: PostModel,
         callback: (Boolean, String) -> Unit
     ) {
-        val imageUriString = postModel.postImaqe  // This is the URI string in the postModel
+        val imageUriString = postModel.postImage  // This is the URI string in the postModel
         val imageUri = Uri.parse(imageUriString) // assuming postModel has a postImageUri
 
         try {
             // Obtain InputStream from the content:// URI
             if (imageUri != null) {
                 // Upload image to Cloudinary
-                val uploadRequest = MediaManager.get().upload(imageUri).callback(object : UploadCallback {
-                    override fun onStart(requestId: String) {
-                        // Optional: Show loading indicator
-                    }
+                val uploadRequest =
+                    MediaManager.get().upload(imageUri).callback(object : UploadCallback {
+                        override fun onStart(requestId: String) {
+                            // Optional: Show loading indicator
+                        }
 
-                    override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {
-                        // Optional: You can update a progress bar if needed
-                    }
+                        override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {
+                            // Optional: You can update a progress bar if needed
+                        }
 
-                    override fun onSuccess(requestId: String, resultData: Map<*, *>) {
-                        val imageUrl = resultData["secure_url"] as? String
-                        Log.d("Cloudinary", "Upload successful: ${resultData["url"]}")
+                        override fun onSuccess(requestId: String, resultData: Map<*, *>) {
+                            val imageUrl = resultData["secure_url"] as? String
+                            Log.d("Cloudinary", "Upload successful: ${resultData["url"]}")
 
-                        if (imageUrl != null) {
                             // Set the image URL in the postModel
-                            postModel.postImaqe = imageUrl
+                            postModel.postImage = imageUrl
 
                             // Now add the post to Firebase
                             val postId = reference.push().key.toString()
@@ -53,27 +55,25 @@ class PostRepositoryImpl : PostRepository {
                             reference.child(postId).setValue(postModel).addOnCompleteListener {
                                 if (it.isSuccessful) {
                                     callback(true, "Post added successfully")
-                                }
-                                else {
+                                } else {
                                     callback(false, "${it.exception?.message}")
                                 }
                             }
+
                         }
-                    }
 
-                    override fun onError(requestId: String?, error: ErrorInfo?) {
-                        callback(false, "Error uploading image: ${error?.description}")
-                    }
+                        override fun onError(requestId: String?, error: ErrorInfo?) {
+                            callback(false, "Error uploading image: ${error?.description}")
+                        }
 
-                    override fun onReschedule(requestId: String?, error: ErrorInfo?) {
-                        TODO("Not yet implemented")
-                    }
-                })
+                        override fun onReschedule(requestId: String?, error: ErrorInfo?) {
+                            TODO("Not yet implemented")
+                        }
+                    })
 
                 // Dispatch the upload request
                 uploadRequest.dispatch()
             }
-
             else {
                 callback(false, "Unable to open image stream.")
             }
@@ -117,9 +117,9 @@ class PostRepositoryImpl : PostRepository {
         postId: String,
         callback: (PostModel?, Boolean, String) -> Unit
     ) {
-        reference.child(postId).addValueEventListener(object: ValueEventListener{
+        reference.child(postId).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     val postModel = snapshot.getValue(PostModel::class.java)
                     callback(postModel, true, "Post fetched successfully")
                 }
@@ -135,13 +135,13 @@ class PostRepositoryImpl : PostRepository {
     override fun getAllPost(
         callback: (List<PostModel>?, Boolean, String) -> Unit
     ) {
-        reference.addValueEventListener(object: ValueEventListener{
+        reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     var posts = mutableListOf<PostModel>()
-                    for (eachData in snapshot.children){
+                    for (eachData in snapshot.children) {
                         var postModel = eachData.getValue(PostModel::class.java)
-                        if (postModel != null){
+                        if (postModel != null) {
                             posts.add(postModel)
                         }
                     }
@@ -156,4 +156,38 @@ class PostRepositoryImpl : PostRepository {
 
         })
     }
+    override fun getPostsByUsername(username: String, callback: (List<PostModel>?) -> Unit) {
+        val postsList = mutableListOf<PostModel>()
+
+        // Query the posts node
+        reference.child("posts").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    // Iterate through each postId node
+                    for (postSnapshot in snapshot.children) {
+                        // Get the post data from the postId node
+                        val post = postSnapshot.getValue(PostModel::class.java)
+
+                        // Check if the post contains the correct username
+                        if (post?.username == username) {
+                            postsList.add(post)
+                        }
+                    }
+                }
+
+                // Once the posts are fetched, call the callback with the list
+                callback(postsList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("PostRepository", "Failed to load posts", error.toException())
+            }
+        })
+    }
+
+
 }
+
+
+
+

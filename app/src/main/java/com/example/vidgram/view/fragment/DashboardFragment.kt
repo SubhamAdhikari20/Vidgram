@@ -1,5 +1,6 @@
 package com.example.vidgram.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,12 @@ import com.example.vidgram.R
 import com.example.vidgram.model.Story
 import com.example.vidgram.adapter.StoryAdapter
 import com.example.vidgram.databinding.FragmentDashboardBinding
+import com.example.vidgram.model.StoryModel
+import com.example.vidgram.view.activity.StoryActivity
 
 class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
+    private lateinit var storylist: MutableList<StoryModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,24 +38,31 @@ class DashboardFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         // Sample data for stories
-        val stories = listOf(
-            Story("John", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic),
-            Story("Alice", R.drawable.profile_pic)
-        )
+//        val stories = listOf(
+//            Story("John", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic),
+//            Story("Alice", R.drawable.profile_pic)
+//        )
 
         // Set adapter
-        recyclerView.adapter = StoryAdapter(stories)
+        storylist = mutableListOf()
+
+        recyclerView.adapter= StoryAdapter(storylist) { story ->
+            // Handle the click event, navigate to the next activity
+            val intent = Intent(requireContext(), StoryActivity::class.java)
+            intent.putExtra("story_id", story.storyId) // Pass story ID (or other details)
+            startActivity(intent)
+        }
     }
 
 

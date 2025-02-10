@@ -1,7 +1,7 @@
 package com.example.vidgram.viewmodel
 
-import android.content.Context
 import androidx.compose.runtime.produceState
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vidgram.model.PostModel
 import com.example.vidgram.repository.PostRepository
@@ -69,6 +69,16 @@ class PostViewModel(val repo: PostRepository) {
                 _getAllPosts.value = posts
                 _loadingPostById.value = false
             }
+        }
+    }
+
+    private val _postsLiveData = MutableLiveData<List<PostModel>>()
+    val postsLiveData: LiveData<List<PostModel>> get() = _postsLiveData
+
+    fun getPostsForUser(username: String) {
+        // Fetch posts from the repository asynchronously
+        repo.getPostsByUsername(username) { posts ->
+            _postsLiveData.value = posts ?: emptyList()  // Ensure that we handle null gracefully
         }
     }
 }
