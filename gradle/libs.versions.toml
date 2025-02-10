@@ -18,6 +18,7 @@ googleGmsGoogleServices = "4.4.2"
 firebaseDatabase = "21.0.0"
 firebaseAuth = "23.1.0"
 navigationFragmentKtx = "2.8.5"
+picasso = "2.8"
 radiogroupplus = "1.0.1"
 readablebottombar = "0.2"
 repo = "Version"
@@ -46,6 +47,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 radiogroupplus = { module = "com.github.worker8:radiogroupplus", version.ref = "radiogroupplus" }
 readablebottombar = { module = "com.github.iammert:ReadableBottomBar", version.ref = "readablebottombar" }
 repo = { module = "com.github.User:Repo", version.ref = "repo" }

@@ -1,5 +1,6 @@
 package com.example.vidgram.repository
 
+import com.example.vidgram.model.PostModel
 import com.example.vidgram.model.UserModel
 import com.google.firebase.auth.FirebaseUser
 
@@ -40,6 +41,10 @@ interface UserRepository {
     fun getUserFromDatabase(
         userID: String,
         callback: (UserModel?, Boolean, String) -> Unit
+    )
+
+    fun getAllUsers(
+        callback: (ArrayList<UserModel>?, Boolean, String) -> Unit
     )
 
     fun editProfile(

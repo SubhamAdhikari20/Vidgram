@@ -8,44 +8,41 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class ChatRepositoryImpl : ChatRepository {
-    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val reference: DatabaseReference = database.reference.child("chats")
+    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    val reference: DatabaseReference = database.reference.child("chats")
 
-    override fun addChat(
+    override fun createOrGetChat(
         chatModel: UserChatInfo,
-        callback: (Boolean, String) -> Unit
+        callback: (UserChatInfo?, Boolean, String) -> Unit
     ) {
-        val chatId = reference.push().key.toString()
-//        chatModel.chatId = chatId
-        /*
-        reference.addListenerForSingleValueEvent(object : ValueEventListener{
+        // Sort the user IDs to generate a consistent chat ID, regardless of the order
+        val sortedUserIds = listOf(chatModel.user1Id, chatModel.user2Id).sorted()
+        val chatId = "${sortedUserIds[0]}-${sortedUserIds[1]}" // Concatenate sorted IDs
+
+        chatModel.chatId = chatId
+
+        reference.child(chatId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (eachData in snapshot.children){
-                    val chatModel = eachData.getValue(UserChatInfo::class.java)
-                    if (chatModel != null){
-                        chatModel.add(chatModel)
+                if (!snapshot.exists()) {
+                    reference.child(chatId).setValue(chatModel).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            getChatById(chatId, callback)
+                        } else {
+                            callback(null, false, task.exception?.message ?: "Error creating chat")
+                        }
                     }
+                } else {
+                    // Chat already exists; fetch it.
+                    getChatById(chatId, callback)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                callback(null, false, error.message)
             }
-
         })
-         */
-
-        /*
-        */
-        reference.child(chatId).setValue(chatModel).addOnCompleteListener {
-            if (it.isSuccessful) {
-                callback(true, "Chat added successfully")
-            }
-            else{
-                callback(false, it.exception?.message.toString())
-            }
-        }
     }
+
 
     override fun updateChat(
         chatId: String,
@@ -80,11 +77,21 @@ class ChatRepositoryImpl : ChatRepository {
         chatId: String,
         callback: (UserChatInfo?, Boolean, String) -> Unit
     ) {
-        reference.child(chatId).addValueEventListener(object : ValueEventListener{
+        reference.child(chatId).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
                     val chatModel = snapshot.getValue(UserChatInfo::class.java)
+
+                    // Convert messages map to list if needed
+//                    val messagesList = chatModel?.messages?.values?.toList() ?: emptyList()
+
+                    // Update chatModel with the messages list
+//                    chatModel?.messages = messagesList
+
                     callback(chatModel, true, "Chat fetched successfully")
+                }
+                else {
+                    callback(null, false, "Chat not found")
                 }
             }
 
@@ -96,8 +103,10 @@ class ChatRepositoryImpl : ChatRepository {
     }
 
     override fun getAllChats(
+        senderId: String,
         callback: (List<UserChatInfo>?, Boolean, String) -> Unit
     ) {
+//        if (senderId == )
         reference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()){
@@ -105,10 +114,17 @@ class ChatRepositoryImpl : ChatRepository {
                     for (eachData in snapshot.children){
                         val chatModel = eachData.getValue(UserChatInfo::class.java)
                         if (chatModel != null){
-                            chats.add(chatModel)
+                            if (chatModel.user1Id == senderId || chatModel.user2Id == senderId){
+                                chats.add(chatModel)
+                            }
                         }
                     }
-                    callback(chats, true, "All chats fetched successfully")
+                    // When both queries are complete, invoke the callback.
+                    if (chats.isNotEmpty()) {
+                        callback(chats, true, "All chats fetched successfully")
+                    } else {
+                        callback(emptyList(), true, "No chats found")
+                    }
                 }
             }
 

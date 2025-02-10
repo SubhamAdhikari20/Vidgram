@@ -72,6 +72,7 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <ImageView
         android:id="@+id/storyImageView"
         android:layout_width="match_parent"

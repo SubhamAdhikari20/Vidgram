@@ -4,8 +4,17 @@
     >
 
     <item
-        android:title="Mute"
-        android:id="@+id/muteStoryOption"
+        android:title="Sound"
+        android:icon="@drawable/audio1"
+        android:id="@+id/soundStoryOption"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:title="Resume"
+        android:icon="@drawable/play_buttton1"
+        android:id="@+id/resumeStoryOption"
+        app:showAsAction="always"
         />
 
     <item

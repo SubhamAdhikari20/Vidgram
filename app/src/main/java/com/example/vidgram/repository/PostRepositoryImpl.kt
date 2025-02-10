@@ -20,7 +20,7 @@ class PostRepositoryImpl : PostRepository {
 
 
 
-    override  fun addPost(
+    override fun addPost(
         postModel: PostModel,
         callback: (Boolean, String) -> Unit
     ) {
@@ -73,13 +73,11 @@ class PostRepositoryImpl : PostRepository {
 
                 // Dispatch the upload request
                 uploadRequest.dispatch()
-            }
-            else {
+            } else {
                 callback(false, "Unable to open image stream.")
             }
 
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             callback(false, "Error: ${e.message}")
         }
     }
@@ -92,8 +90,7 @@ class PostRepositoryImpl : PostRepository {
         reference.child(postId).updateChildren(data).addOnCompleteListener {
             if (it.isSuccessful) {
                 callback(true, "Post updated successfully")
-            }
-            else{
+            } else {
                 callback(false, "${it.exception?.message}")
             }
         }

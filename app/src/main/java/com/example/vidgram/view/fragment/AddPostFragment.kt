@@ -18,7 +18,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class AddPostFragment : BottomSheetDialogFragment() {
     private lateinit var binding : FragmentAddPostBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,6 +34,8 @@ class AddPostFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         // Set up click listeners for the options
         binding.takePhotoLinearLayout.setOnClickListener {

@@ -2,25 +2,19 @@ package com.example.vidgram.view.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityBottomNavigationBinding
-import com.example.vidgram.model.Post
-import com.example.vidgram.model.PostModel
 import com.example.vidgram.view.fragment.CommunityFragment
 import com.example.vidgram.view.fragment.HomeFragment
-import com.example.vidgram.view.fragment.MessageFragment
+import com.example.vidgram.view.fragment.ChatFragment
 import com.example.vidgram.view.fragment.NotificationFragment
-import com.example.vidgram.view.fragment.AddPostFragment
 import com.example.vidgram.viewmodel.PostViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -43,7 +37,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { menu ->
             when(menu.itemId){
                 R.id.navHome -> replaceFragment(HomeFragment())
-                    R.id.navMessage -> replaceFragment(MessageFragment())
+                    R.id.navMessage -> replaceFragment(ChatFragment())
                         R.id.navPost -> showAddPostDialog()
                             R.id.navCommunity -> replaceFragment(CommunityFragment())
                                 R.id.navNotification -> replaceFragment(NotificationFragment())
