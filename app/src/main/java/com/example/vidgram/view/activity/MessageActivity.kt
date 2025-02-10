@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
@@ -72,7 +73,7 @@ class MessageActivity : AppCompatActivity() {
 
         val currentUser = userViewModel.getCurrentUser()
         currentUser.let{    // it -> currentUser
-            Log.d("userId",it?.uid.toString())
+            Log.d("current user userId",it?.uid.toString())
             senderId = it?.uid.toString()
             userViewModel.getUserFromDatabase(it?.uid.toString())
         }
@@ -90,9 +91,21 @@ class MessageActivity : AppCompatActivity() {
         binding.profileFullName.text = receiverFullName
         Glide.with(this).load(receiverProfileImage).circleCrop().into(binding.messageProfilePicture)
 
+        Log.d("MessageActivity", "Fetching messages for chatId: $chatId")
 
-        // Retrieve and display messageModelList from the database
+
         messageViewModel.getAllMessages(chatId)
+        // Retrieve and display messageModelList from the database
+        messageViewModel.getAllmessages.observe(this) { messages ->
+            if (messages != null && messages.isNotEmpty()) {
+                Log.d("ChatFragment", "Total messages received: ${messages.size}")
+                messages.forEach { msg ->
+                    Log.d("ChatFragment", "Message: ${msg.message}, Sender: ${msg.senderId}")
+                }
+            } else {
+                Log.d("ChatFragment", "No messages found for this chat.")
+            }
+        }
         setupObservers()
 
         // Set up RecyclerView

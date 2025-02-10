@@ -3,6 +3,7 @@ package com.example.vidgram.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.example.vidgram.model.Message
 import com.example.vidgram.repository.MessageRepository
+import com.example.vidgram.repository.MessageRepositoryImpl
 
 class MessageViewModel(val messageRepo: MessageRepository) {
     

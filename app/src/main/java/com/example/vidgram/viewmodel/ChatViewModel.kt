@@ -1,5 +1,6 @@
 package com.example.vidgram.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vidgram.model.UserChatInfo
 import com.example.vidgram.repository.ChatRepository
@@ -38,7 +39,7 @@ class ChatViewModel(val chatRepo: ChatRepository) {
         get() = _loadingChatById
 
     fun getChatById(
-        chatId:String,
+            chatId:String,
     ){
         _loadingChatById.value = true
         chatRepo.getChatById(chatId){
@@ -71,4 +72,6 @@ class ChatViewModel(val chatRepo: ChatRepository) {
             }
         }
     }
+
+
 }

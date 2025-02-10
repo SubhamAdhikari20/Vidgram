@@ -59,6 +59,29 @@ class UserViewModel(private val repo: UserRepository) {
         }
     }
 
+
+
+    var _getAllusers = MutableLiveData<List<UserModel>?>()
+    var getAllusers = MutableLiveData<List<UserModel>?>()
+        get() = _getAllusers
+
+    var _loadingAllUsers = MutableLiveData<Boolean?>()
+    var loadingAllUsers = MutableLiveData<Boolean?>()
+        get() = _loadingAllUsers
+    fun getAllUsers(
+        callback: (ArrayList<UserModel>?, Boolean, String) -> Unit
+    ){
+        _loadingAllUsers.value = true
+        repo.getAllUsers(){
+                users, success, message ->
+            if (success){
+                _getAllusers.value = users
+                _loadingAllUsers.value = false
+            }
+        }
+    }
+
+
     // Optionally, call this to clear the LiveData before reloading:
     fun clearUserData() {
         _userData.postValue(null)

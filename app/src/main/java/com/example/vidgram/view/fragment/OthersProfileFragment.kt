@@ -25,7 +25,6 @@ import com.example.vidgram.view.activity.MessageActivity
 import com.example.vidgram.viewmodel.ChatViewModel
 import com.example.vidgram.viewmodel.UserViewModel
 import com.google.android.material.tabs.TabLayoutMediator
-import com.squareup.picasso.Picasso
 
 class OthersProfileFragment : Fragment() {
     lateinit var binding : FragmentOthersProfileBinding
@@ -84,6 +83,8 @@ class OthersProfileFragment : Fragment() {
             user2Id = it.getString("user2Id").toString()
         }
 
+        val generatedchatid = generateChatId(user1Id,user2Id)
+        Log.d("genratedid:","genrated id: ${generatedchatid}")
         Log.d("user2Id", user2Id)
         var fullName = binding.othersProfileName
         var profilePicture : String ?= null
@@ -117,11 +118,13 @@ class OthersProfileFragment : Fragment() {
 //            chatModel.receiverId = "v4xWlr2zR6hwoXG4QhezWAUnHmx1"   // Yogesh Chaudhary
             val intent = Intent(requireContext(), MessageActivity::class.java).apply {
 
-                putExtra("chatId", chatModel.chatId)
+                putExtra("chatId", generatedchatid)
+
                 putExtra("receiverId", user2Id)
                 putExtra("fullName", fullName.text.toString())
                 putExtra("profilePicture", profilePicture)
             }
+            Log.d("chat id ","chatid from profile fragment ${chatModel.chatId}")
 
             startActivity(intent)
         }
@@ -152,6 +155,12 @@ class OthersProfileFragment : Fragment() {
             e.printStackTrace()
             0
         }
+    }
+
+    fun generateChatId(currentUserId: String, user2Id: String): String {
+        // Sort the user IDs to ensure a consistent chat ID regardless of the order
+        val sortedUserIds = listOf(currentUserId, user2Id).sorted()
+        return "${sortedUserIds[0]}-${sortedUserIds[1]}" // Concatenate sorted IDs
     }
 
 

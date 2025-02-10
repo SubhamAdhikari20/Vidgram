@@ -95,6 +95,8 @@ class MessageRepositoryImpl : MessageRepository {
                         val messageModel = eachData.getValue(Message::class.java)
                         if (messageModel != null){
                             messages.add(messageModel)
+                        }else{
+                            Log.d("getallmsg","no msgs found")
                         }
                     }
                     callback(messages, true, "All messages fetched successfully")

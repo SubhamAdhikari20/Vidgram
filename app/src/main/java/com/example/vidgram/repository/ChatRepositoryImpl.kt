@@ -15,8 +15,12 @@ class ChatRepositoryImpl : ChatRepository {
         chatModel: UserChatInfo,
         callback: (UserChatInfo?, Boolean, String) -> Unit
     ) {
-        val chatId = "${chatModel.user1Id}-${chatModel.user2Id}"
+        // Sort the user IDs to generate a consistent chat ID, regardless of the order
+        val sortedUserIds = listOf(chatModel.user1Id, chatModel.user2Id).sorted()
+        val chatId = "${sortedUserIds[0]}-${sortedUserIds[1]}" // Concatenate sorted IDs
+
         chatModel.chatId = chatId
+
         reference.child(chatId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (!snapshot.exists()) {
@@ -27,19 +31,18 @@ class ChatRepositoryImpl : ChatRepository {
                             callback(null, false, task.exception?.message ?: "Error creating chat")
                         }
                     }
-                }
-                else {
+                } else {
                     // Chat already exists; fetch it.
                     getChatById(chatId, callback)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                callback(null, false,error.message)
+                callback(null, false, error.message)
             }
         })
-
     }
+
 
     override fun updateChat(
         chatId: String,

@@ -115,7 +115,7 @@ class ChatFragment : Fragment() {
         }
 //        binding.chatRecyclerView.smoothScrollToPosition(chatModelList.size - 1)
 
-        chatViewModel.loadingAllChats.observe(this) { isLoading ->
+        chatViewModel.loadingAllChats.observe(viewLifecycleOwner) { isLoading ->
             // Handle loading state if needed
         }
     }

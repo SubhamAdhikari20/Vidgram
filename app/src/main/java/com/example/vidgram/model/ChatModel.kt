@@ -1,7 +1,7 @@
 package com.example.vidgram.model
 
 data class ChatModel(
-//    var chatId: String = "",
+    var chatId: String = "",
     var userId: String = "",
     var fullName: String ?= null,
     var username: String ?=null,
