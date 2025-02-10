@@ -119,12 +119,12 @@ class OthersProfileFragment : Fragment() {
             val intent = Intent(requireContext(), MessageActivity::class.java).apply {
 
                 putExtra("chatId", generatedchatid)
-
                 putExtra("receiverId", user2Id)
+//                Log.d("receiverId ","chatid from profile fragment $user2Id")
                 putExtra("fullName", fullName.text.toString())
                 putExtra("profilePicture", profilePicture)
             }
-            Log.d("chat id ","chatid from profile fragment ${chatModel.chatId}")
+//            Log.d("chat id ","chatid from profile fragment ${chatModel.chatId}")
 
             startActivity(intent)
         }

@@ -85,6 +85,7 @@ class MessageActivity : AppCompatActivity() {
         // Get user data passed from ChatFragment or OthersProfileFragment
         chatId = intent.getStringExtra("chatId").toString()
         receiverId = intent.getStringExtra("receiverId").toString()
+        Log.d("receiverId ", receiverId)
         receiverFullName = intent.getStringExtra("fullName").toString()
         receiverProfileImage = intent.getStringExtra("profilePicture").toString()
 
