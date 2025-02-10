@@ -6,7 +6,6 @@
 
     <stroke
         android:color="@color/createAccountColor"
-
         android:width="1dp"/>
 
 

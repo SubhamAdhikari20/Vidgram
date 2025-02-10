@@ -24,7 +24,7 @@ class PostRepositoryImpl : PostRepository {
         postModel: PostModel,
         callback: (Boolean, String) -> Unit
     ) {
-        val imageUriString = postModel.postImage  // This is the URI string in the postModel
+        val imageUriString = postModel.postImageUrl  // This is the URI string in the postModel
         val imageUri = Uri.parse(imageUriString) // assuming postModel has a postImageUri
 
         try {
@@ -46,7 +46,7 @@ class PostRepositoryImpl : PostRepository {
                             Log.d("Cloudinary", "Upload successful: ${resultData["url"]}")
 
                             // Set the image URL in the postModel
-                            postModel.postImage = imageUrl
+                            postModel.postImageUrl = imageUrl
 
                             // Now add the post to Firebase
                             val postId = reference.push().key.toString()

@@ -43,7 +43,7 @@ class PhotosMyProfileFragment : Fragment() {
             val filteredPosts = posts?.filter { post ->
                 post.username == "Subahm"  // Only keep posts from the current user
             }?.map { post ->
-                GridItem(ContentType.IMAGE, imageUrl = post.postImage ?: "")
+                GridItem(ContentType.IMAGE, imageUrl = post.postImageUrl ?: "")
             } ?: emptyList()
 
             binding.recyclerView.apply {
