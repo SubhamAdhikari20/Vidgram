@@ -7,34 +7,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vidgram.adapter.UserChatAdapter
-import com.example.vidgram.adapter.ChatAdapter
 import com.example.vidgram.databinding.FragmentChatBinding
-import com.example.vidgram.model.ChatModel
 import com.example.vidgram.model.UserChatInfo
-import com.example.vidgram.model.UserModel
 import com.example.vidgram.repository.ChatRepositoryImpl
-import com.example.vidgram.repository.MessageRepositoryImpl
 import com.example.vidgram.repository.UserRepositoryImpl
 import com.example.vidgram.view.activity.MessageActivity
 import com.example.vidgram.viewmodel.ChatViewModel
-import com.example.vidgram.viewmodel.MessageViewModel
 import com.example.vidgram.viewmodel.UserViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-
 class ChatFragment : Fragment() {
+
     lateinit var binding: FragmentChatBinding
     lateinit var chatViewModel: ChatViewModel
     lateinit var userViewModel: UserViewModel
-    lateinit var chatAdapter: ChatAdapter
-//    lateinit var adapter: UserChatAdapter
-    val chatModelList = ArrayList<UserChatInfo>()
-    val userModelList = ArrayList<UserModel>()
-    lateinit var user1Id : String
-    lateinit var user2Id : String
+    val userChatInfoList = ArrayList<UserChatInfo>()
+    lateinit var user1Id: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,68 +40,60 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Chat Backend Binding
+        // Initialize ViewModels and Repositories
         val chatRepo = ChatRepositoryImpl()
         chatViewModel = ChatViewModel(chatRepo)
 
-        // User Backend Binding
         val userRepo = UserRepositoryImpl()
         userViewModel = UserViewModel(userRepo)
 
-
+        // Get the current user and fetch user data
         val currentUser = userViewModel.getCurrentUser()
-        currentUser.let{    // it -> currentUser
-            Log.d("userId",it?.uid.toString())
-            user1Id = it?.uid.toString()
-            userViewModel.getUserFromDatabase(it?.uid.toString())
+        currentUser?.let {
+            Log.d("userId", it.uid.toString())
+            user1Id = it.uid.toString()
+            userViewModel.getUserFromDatabase(it.uid.toString())
         }
 
-        // Fetch user data from Firebase
+        // Fetch user chat data
         chatViewModel.getAllChats(user1Id)
         setupObservers()
 
+        // Setup RecyclerView
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val adapter = UserChatAdapter(userChatInfoList, requireContext()) { userChatInfo ->
+            // Determine the receiverId based on the senderId
+            val receiverId = userChatInfo.receiverId
 
-        // Initialize RecyclerView and Adapter
-        chatAdapter = ChatAdapter(requireContext(), chatModelList, userModelList) { chat ->
-            // navigate to chat
+            // Handle item click to navigate to the message screen
             val intent = Intent(requireContext(), MessageActivity::class.java).apply {
-                putExtra("chatId", chat.chatId)
-                if (user1Id == chat.user1Id){
-                    putExtra("senderId", user1Id)
-                    putExtra("receiverId", chat.user2Id)
-                    userViewModel.getUserFromDatabase(chat.user2Id)
-                    userViewModel.userData.observe(requireActivity()){
-                        putExtra("fullName", it?.fullName.toString())
-                        putExtra("profilePicture", it?.profilePicture.toString())
-                    }
-                }
+                putExtra("chatId", userChatInfo.chatId)
+                putExtra("receiverId", receiverId)
 
-                else if(user1Id == chat.user2Id){
-                    putExtra("senderId", user1Id)
-                    putExtra("receiverId", chat.user1Id)
-                    userViewModel.getUserFromDatabase(chat.user1Id)
-                    userViewModel.userData.observe(requireActivity()){
-                        putExtra("fullName", it?.fullName.toString())
-                        putExtra("profilePicture", it?.profilePicture.toString())
-                    }
-                }
+                // The receiver's name and profile picture are already included in the UserChatInfo model
+                putExtra("fullName", userChatInfo.receiverName ?: "")
             }
+
+            // Start the message activity
             startActivity(intent)
         }
 
-        binding.chatRecyclerView.adapter = chatAdapter
-
-
+        binding.chatRecyclerView.adapter = adapter
     }
 
-    fun setupObservers() {
-        chatViewModel.getAllchats.observe(requireActivity()){ messages ->
-            messages?.let {
-                chatAdapter.updateData(messages)
+    private fun setupObservers() {
+        chatViewModel.getAllchats.observe(viewLifecycleOwner) { chats ->
+            chats?.let {
+                Log.d("msg", "From chat fragment: $it")
+                userChatInfoList.clear()
+
+                // Just add the chats to the list, receiver details are already set in UserChatInfo
+                userChatInfoList.addAll(it)
+
+                // Notify the adapter that the data has changed
+                binding.chatRecyclerView.adapter?.notifyDataSetChanged()
             }
         }
-//        binding.chatRecyclerView.smoothScrollToPosition(chatModelList.size - 1)
 
         chatViewModel.loadingAllChats.observe(viewLifecycleOwner) { isLoading ->
             // Handle loading state if needed
@@ -121,5 +101,13 @@ class ChatFragment : Fragment() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+            super.onResume()
 
-}
+            // Refresh the chat list when returning to this fragment
+            chatViewModel.getAllChats(user1Id)
+        }
+
+
+    }

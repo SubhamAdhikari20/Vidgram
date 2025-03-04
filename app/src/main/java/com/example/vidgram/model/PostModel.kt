@@ -8,6 +8,6 @@ data class PostModel(
     var username:  String ?= null,
     var postTimeStamp:  String? = null
 ){
-    constructor() : this(null, null, null, null, null)
+    constructor() : this(null, null, null, null, null,null)
 
 }

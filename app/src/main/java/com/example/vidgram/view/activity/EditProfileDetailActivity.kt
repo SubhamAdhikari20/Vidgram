@@ -46,19 +46,20 @@ class EditProfileDetailActivity : AppCompatActivity() {
 
                     Log.d("message", "$fieldType updated with value: $updatedValue")
                     // Call the method to update the profile
-                    val currentUserID =
-                        "v4xWlr2zR6hwoXG4QhezWAUnHmx1"  // Replace this with the actual user ID
-                    userViewModel.editProfile(currentUserID, data) { isSuccess, message ->
-                        if (isSuccess) {
-                            Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT)
-                                .show()
-                            finish()  // Close the activity after successful update
-                        } else {
-                            Toast.makeText(
-                                this,
-                                "Failed to update profile: $message",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                    val currentUserID = intent.getStringExtra("userID")
+                    if (currentUserID != null) {
+                        userViewModel.editProfile(currentUserID, data) { isSuccess, message ->
+                            if (isSuccess) {
+                                Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT)
+                                    .show()
+                                finish()  // Close the activity after successful update
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "Failed to update profile: $message",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 } else {

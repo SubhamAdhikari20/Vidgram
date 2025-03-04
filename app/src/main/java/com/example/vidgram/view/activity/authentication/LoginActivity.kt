@@ -2,6 +2,7 @@ package com.example.vidgram.view.activity.authentication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vidgram.databinding.ActivityLoginBinding
@@ -42,11 +43,15 @@ class LoginActivity : AppCompatActivity() {
                 userViewModel.login(email, pass) { success, message ->
                     if (success) {
 
+                        binding.message.text = "login success"
+                        binding.message.visibility = View.GONE
                         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
                         val intent = Intent(this, BottomNavigationActivity::class.java)
                         startActivity(intent)
                         finish() // Close LoginActivity
                     } else {
+                        binding.message.text = "login failed"
+//                        binding.message.visibility = View.GONE
                         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
                     }
                 }

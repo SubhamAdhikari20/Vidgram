@@ -26,7 +26,7 @@ interface ChatRepository {
     )
 
     fun getAllChats(
-        senderId: String,
+        currentUserId: String,
         callback: (List<UserChatInfo>?, Boolean, String) -> Unit
     )
 }

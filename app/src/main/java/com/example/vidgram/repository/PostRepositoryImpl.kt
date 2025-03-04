@@ -127,30 +127,32 @@ class PostRepositoryImpl : PostRepository {
         })
     }
 
-    override fun getAllPost(
-        callback: (List<PostModel>?, Boolean, String) -> Unit
-    ) {
-        reference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    var posts = mutableListOf<PostModel>()
-                    for (eachData in snapshot.children) {
-                        var postModel = eachData.getValue(PostModel::class.java)
-                        if (postModel != null) {
-                            posts.add(postModel)
+    override fun getAllPost(callback: (List<PostModel>?, Boolean, String) -> Unit) {
+        reference
+            .orderByChild("timestamp")  // Replace with the field you want to sort by
+            .limitToLast(50)  // Limit the results to the most recent 50 posts, if needed
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val posts = mutableListOf<PostModel>()
+                        for (eachData in snapshot.children) {
+                            val postModel = eachData.getValue(PostModel::class.java)
+                            if (postModel != null) {
+                                posts.add(postModel)
+                            }
                         }
+
+                        // Since we're using limitToLast(), posts are in ascending order. Reverse to get descending order.
+                        callback(posts.reversed(), true, "All posts fetched successfully")
                     }
-
-                    callback(posts, true, "All posts fetched successfully")
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                callback(null, true, error.message)
-            }
-
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    callback(null, false, error.message)
+                }
+            })
     }
+
     override fun getPostsByUsername(username: String, callback: (List<PostModel>?) -> Unit) {
         val postsList = mutableListOf<PostModel>()
 

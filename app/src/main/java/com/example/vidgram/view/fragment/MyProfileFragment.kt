@@ -24,6 +24,7 @@ import androidx.core.content.FileProvider
 import androidx.core.view.isEmpty
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
 import com.example.vidgram.R
 import com.example.vidgram.databinding.FragmentMyProfileBinding
 import com.example.vidgram.adapter.ViewPagerAdapter
@@ -106,14 +107,22 @@ class MyProfileFragment : Fragment() {
         val currentUser = userViewModel.getCurrentUser()
         currentUser.let{    // it -> currentUser
 //            userViewModel.getUserFromDatabase(it?.uid.toString())
-            userViewModel.getUserFromDatabase("v4xWlr2zR6hwoXG4QhezWAUnHmx1")
+            userViewModel.getUserFromDatabase(currentUser?.uid.toString())
         }
         var userName = ""
 
-        userViewModel.userData.observe(requireActivity()){
-            userName = it?.fullName.toString()
+        userViewModel.userData.observe(requireActivity()) { user ->
+            // Set user name
+            userName = user?.fullName.toString()
             binding.nameTextView.text = userName
 
+            // Check if profileImage is not null and load it using Glide
+            user?.profilePicture?.let {
+                Glide.with(requireContext())
+                    .load(it) // Profile image URL
+                    .placeholder(R.drawable.profile_pic) // Placeholder while the image loads
+                    .into(binding.profileImage) // ImageView where the profile image will be loaded
+            }
         }
 
         val fragmentManager: FragmentManager = childFragmentManager

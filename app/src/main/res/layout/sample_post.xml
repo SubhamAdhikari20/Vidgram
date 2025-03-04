@@ -34,6 +34,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="25dp"
                 android:text="Subham Adhikari"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/postFeedProfileImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -111,7 +113,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/postFeedLikeButton"
                 android:layout_width="30dp"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
@@ -127,7 +129,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
-                android:text="TextView"
+                android:text="Like"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postFeedLikeButton"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -135,7 +137,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/postFeedDislikeButton"
                 android:layout_width="30dp"
-                android:layout_height="0dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
@@ -147,7 +149,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/postFeedCommentButton"
                 android:layout_width="37dp"
-                android:layout_height="0dp"
+                android:layout_height="37dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
@@ -159,8 +161,8 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/postFeedShareButton"
                 android:layout_width="30dp"
-                android:layout_height="31dp"
-                android:layout_marginStart="15dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/share_icon"
@@ -175,19 +177,19 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
-                android:text="TextView"
+                android:text="Dislike"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postFeedDislikeButton"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/postFeedCommentText"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
-                android:text="TextView"
+                android:text="Comment"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postFeedCommentButton"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -198,9 +200,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="1dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="1dp"
-                android:text="TextView"
+                android:text="Share"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/postFeedShareButton"

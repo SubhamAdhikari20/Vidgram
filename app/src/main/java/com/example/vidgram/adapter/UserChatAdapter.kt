@@ -1,24 +1,23 @@
 package com.example.vidgram.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
-import com.example.vidgram.model.ChatModel
 import com.example.vidgram.model.UserChatInfo
+import com.example.vidgram.viewmodel.UserViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-
 class UserChatAdapter(
-    val userList: List<ChatModel>, // List of users
-    val context: Context,
-    val onItemClick: (ChatModel) -> Unit // On click callback
+    private val userList: List<UserChatInfo>,
+    private val context: Context,
+    private val onItemClick: (UserChatInfo) -> Unit
 ) : RecyclerView.Adapter<UserChatAdapter.UserChatViewHolder>() {
 
     inner class UserChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,33 +35,24 @@ class UserChatAdapter(
     override fun getItemCount(): Int = userList.size
 
     override fun onBindViewHolder(holder: UserChatViewHolder, position: Int) {
-        val user = userList[position]
-        holder.usernameTextView.text = user.fullName // Display the user's name
+        val userChatInfo = userList[position]
 
-        Log.d("UserChatAdapter", "User: ${user.fullName}")
+        // Set the username (already fetched and passed)
+        holder.usernameTextView.text = userChatInfo.receiverName
 
-        holder.lastMessageTextView.text = user.lastMessage // Display last message
+        // Bind the last message and timestamp
+        holder.lastMessageTextView.text = userChatInfo.lastMessage
         holder.timestampTextView.text =
-            SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(user.timestamp))
+            SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(userChatInfo.timestamp))
 
-        // Set profile image (if available) using Glide
-        if (user.profilePic.isNullOrEmpty()) {
-            Glide.with(context)
-                .load(R.drawable.user) // Load default image if profile pic is missing
-                .into(holder.profileImageView)
-        } else {
-            Glide.with(context)
-                .load(user.profilePic) // Load user's profile picture
-//                .placeholder(R.drawable.loading) // Optional: loading placeholder
-//                .error(R.drawable.error) // Optional: error placeholder
-                .into(holder.profileImageView)
-        }
+        // Load the profile image using Glide (if needed)
+        Glide.with(context)
+            .load(R.drawable.user)  // Use default image if no profile picture is available
+            .into(holder.profileImageView)
 
-        // Set click listener
+        // Set click listener for item view
         holder.itemView.setOnClickListener {
-            onItemClick(user)
+            onItemClick(userChatInfo)  // Send the entire UserChatInfo to the callback
         }
     }
-
-
 }
