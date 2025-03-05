@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityEditProfileDetailBinding
 import com.example.vidgram.repository.UserRepositoryImpl
 import com.example.vidgram.viewmodel.UserViewModel
@@ -13,8 +14,14 @@ class EditProfileDetailActivity : AppCompatActivity() {
     lateinit var  userViewModel: UserViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityEditProfileDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
 
         // Retrieve passed values
         val fieldType = intent.getStringExtra("FIELD_TYPE") ?: ""
@@ -67,6 +74,11 @@ class EditProfileDetailActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 
     private fun mapFieldTypeToModel(fieldType: String): String? {

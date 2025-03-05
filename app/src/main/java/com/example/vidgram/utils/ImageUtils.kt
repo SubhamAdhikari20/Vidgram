@@ -1,7 +1,5 @@
 package com.example.vidgram.utils
 
-
-
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager

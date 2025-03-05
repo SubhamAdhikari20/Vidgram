@@ -152,7 +152,6 @@ class NewPostActivity : AppCompatActivity() {
             checkPermissionsAndOpenPicker()
         }
 
-
         // Post Button
         binding.postButton.setOnClickListener {
             loadingDialogUtils.show()

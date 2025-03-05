@@ -96,6 +96,7 @@ class EditProfileActivity : AppCompatActivity() {
         intent.putExtra("FIELD_VALUE", fieldValue)
         startActivity(intent)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         // Go back to the previous fragment or activity
         onBackPressedDispatcher.onBackPressed()
