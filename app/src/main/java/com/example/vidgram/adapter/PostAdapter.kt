@@ -41,7 +41,7 @@ class PostAdapter(private val context: Context, private val posts: MutableList<P
         holder.username.text = post.username ?: "Unknown User"
 
         // Set Post Image (Using Glide to load image from URL)
-        val postImageUrl = post.postImageUrl ?: "" // Get the image URL
+        val postImageUrl = post.postImage ?: "" // Get the image URL
 
 // Check if the URL uses HTTP and change it to HTTPS
         val securePostImageUrl = if (postImageUrl.startsWith("http://", ignoreCase = true)) {

@@ -18,20 +18,19 @@ class VerificationSignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding =ActivityVerificationSignUpBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         val bundle = intent.extras
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
+
         binding.nextButton5.setOnClickListener{
             val name = bundle?.getString("fullName")
-               val gender = bundle?.getString("gender")
-               Toast.makeText(this,"$name , $gender",Toast.LENGTH_LONG).show()
-        }
-
-        binding.arrowButton5.setOnClickListener{
-            val intent = Intent(this, PhoneNumberSignUpActivity::class.java)
-            intent.putExtras(bundle!!)
-            startActivity(intent)
-            finish()
+            val gender = bundle?.getString("gender")
+            Toast.makeText(this,"$name , $gender",Toast.LENGTH_LONG).show()
         }
 
         binding.nextButton5.setOnClickListener{
@@ -45,5 +44,10 @@ class VerificationSignUpActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

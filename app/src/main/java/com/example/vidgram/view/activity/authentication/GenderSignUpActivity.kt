@@ -20,6 +20,11 @@ class GenderSignUpActivity : AppCompatActivity() {
         binding =ActivityGenderSignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
+
         // Handle male layout and button clicks
         binding.maleLayout.setOnClickListener {
             binding.radioGroup.check(binding.male.id) // Ensure RadioGroup reflects the selection
@@ -71,17 +76,16 @@ class GenderSignUpActivity : AppCompatActivity() {
             }
         }
 
-        binding.arrowButton2.setOnClickListener{
-            val intent = Intent(this, NameSignUpActivity::class.java)
-            intent.putExtras(bundle!!)
-            startActivity(intent)
-            finish()
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

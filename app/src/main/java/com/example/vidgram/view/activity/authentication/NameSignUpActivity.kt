@@ -25,11 +25,10 @@ class NameSignUpActivity : AppCompatActivity() {
         binding = ActivityNameSignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.arrowButton1.setOnClickListener{
-            val intent = Intent(this@NameSignUpActivity, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
 
         // Next Button
         loadingDialogUtils = LoadingDialogUtils(this)
@@ -63,5 +62,10 @@ class NameSignUpActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

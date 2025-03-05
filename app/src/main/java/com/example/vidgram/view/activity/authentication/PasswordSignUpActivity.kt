@@ -19,12 +19,11 @@ class PasswordSignUpActivity : AppCompatActivity() {
 
         val bundle = intent.extras
 
-        binding.arrowButton6.setOnClickListener{
-            val intent = Intent(this, VerificationSignUpActivity::class.java)
-            intent.putExtras(bundle!!)
-            startActivity(intent)
-            finish()
-        }
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
+
         binding.nextButton6.setOnClickListener{
             val password = binding.passwordSignUpInputText.text.toString()
             bundle?.putString("password",password)
@@ -38,5 +37,10 @@ class PasswordSignUpActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

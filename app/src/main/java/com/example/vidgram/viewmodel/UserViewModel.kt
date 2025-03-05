@@ -99,10 +99,17 @@ class UserViewModel(private val repo: UserRepository) {
         }
     }
 
+    fun deleteAccount(
+        userId: String,
+        callback: (Boolean, String) -> Unit
+    ){
+        repo.deleteAccount(userId, callback)
+    }
+
     fun logout(
         callback: (Boolean, String) -> Unit
     ) {
-
+        repo.logout(callback)
     }
 
 }

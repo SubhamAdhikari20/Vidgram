@@ -19,12 +19,10 @@ class EmailSignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
         val bundle =intent.extras
 
-        binding.arrowButton4.setOnClickListener{
-            val intent = Intent(this, PhoneNumberSignUpActivity::class.java)
-            intent.putExtras(bundle!!)
-            startActivity(intent)
-            finish()
-        }
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
 
         binding.useContactButton.setOnClickListener{
             val intent = Intent(this, PhoneNumberSignUpActivity::class.java)
@@ -50,5 +48,10 @@ class EmailSignUpActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

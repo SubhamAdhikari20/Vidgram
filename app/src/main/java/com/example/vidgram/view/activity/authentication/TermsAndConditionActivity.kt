@@ -26,18 +26,15 @@ class TermsAndConditionActivity : AppCompatActivity() {
         binding = ActivityTermsAndConditionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
+
         loadingDialogUtils = LoadingDialogUtils(this)
         val bundle = intent.extras
         val repo = UserRepositoryImpl() // Assuming the repository is created here
         userViewModel = UserViewModel(repo)
-
-        // Handle back button click
-        binding.arrowButton7.setOnClickListener {
-            val intent = Intent(this, PasswordSignUpActivity::class.java)
-            intent.putExtras(bundle!!)
-            startActivity(intent)
-            finish()
-        }
 
         // Handle agree button click
         binding.agreeButton.setOnClickListener {
@@ -118,5 +115,10 @@ class TermsAndConditionActivity : AppCompatActivity() {
             loadingDialogUtils.dismiss()
 
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

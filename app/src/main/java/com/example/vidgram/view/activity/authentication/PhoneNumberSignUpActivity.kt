@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import com.example.vidgram.R
 import com.example.vidgram.databinding.ActivityPhoneNumberSignUpBinding
 
 class PhoneNumberSignUpActivity : AppCompatActivity() {
@@ -23,6 +24,11 @@ class PhoneNumberSignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPhoneNumberSignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
 
         val bundle = intent.extras
 
@@ -86,12 +92,6 @@ class PhoneNumberSignUpActivity : AppCompatActivity() {
         }
         */
 
-        binding.arrowButton3.setOnClickListener {
-            val intent = Intent(this, GenderSignUpActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
         binding.nextButton3.setOnClickListener {
             // Retrieve the phone number after selection
             val phoneNumber = binding.contactInputText.text.toString()
@@ -113,6 +113,11 @@ class PhoneNumberSignUpActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }
 

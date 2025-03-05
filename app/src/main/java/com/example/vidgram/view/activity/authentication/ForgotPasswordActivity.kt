@@ -25,57 +25,60 @@ class ForgotPasswordActivity : AppCompatActivity() {
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
+
         loadingDialogUtils = LoadingDialogUtils(this)
         val bundle = intent.extras
         val repo = UserRepositoryImpl()
         userViewModel = UserViewModel(repo)
 
-
-        // Handle back button click
-        binding.arrowButtonFP1.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtras(bundle!!)
-            startActivity(intent)
-            finish()
-        }
-
         binding.sendCodeButtonFP.setOnClickListener {
             loadingDialogUtils.show()
             val email = binding.emailFPInputText.text.toString()
 
-            if (email.isNotEmpty()) {
-
-                val intent = Intent(this@ForgotPasswordActivity, VerificationForgotPasswordActivity::class.java)
-
-                val bundle = Bundle()
-                bundle.putString("email", email)
-                intent.putExtras(bundle)
-                startActivity(intent)
-                finish()
-
-                // Call ViewModel to login
-//                userViewModel.forgetPassword(email) { success, message ->
-//                    if (success) {
-//                        loadingDialogUtils.dismiss()
-//                        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-//
-//                    } else {
-//                        loadingDialogUtils.dismiss()
-//                        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-//                    }
-//                }
+            if (email.isNotEmpty()){
+                userViewModel.forgetPassword(email){
+                        success, message ->
+                    if (success){
+                        loadingDialogUtils.dismiss()
+                        Toast.makeText(
+                            this@ForgotPasswordActivity,
+                            message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    else{
+                        loadingDialogUtils.dismiss()
+                        Toast.makeText(
+                            this@ForgotPasswordActivity,
+                            message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
             }
-            else {
+            else{
                 loadingDialogUtils.dismiss()
-                Toast.makeText(this, "Please fill in both fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@ForgotPasswordActivity,
+                    "Please, fill in the email fields!!!",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 }

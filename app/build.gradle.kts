@@ -66,13 +66,13 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.github.ZEGOCLOUD:zego_uikit_prebuilt_call_android:+")    // add this line in your module-level build.gradle file's dependencies, usually named [app].
 
-    testImplementation("org.mockito:mockito-core:5.6.0")
-    testImplementation("org.mockito:mockito-inline:3.12.4")
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
 //    androidTestImplementation("org.mockito:mockito-kotlin:3.2.0")
-    androidTestImplementation("androidx.test:runner:1.2.0")
-    androidTestImplementation("androidx.test:rules:1.2.0")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.6.1")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0") // ✅ Correct
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.rules)
+    androidTestImplementation(libs.androidx.espresso.intents)
+    testImplementation(libs.mockito.kotlin) // ✅ Correct
 
 
 }

@@ -7,27 +7,48 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.authentication.LoginActivity">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/arrowButton7"
-        android:layout_width="30dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/arrow"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="55dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="45dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/top_vidgram_logo" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:elevation="5dp"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="10dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/agreeButton"
@@ -53,9 +74,9 @@
         android:text="Terms and Condition"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         tools:ignore="MissingConstraints" />
 
     <TextView

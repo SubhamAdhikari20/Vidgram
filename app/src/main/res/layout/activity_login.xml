@@ -73,20 +73,41 @@
             android:textColorHint="@color/hintColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/rememberMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Remember"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="@+id/passwordInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
+
+    <TextView
+        android:id="@+id/forgotPasswordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:text="Forgot Password?"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/passwordInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="25dp"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/authentication_btn"
         android:text="Log in"
-        android:textColor="@color/white"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/rememberMe" />
 
 
     <TextView
@@ -128,27 +149,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="134dp"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="75dp"
         android:text="Don't have an account?"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginGoogleButton" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginGoogleButton"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/create_account_btn"
-        android:contextClickable="false"
-
-
-
-        android:text="Log in with Google"
-        android:textAllCaps="false"
-        android:textColor="@color/green"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -166,7 +168,7 @@
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="15dp"
         android:text="login success"
         app:layout_constraintStart_toStartOf="parent"
