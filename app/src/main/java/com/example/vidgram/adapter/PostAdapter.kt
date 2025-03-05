@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
 import com.example.vidgram.model.PostModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import kotlin.math.min
 
 class PostAdapter(private val context: Context, private val posts: MutableList<PostModel>) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
@@ -60,8 +63,15 @@ class PostAdapter(private val context: Context, private val posts: MutableList<P
         // Set Caption
         holder.caption.text = post.postDescription ?: "No caption provided"
 
+        val timestampLong = post.postTimeStamp?.toLongOrNull() ?: 0L
+        val formattedTime = if (timestampLong > 0) {
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+            dateFormat.format(Date(timestampLong))
+        } else {
+            ""
+        }
         // Set Timestamp
-        holder.time.text = post.postTimeStamp ?: "Unknown time"
+        holder.time.text = formattedTime
     }
 
     override fun getItemCount(): Int {

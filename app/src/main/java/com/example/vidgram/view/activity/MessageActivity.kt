@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -23,11 +24,16 @@ import com.example.vidgram.model.UserChatInfo
 import com.example.vidgram.repository.ChatRepositoryImpl
 import com.example.vidgram.repository.MessageRepositoryImpl
 import com.example.vidgram.repository.UserRepositoryImpl
+import com.example.vidgram.services.ZegoService
 import com.example.vidgram.viewmodel.ChatViewModel
 import com.example.vidgram.viewmodel.MessageViewModel
 import com.example.vidgram.viewmodel.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallService
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig
+import com.zegocloud.uikit.service.defines.ZegoUIKitUser
+import java.util.Collections
 
 class MessageActivity : AppCompatActivity() {
     lateinit var binding: ActivityMessageBinding
@@ -39,7 +45,9 @@ class MessageActivity : AppCompatActivity() {
     lateinit var senderId: String
     lateinit var receiverId: String
     lateinit var receiverFullName: String
-    var receiverProfileImage: String ?= null
+    var receiverProfileImage: String? = null
+
+    lateinit var zegoService: ZegoService
 
     var chatModel = UserChatInfo()
     var messageModelList = ArrayList<Message>()
@@ -59,6 +67,8 @@ class MessageActivity : AppCompatActivity() {
         binding.toolbar.overflowIcon = ContextCompat.getDrawable(this, R.drawable.three_dot_icon2)
 
 
+
+
         // Message Backend Binding
         val messageRepo = MessageRepositoryImpl()
         messageViewModel = MessageViewModel(messageRepo)
@@ -72,13 +82,12 @@ class MessageActivity : AppCompatActivity() {
         chatViewModel = ChatViewModel(chatRepo)
 
         val currentUser = userViewModel.getCurrentUser()
-        currentUser.let{    // it -> currentUser
-            Log.d("current user userId",it?.uid.toString())
-            senderId = it?.uid.toString()
-            userViewModel.getUserFromDatabase(it?.uid.toString())
+        currentUser?.let {
+            senderId = it.uid.toString()
+            userViewModel.getUserFromDatabase(it.uid.toString())
         }
 
-        userViewModel.userData.observe(this){
+        userViewModel.userData.observe(this) {
             senderId = it?.userID.toString()
         }
 
@@ -88,23 +97,24 @@ class MessageActivity : AppCompatActivity() {
         Log.d("receiverId ", receiverId)
         receiverFullName = intent.getStringExtra("fullName").toString()
         receiverProfileImage = intent.getStringExtra("profilePicture").toString()
-
         binding.profileFullName.text = receiverFullName
         Glide.with(this).load(receiverProfileImage).circleCrop().into(binding.messageProfilePicture)
 
-        Log.d("MessageActivity", "Fetching messages for chatId: $chatId")
 
+        ZegoService.initZego(application, senderId)
+
+        ZegoService.prepareVideoCall(binding, receiverId)
+        ZegoService.prepareAudioCall(binding, receiverId)
+
+        Log.d("user","currentuser:$senderId, recevierid:$receiverId")
 
         messageViewModel.getAllMessages(chatId)
         // Retrieve and display messageModelList from the database
         messageViewModel.getAllmessages.observe(this) { messages ->
             if (messages != null && messages.isNotEmpty()) {
-                Log.d("ChatFragment", "Total messages received: ${messages.size}")
                 messages.forEach { msg ->
-                    Log.d("ChatFragment", "Message: ${msg.message}, Sender: ${msg.senderId}")
                 }
             } else {
-                Log.d("ChatFragment", "No messages found for this chat.")
             }
         }
         setupObservers()
@@ -114,7 +124,6 @@ class MessageActivity : AppCompatActivity() {
         messageAdapter = MessageAdapter(this, messageModelList, senderId)
         binding.messageRecyclerView.adapter = messageAdapter
 
-//        Log.d("chatId", chatId.toString())
         // Handle touch event on message input (detect click on drawableEnd)
         binding.messageChatEditText.setOnTouchListener { v, event ->
             val drawables = binding.messageChatEditText.compoundDrawables
@@ -124,25 +133,20 @@ class MessageActivity : AppCompatActivity() {
                 // Check if the touch was on the drawableEnd (send icon)
                 if (event.x >= binding.messageChatEditText.width - binding.messageChatEditText.paddingRight - drawableEnd.bounds.width()) {
                     // Action when the send icon is clicked
-//                    Log.d("chatId", chatId.toString())
 
-                    chatModel = UserChatInfo(chatId = chatId, user1Id = senderId, user2Id = receiverId)
+                    chatModel = UserChatInfo(chatId = chatId, senderId = senderId, receiverId = receiverId)
 
-                    if(chatId == ""){
-                        chatViewModel.createOrGetChat(chatModel){
-                                chat, success, message ->
-                            if (success && chat != null){
+                    if (chatId == "") {
+                        chatViewModel.createOrGetChat(chatModel) { chat, success, message ->
+                            if (success && chat != null) {
                                 chatId = chat.chatId
-//                                Log.d("chatId I am here", chatId.toString())
                                 sendMessage()
                                 Toast.makeText(this@MessageActivity, message, Toast.LENGTH_LONG).show()
-                            }
-                            else{
+                            } else {
                                 Toast.makeText(this@MessageActivity, message, Toast.LENGTH_LONG).show()
                             }
                         }
-                    }
-                    else{
+                    } else {
                         sendMessage()
                     }
                     return@setOnTouchListener true
@@ -151,8 +155,6 @@ class MessageActivity : AppCompatActivity() {
             false
         }
 
-
-
         // Apply window insets for edge-to-edge experience
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -160,6 +162,7 @@ class MessageActivity : AppCompatActivity() {
             insets
         }
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         // Go back to the previous fragment or activity
@@ -174,8 +177,12 @@ class MessageActivity : AppCompatActivity() {
         return true
     }
 
+
+
+
+
     private fun setupObservers() {
-        messageViewModel.getAllmessages.observe(this ){ messages ->
+        messageViewModel.getAllmessages.observe(this) { messages ->
             messages?.let {
                 messageAdapter.updateData(it)
                 binding.messageRecyclerView.post {
@@ -194,16 +201,13 @@ class MessageActivity : AppCompatActivity() {
         if (messageText.isNotEmpty()) {
             val messageModel = Message(senderId = senderId, receiverId = receiverId, message = messageText, timestamp = System.currentTimeMillis())
 
-            messageViewModel.sendMessage(chatId, messageModel) {
-                    success, message ->
+            messageViewModel.sendMessage(chatId, messageModel) { success, message ->
                 if (success) {
                     binding.messageChatEditText.text.clear()    // Clear the input field after sending
-
                 }
             }
         }
     }
-
 
 
 }

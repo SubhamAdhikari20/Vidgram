@@ -106,7 +106,7 @@
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Subham Adhikari" />
+            android:text="username" />
 
     </LinearLayout>
 
@@ -128,8 +128,9 @@
                 android:id="@+id/postsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
-                android:text="TextView"
+                android:layout_marginStart="96dp"
+                android:layout_marginTop="4dp"
+                android:text="20"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -138,21 +139,20 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="87dp"
                 android:text="posts"
                 android:textColor="#9C9696"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/postsTextView"
-                app:layout_constraintTop_toBottomOf="@+id/postsTextView" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/followersTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:text="TextView"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="4dp"
+                android:text="102"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/postsTextView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -161,21 +161,22 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="47dp"
                 android:layout_marginTop="5dp"
                 android:text="followers"
                 android:textColor="#9C9696"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/followersTextView"
+                app:layout_constraintStart_toEndOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/followersTextView" />
 
             <TextView
                 android:id="@+id/followingTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:text="TextView"
+                android:layout_marginStart="84dp"
+                android:layout_marginTop="4dp"
+                android:text="200"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/followersTextView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -184,14 +185,15 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="48dp"
                 android:layout_marginTop="5dp"
                 android:text="following"
                 android:textColor="#9C9696"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/followingTextView"
-                app:layout_constraintTop_toBottomOf="@+id/followingTextView" />
+                app:layout_constraintStart_toEndOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/followingTextView"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

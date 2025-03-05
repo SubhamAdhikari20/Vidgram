@@ -1,11 +1,8 @@
 package com.example.vidgram.model
 
 data class ChatModel(
-    var chatId: String = "",
-    var userId: String = "",
-    var fullName: String ?= null,
-    var username: String ?=null,
-    var profilePic: String ?= null,
-    var lastMessage: String ?= null,
+    var senderId: String = "",
+    var receiverId: String = "",
+    var message: String = "",
     var timestamp: Long = 0L
 )

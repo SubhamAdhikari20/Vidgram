@@ -29,7 +29,7 @@ import com.example.vidgram.repository.UserRepositoryImpl
 import com.example.vidgram.utils.LoadingDialogUtils
 import com.example.vidgram.viewmodel.PostViewModel
 import com.example.vidgram.viewmodel.UserViewModel
-
+import com.google.firebase.auth.FirebaseUser
 
 class NewPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewPostBinding
@@ -37,10 +37,8 @@ class NewPostActivity : AppCompatActivity() {
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionsLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var userViewModel: UserViewModel
-    lateinit var postViewModel: PostViewModel
-    lateinit var loadingDialogUtils: LoadingDialogUtils
-
-
+    private lateinit var postViewModel: PostViewModel
+    private lateinit var loadingDialogUtils: LoadingDialogUtils
 
     private var selectedImageUri: Uri? = null
 
@@ -53,7 +51,7 @@ class NewPostActivity : AppCompatActivity() {
 
         loadingDialogUtils = LoadingDialogUtils(this)
 
-        // User Backend Binding
+        // Initialize ViewModels
         val userRepo = UserRepositoryImpl()
         userViewModel = UserViewModel(userRepo)
 
@@ -62,76 +60,97 @@ class NewPostActivity : AppCompatActivity() {
         val postRepo = PostRepositoryImpl()
         postViewModel = PostViewModel(postRepo)
 
+        // Initialize Cloudinary
+        initializeCloudinary()
 
-        val config = mutableMapOf<String, String>()
-        config["cloud_name"] = "dbukovsi1"
-        config["api_key"] = "718742783263144"
-        config["api_secret"] = "udtElGelBPWkalRKw-RQrnqFRI8"
-
-        MediaManager.init(this, config)
-
-        val currentUser = userViewModel.getCurrentUser()
-        currentUser.let{    // it -> currentUser
-            userViewModel.getUserFromDatabase(it?.uid.toString())
-        }
-        
-        userViewModel.userData.observe(this){
-            binding.newPostUserName.text = it?.fullName.toString()
-
-        }
+        // Fetch current user data
+        fetchCurrentUser()
 
         setSupportActionBar(binding.newPostToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
 
-        binding.postDescEditTextField.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        // Setup text watcher for post description
+        setupDescriptionTextWatcher()
 
-            }
+        // Initialize image picker and camera launchers
+        initializeImagePickers()
+
+        // Handle image selection
+        binding.addPostImageView.setOnClickListener {
+            checkPermissionsAndOpenPicker()
+        }
+
+        // Handle post submission
+        binding.postButton.setOnClickListener {
+            submitPost()
+        }
+
+        fetchUserData()
+
+        // Handle window insets for edge-to-edge UI
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.newPostLayout)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
+    private fun initializeCloudinary() {
+        try {
+            val config = mutableMapOf<String, String>()
+            config["cloud_name"] = "dbukovsi1"
+            config["api_key"] = "718742783263144"
+            config["api_secret"] = "udtElGelBPWkalRKw-RQrnqFRI8"
+
+            MediaManager.init(this, config)
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun fetchCurrentUser() {
+        val currentUser = userViewModel.getCurrentUser()
+        currentUser?.let {
+            userViewModel.getUserFromDatabase(it.uid.toString())
+        }
+
+        userViewModel.userData.observe(this) { user ->
+            binding.newPostUserName.text = user?.fullName.toString()
+        }
+    }
+
+    private fun setupDescriptionTextWatcher() {
+        binding.postDescEditTextField.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updatePostButtonState(s?.isNotEmpty() == true)
-                /*
-                var description : String = binding.postDescEditTextField.text.toString()
-                if (description.isNotEmpty()) {
-                    binding.postButton.background = ContextCompat.getDrawable(this@NewPostActivity, R.drawable.post_filled_custom_btn)
-                    binding.postButton.setTextColor(ContextCompat.getColor(this@NewPostActivity, R.color.white))
-
-                }
-                else {
-                    // Reset to a default or inactive color
-                    binding.postButton.background = ContextCompat.getDrawable(this@NewPostActivity, R.drawable.post_custom_btn)
-                    binding.postButton.setTextColor(ContextCompat.getColor(this@NewPostActivity, R.color.postBtnTextColor))
-                }
-                 */
             }
 
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
+            override fun afterTextChanged(s: Editable?) {}
         })
+    }
 
-        // Initialize the image picker launcher
+    private fun initializeImagePickers() {
+        // Initialize image picker launcher
         imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 binding.postImageView.setImageURI(it)
                 selectedImageUri = uri
-
-
                 binding.postImageView.visibility = View.VISIBLE
                 updatePostButtonState(true)
             }
         }
 
-        // Initialize the camera launcher
+        // Initialize camera launcher
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val imageBitmap = result.data?.extras?.get("data") as? Bitmap
                 imageBitmap?.let {
                     binding.postImageView.setImageBitmap(it)
-                    binding.postImageView.visibility = android.view.View.VISIBLE
+                    binding.postImageView.visibility = View.VISIBLE
                     updatePostButtonState(true)
                 }
             }
@@ -146,54 +165,6 @@ class NewPostActivity : AppCompatActivity() {
                 Toast.makeText(this, "Permissions required to proceed!", Toast.LENGTH_SHORT).show()
             }
         }
-
-        // Handle "Add Image" button click
-        binding.addPostImageView.setOnClickListener {
-            checkPermissionsAndOpenPicker()
-        }
-
-        // Post Button
-        binding.postButton.setOnClickListener {
-            loadingDialogUtils.show()
-            var postDesc : String? = binding.postDescEditTextField.text.toString()
-            var postImage : String? = selectedImageUri.toString()
-            var postBy : String? = binding.newPostUserName.text .toString()
-            var postTimeStamp : String? = binding.newPostUserName.text .toString()
-            val profileImage: String? = ""
-
-            var postModel = PostModel("", postImage, profileImage, postDesc, postBy, postTimeStamp)
-
-            postViewModel.addPost(postModel){
-                success, message ->
-                if (success){
-                    Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
-                    finish()
-                }
-                else{
-                    Toast.makeText(this@NewPostActivity, message, Toast.LENGTH_LONG).show()
-                }
-                loadingDialogUtils.dismiss()
-            }
-        }
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.newPostLayout)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        val inflater: MenuInflater = menuInflater
-//        inflater.inflate(R.menu.post_menu_toolbar, menu)
-//
-//        return true
-//    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressedDispatcher.onBackPressed()
-        return true
     }
 
     private fun updatePostButtonState(isEnabled: Boolean) {
@@ -254,5 +225,56 @@ class NewPostActivity : AppCompatActivity() {
         builder.show()
     }
 
+    private fun submitPost() {
+        loadingDialogUtils.show()
 
+        val postDesc: String = binding.postDescEditTextField.text.toString()
+        val postImage: String = selectedImageUri.toString()
+
+        // Observe the userData LiveData
+        userViewModel.userData.observe(this) { currentUser ->
+            currentUser?.let {
+                val profileImage: String? = it.profilePicture?.toString() // Use profile picture URL from user data
+                val postTimeStamp: Long = System.currentTimeMillis()
+
+                val postModel = PostModel(
+                    postId = "",
+                    postImage = postImage,
+                    profileImage = profileImage,
+                    postDescription = postDesc,
+                    username = binding.newPostUserName.text.toString(),
+                    postTimeStamp = postTimeStamp.toString()
+                )
+
+                // Call ViewModel method to add the post
+                postViewModel.addPost(postModel) { success, message ->
+                    if (success) {
+                        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                        finish()
+                    } else {
+                        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                    }
+                    loadingDialogUtils.dismiss()
+                }
+            } ?: run {
+                Toast.makeText(this, "User data is unavailable", Toast.LENGTH_SHORT).show()
+                loadingDialogUtils.dismiss()
+            }
+        }
+    }
+
+    private fun fetchUserData() {
+        val currentUser = userViewModel.getCurrentUser()
+        currentUser?.let {
+            userViewModel.getUserFromDatabase(it.uid) // Fetch user data using the current user ID
+        } ?: run {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
+    }
 }

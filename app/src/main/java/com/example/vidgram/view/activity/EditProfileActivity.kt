@@ -18,7 +18,7 @@ import com.example.vidgram.viewmodel.UserViewModel
 class EditProfileActivity : AppCompatActivity() {
     lateinit var binding : ActivityEditProfileBinding
     lateinit var  userViewModel: UserViewModel
-
+    lateinit var currentUser: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -58,9 +58,9 @@ class EditProfileActivity : AppCompatActivity() {
         val repo = UserRepositoryImpl()
         userViewModel= UserViewModel(repo)
         userViewModel.clearUserData()
+         currentUser = userViewModel.getCurrentUser()?.uid.toString()
 
-        val currentUserID = "v4xWlr2zR6hwoXG4QhezWAUnHmx1"
-        currentUserID.let { userViewModel.getUserFromDatabase(it) }
+    userViewModel.getUserFromDatabase(currentUser)
 //
 
         userViewModel.userData.observe(this) { user ->
@@ -92,6 +92,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     fun openEditProfileDetail(fieldType: String, fieldValue: String) {
         val intent = Intent(this, EditProfileDetailActivity::class.java)
+        intent.putExtra("userID",currentUser)
         intent.putExtra("FIELD_TYPE", fieldType)
         intent.putExtra("FIELD_VALUE", fieldValue)
         startActivity(intent)
