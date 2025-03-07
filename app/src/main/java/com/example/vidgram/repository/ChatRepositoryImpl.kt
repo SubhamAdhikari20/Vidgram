@@ -113,7 +113,7 @@ class ChatRepositoryImpl : ChatRepository {
                         val firstUserId = chatUsers[0]
                         val secondUserId = chatUsers[1]
 
-                        // ✅ Ensure current user is part of the chat
+                        // to Ensure current user is part of the chat
                         if (currentUserId != firstUserId && currentUserId != secondUserId) {
                             continue
                         }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.vidgram.R
@@ -28,13 +26,6 @@ import com.example.vidgram.services.ZegoService
 import com.example.vidgram.viewmodel.ChatViewModel
 import com.example.vidgram.viewmodel.MessageViewModel
 import com.example.vidgram.viewmodel.UserViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallService
-import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig
-import com.zegocloud.uikit.service.defines.ZegoUIKitUser
-import java.util.Collections
-
 class MessageActivity : AppCompatActivity() {
     lateinit var binding: ActivityMessageBinding
     lateinit var messageViewModel: MessageViewModel
@@ -46,9 +37,6 @@ class MessageActivity : AppCompatActivity() {
     lateinit var receiverId: String
     lateinit var receiverFullName: String
     var receiverProfileImage: String? = null
-
-    lateinit var zegoService: ZegoService
-
     var chatModel = UserChatInfo()
     var messageModelList = ArrayList<Message>()
 
@@ -65,18 +53,12 @@ class MessageActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
         binding.toolbar.overflowIcon = ContextCompat.getDrawable(this, R.drawable.three_dot_icon2)
-
-
-
-
         // Message Backend Binding
         val messageRepo = MessageRepositoryImpl()
         messageViewModel = MessageViewModel(messageRepo)
-
         // User Backend Binding
         val userRepo = UserRepositoryImpl()
         userViewModel = UserViewModel(userRepo)
-
         // Chat Backend Binding
         val chatRepo = ChatRepositoryImpl()
         chatViewModel = ChatViewModel(chatRepo)
@@ -90,7 +72,6 @@ class MessageActivity : AppCompatActivity() {
         userViewModel.userData.observe(this) {
             senderId = it?.userID.toString()
         }
-
         // Get user data passed from ChatFragment or OthersProfileFragment
         chatId = intent.getStringExtra("chatId").toString()
         receiverId = intent.getStringExtra("receiverId").toString()

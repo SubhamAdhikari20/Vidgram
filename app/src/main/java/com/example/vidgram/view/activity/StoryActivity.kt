@@ -19,7 +19,6 @@ import java.util.Locale
 
 class StoryActivity : AppCompatActivity() {
     lateinit var binding: ActivityStoryBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,10 +31,6 @@ class StoryActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.back_arrow_resized)
         binding.toolbar.overflowIcon = ContextCompat.getDrawable(this, R.drawable.three_dot_icon2)
-
-
-
-        val storyId = intent.getStringExtra("story_id")
         val username = intent.getStringExtra("username")
         val storyImage = intent.getStringExtra("story_image")
 

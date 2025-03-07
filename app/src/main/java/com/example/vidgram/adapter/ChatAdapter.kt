@@ -46,20 +46,10 @@ class ChatAdapter(
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val chat = chatModelList[position]
         val user = userModelList[position]
-//        val currentUser = userViewModel.getCurrentUser()
-//        currentUser.let{    // it -> currentUser
-//            Log.d("userId",it?.uid.toString())
-//            senderId = it?.uid.toString()
-//            userViewModel.getUserFromDatabase(it?.uid.toString())
-//        }
-
-
         holder.nameTextView.text = user.fullName            // Display the user's name
         holder.lastMessageTextView.text = chat.lastMessage  // Display last message
         holder.timestampTextView.text = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(chat.timestamp))
 
-//         Set profile image (if available) using Glide
-//         Load default image if profile pic is missing
         if (user.profilePicture.isNullOrEmpty()) {
             Glide.with(context)
                 .load(R.drawable.user)
@@ -74,7 +64,6 @@ class ChatAdapter(
 //                .error(R.drawable.error) // Optional: error placeholder
                 .into(holder.profileImageView)
         }
-
         // Set click listener
         holder.itemView.setOnClickListener {
             onItemClick(chat)
@@ -82,15 +71,6 @@ class ChatAdapter(
 
     }
 
-    fun updateData(chats: List<UserChatInfo>){
-        chatModelList.clear()
-        chatModelList.addAll(chats)
-        notifyDataSetChanged()
-    }
 
-
-//    fun getReceiverId(position: Int):String{
-//        return chatModelList[position].receiverId
-//    }
 
 }

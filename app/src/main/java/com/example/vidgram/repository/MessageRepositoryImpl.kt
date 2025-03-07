@@ -1,8 +1,6 @@
 package com.example.vidgram.repository
-
 import android.util.Log
 import com.example.vidgram.model.Message
-import com.example.vidgram.model.MessageModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -19,7 +17,6 @@ class MessageRepositoryImpl : MessageRepository {
         messageModel: Message,
         callback: (Boolean, String) -> Unit
     ) {
-        Log.d("chatId Ok xa tw", chatId.toString())
         val messageId = reference.child(chatId).child("messages").push().key.toString()
         messageModel.messageId = messageId
         reference.child(chatId).child("messages").child(messageId).setValue(messageModel).addOnCompleteListener {

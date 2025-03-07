@@ -1,79 +1,49 @@
 package com.example.vidgram.repository
-
 import android.net.Uri
 import android.util.Log
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
 import com.example.vidgram.model.StoryModel
+import com.example.vidgram.services.CloudinaryService
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
 class StoryRepositoryImpl : StoryRepository {
     val databse : FirebaseDatabase = FirebaseDatabase.getInstance()
     val reference : DatabaseReference = databse.reference.child("stories")
-
     override fun addStory(
         storyModel: StoryModel,
         callback: (Boolean, String) -> Unit
     ) {
-        val imageUriString  = storyModel.storyImage
-        val imageUri = Uri.parse(imageUriString) // assuming postModel has a postImageUri
+        val imageUriString = storyModel.storyImage
+        val imageUri = Uri.parse(imageUriString)
 
-        try{
-            // Obtain InputStream from the content:// URI
-            if (imageUri != null) {
-                // Upload image to Cloudinary
-                val uploadRequest = MediaManager.get().upload(imageUri).callback(object :
-                    UploadCallback {
-                    override fun onStart(requestId: String?) {
+        // Call the CloudinaryService to upload the image
+        CloudinaryService.uploadImage(imageUri) { success, message, imageUrl ->
+            if (success) {
+                // Set the uploaded image URL to the story model
+                storyModel.storyImage = imageUrl
+
+                // Generate story ID and save the story to Firebase
+                val storyId = reference.push().key.toString()
+                storyModel.storyId = storyId
+                reference.child(storyId).setValue(storyModel).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        callback(true, "Story added successfully")
+                    } else {
+                        callback(false, it.exception?.message.toString())
                     }
-                    override fun onProgress(requestId: String?, bytes: Long, totalBytes: Long) {
-                    }
-
-                    override fun onSuccess(
-                        requestId: String?,
-                        resultData: MutableMap<Any?, Any?>?
-                    ) {
-                        val imageUrl = resultData?.get("secure_url") as? String
-                        Log.d("Cloudinary", "Upload successful: ${resultData?.get("url")}")
-                        storyModel.storyImage = imageUrl
-                        val storyId = reference.push().key.toString()
-                        storyModel.storyId = storyId
-
-
-                        reference.child(storyId).setValue(storyModel).addOnCompleteListener {
-                            if (it.isSuccessful){
-                                callback(true, "Story added successfully")
-                            }
-                            else{
-                                callback(false, it.exception?.message.toString())
-                            }
-                        }                    }
-
-                    override fun onError(requestId: String?, error: ErrorInfo?) {
-                        callback(false, "Error uploading image: ${error?.description}")
-                    }
-
-                    override fun onReschedule(requestId: String?, error: ErrorInfo?) {
-                    }
-
-
-                })
-                uploadRequest.dispatch()
-
-
+                }
+            } else {
+                // Handle error from Cloudinary
+                callback(false, message)
             }
         }
-        catch (e: Exception) {
-            callback(false, "Error: ${e.message}")
-        }
-
-
     }
+
 
     override fun updateStory(
         storyId: String,

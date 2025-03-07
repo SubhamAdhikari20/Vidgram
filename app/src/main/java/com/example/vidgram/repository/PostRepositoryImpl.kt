@@ -7,6 +7,7 @@ import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
 import com.example.vidgram.model.PostModel
+import com.example.vidgram.services.CloudinaryService
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -23,63 +24,33 @@ class PostRepositoryImpl : PostRepository {
         postModel: PostModel,
         callback: (Boolean, String) -> Unit
     ) {
-        val imageUriString = postModel.postImage  // This is the URI string in the postModel
-        val imageUri = Uri.parse(imageUriString) // assuming postModel has a postImageUri
+        val imageUriString = postModel.postImage  // URI string from postModel
+        val imageUri = Uri.parse(imageUriString)  // Assuming postModel has a postImageUri
 
-        try {
-            // Obtain InputStream from the content:// URI
-            if (imageUri != null) {
-                // Upload image to Cloudinary
-                val uploadRequest =
-                    MediaManager.get().upload(imageUri).callback(object : UploadCallback {
-                        override fun onStart(requestId: String) {
-                            // Optional: Show loading indicator
-                        }
+        // Call CloudinaryService to upload the image
+        CloudinaryService.uploadImage(imageUri) { success, message, imageUrl ->
+            if (success) {
+                // Set the uploaded image URL to the postModel
+                postModel.postImage = imageUrl
 
-                        override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {
-                            // Optional: You can update a progress bar if needed
-                        }
+                // Generate a unique post ID and save the post to Firebase
+                val postId = reference.push().key.toString()
+                postModel.postId = postId
 
-                        override fun onSuccess(requestId: String, resultData: Map<*, *>) {
-                            val imageUrl = resultData["secure_url"] as? String
-                            Log.d("Cloudinary", "Upload successful: ${resultData["url"]}")
-
-                            // Set the image URL in the postModel
-                            postModel.postImage = imageUrl
-
-                            // Now add the post to Firebase
-                            val postId = reference.push().key.toString()
-                            postModel.postId = postId
-
-                            reference.child(postId).setValue(postModel).addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    callback(true, "Post added successfully")
-                                } else {
-                                    callback(false, "${it.exception?.message}")
-                                }
-                            }
-
-                        }
-
-                        override fun onError(requestId: String?, error: ErrorInfo?) {
-                            callback(false, "Error uploading image: ${error?.description}")
-                        }
-
-                        override fun onReschedule(requestId: String?, error: ErrorInfo?) {
-                            TODO("Not yet implemented")
-                        }
-                    })
-
-                // Dispatch the upload request
-                uploadRequest.dispatch()
+                reference.child(postId).setValue(postModel).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        callback(true, "Post added successfully")
+                    } else {
+                        callback(false, it.exception?.message.toString())
+                    }
+                }
             } else {
-                callback(false, "Unable to open image stream.")
+                // Handle failure from Cloudinary upload
+                callback(false, message)
             }
-
-        } catch (e: Exception) {
-            callback(false, "Error: ${e.message}")
         }
     }
+
 
     override fun updatePost(
         postId: String,
